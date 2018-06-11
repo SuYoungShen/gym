@@ -14,6 +14,6 @@ set LogFile=%DATE:~0,4%%DATE:~5,2%%DATE:~8,2%%hour:~0,2%%TIME:~3,2%%TIME:~6,2%.s
 
 cd D:\file\xampp\mysql\bin
 
-mysqldump -h localhost -u root -p --all-databases > D:\%LogFile%
+mysqldump -h localhost -u root -p --databases gym > D:\php\gym\sql\%LogFile%
 
 pause
