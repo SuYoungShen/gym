@@ -7,12 +7,37 @@ class Pos extends CI_Controller {
     parent::__construct();
     // $this->load->helper(array('form', 'url'));
     // $this->load->library('email');
-
+    $this->load->model(array('pos_model'));
   }
 
-  public function index()
+  // 會員進場
+  public function in(){
+
+    $view_data = array(
+      "title" => "會員進場",
+      "url" => "out",//返回出場連結用
+      "url_name" => "會員出場"//返回出場連結用
+    );
+
+    if(!empty($this->input->post("card_id"))){
+      $card_id = $this->input->post("card_id");
+      $where = "card_id ="."'".$card_id."'";
+      $data = $this->pos_model->get_once('member', $where);
+      $view_data['data'] = $data;
+      $view_data['page'] = 'member_info.php';
+    }
+    $this->load->view('layout', $view_data);
+  }
+
+  // 會員出場
+  public function out()
   {
-    
+    $view_data = array(
+      "title" => "會員出場",
+      "url" => "in",//返回進場連結用
+      "url_name" => "會員進場"//返回進場連結用
+    );
+    $this->load->view('layout', $view_data);
   }
 
   public function do_upload(){
