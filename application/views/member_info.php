@@ -3,6 +3,7 @@
     background: linear-gradient(to right, #000, #dadad6);
   }
 </style>
+
 <div class="login100-more">
   <section>
     <h1>會員資訊</h1>
@@ -40,7 +41,6 @@
             <th>地址</th>
             <th>緊急聯絡人</th>
             <th>緊急聯絡人電話</th>
-            <th>會籍類別</th>
           </tr>
         </thead>
       </table>
@@ -53,7 +53,56 @@
             <td><?=$data->address;?></td>
             <td><?=$data->emergency_contact;?></td>
             <td><?=$data->emergency_phone;?></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>合約開始日</th>
+            <th>合約結束日</th>
+            <th>會籍類別</th>
+            <th>加入日期</th>
+            <th>加入時間</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          <tr>
+            <td><?=$data->start_contract;?></td>
+            <td><?=$data->end_contract;?></td>
             <td><?=$data->types;?></td>
+            <td><?=$data->join_date;?></td>
+            <td><?=$data->join_time;?></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>進場日期</th>
+            <th>進場時間</th>
+            <th>出場日期</th>
+            <th>出場時間</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          <tr>
+            <td><?=$data->in_date;?></td>
+            <td><?=$data->in_time;?></td>
+            <td><?=$data->out_date;?></td>
+            <td><?=$data->out_time;?></td>
           </tr>
         </tbody>
       </table>
