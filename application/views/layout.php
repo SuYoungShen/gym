@@ -127,7 +127,6 @@
 						<?=$title;?>
 					</span>
 
-
 					<div class="wrap-input100 validate-input" data-validate = "請輸入正確">
 						<input class="input100" type="number" name="card_id">
 						<span class="focus-input100"></span>
