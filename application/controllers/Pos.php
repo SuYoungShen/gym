@@ -20,9 +20,23 @@ class Pos extends CI_Controller {
     );
 
     if(!empty($this->input->post("card_id"))){
+
       $card_id = $this->input->post("card_id");
-      $where = "card_id ="."'".$card_id."'";
-      $data = $this->pos_model->get_once('member', $where);
+
+      //進場資料表
+      $in_out_data = array(
+        'id' => uniqid(),
+        'types' => 0, //0=進場
+        'who' => $card_id
+      );
+      //進場的欄位名
+      $in_out_date_column = array('in_date', 'in_time');
+      //進場時間功能 in 20180615
+      $this->pos_model->insert('in_and_out', $in_out_data, $in_out_date_column);
+      //查詢member與進出場時間資料，取出最後一筆 in 20180615
+      $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."'Order By io.in_date DESC , io.in_time DESC limit 1";
+
+      $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
       $view_data['data'] = $data;
       $view_data['page'] = 'member_info.php';
     }
