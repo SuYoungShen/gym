@@ -29,7 +29,7 @@ class Pos extends CI_Controller {
         'types' => 0, //0=進場
         'who' => $card_id
       );
-      //進場的欄位名
+      //進場的時間欄位名
       $in_out_date_column = array('in_date', 'in_time');
       //進場時間功能 in 20180615
       $this->pos_model->insert('in_and_out', $in_out_data, $in_out_date_column);
