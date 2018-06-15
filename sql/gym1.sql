@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `card_status` (
   PRIMARY KEY (`card_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='卡片狀態';
 
--- 正在傾印表格  gym.card_status 的資料：~0 rows (大約)
+-- 正在傾印表格  gym.card_status 的資料：~1 rows (大約)
 /*!40000 ALTER TABLE `card_status` DISABLE KEYS */;
 INSERT INTO `card_status` (`card_id`, `status`, `use_date`, `use_time`, `stop_date`, `stop_time`) VALUES
 	('90218104', 1, '2018-06-01', '00:00:23', '0000-00-00', '00:00:00');
@@ -66,10 +66,10 @@ CREATE TABLE IF NOT EXISTS `in_and_out` (
   CONSTRAINT `member_id` FOREIGN KEY (`who`) REFERENCES `member` (`card_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='進出場紀錄';
 
--- 正在傾印表格  gym.in_and_out 的資料：~19 rows (大約)
+-- 正在傾印表格  gym.in_and_out 的資料：~27 rows (大約)
 /*!40000 ALTER TABLE `in_and_out` DISABLE KEYS */;
 INSERT INTO `in_and_out` (`id`, `types`, `who`, `in_date`, `in_time`, `out_date`, `out_time`) VALUES
-	('5b234f54af', 0, '90218104', '2018-06-15', '13:32:04', NULL, NULL),
+	('5b234f54af', 0, '90218104', '2018-06-15', '13:32:04', '2018-06-16', NULL),
 	('5b234f5bd5', 0, '90218104', '2018-06-15', '13:32:11', NULL, NULL),
 	('5b234f89a7', 0, '90218104', '2018-06-15', '13:32:57', NULL, NULL),
 	('5b2350423c', 0, '90218104', '2018-06-15', '13:36:02', NULL, NULL),
@@ -95,7 +95,9 @@ INSERT INTO `in_and_out` (`id`, `types`, `who`, `in_date`, `in_time`, `out_date`
 	('5b235db862', 0, '90218104', '2018-06-15', '14:33:28', NULL, NULL),
 	('5b235e040e', 0, '90218104', '2018-06-15', '14:34:44', NULL, NULL),
 	('5b235e05b1', 0, '90218104', '2018-06-15', '14:34:45', NULL, NULL),
-	('5b236038a7', 0, '90218104', '2018-06-15', '14:44:08', NULL, NULL);
+	('5b236038a7', 0, '90218104', '2018-06-15', '14:44:08', NULL, NULL),
+	('5b23804def', 0, '90218104', '2018-06-15', '17:01:01', '2018-06-16', '20:00:00'),
+	('5b23816d28', 1, '90218104', '2018-06-15', '17:05:49', '2018-06-15', '17:29:14');
 /*!40000 ALTER TABLE `in_and_out` ENABLE KEYS */;
 
 -- 傾印  表格 gym.login_history 結構
@@ -143,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   CONSTRAINT `staff_ids` FOREIGN KEY (`who`) REFERENCES `staff` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='會員';
 
--- 正在傾印表格  gym.member 的資料：~0 rows (大約)
+-- 正在傾印表格  gym.member 的資料：~1 rows (大約)
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 INSERT INTO `member` (`card_id`, `pics`, `name`, `identity_card`, `birthday`, `phone`, `email`, `address`, `emergency_contact`, `emergency_phone`, `start_contract`, `end_contract`, `categorys`, `who`, `note`, `join_date`, `join_time`, `up_date`, `up_time`) VALUES
 	('90218104', 'http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif', '蘇', 'T123456123', '2018-06-15', 906451236, NULL, NULL, '你', 445522136, '2018-06-15', '2018-06-23', '3年', '123', NULL, '2018-06-15', '10:44:36', NULL, NULL);
@@ -164,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
   PRIMARY KEY (`id`,`job_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='員工';
 
--- 正在傾印表格  gym.staff 的資料：~0 rows (大約)
+-- 正在傾印表格  gym.staff 的資料：~1 rows (大約)
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
 INSERT INTO `staff` (`id`, `job_code`, `name`, `password`, `phone`, `identity`, `up_date`, `up_time`, `join_date`, `join_time`) VALUES
 	('123', '456', 'nj ', '', 0, 0, '0000-00-00', '00:00:00', '0000-00-00', '00:00:00');

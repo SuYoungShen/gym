@@ -20,12 +20,12 @@ class Pos_model extends CI_Model {
   }
 
   //更新資料，$table=資料表；$data=資料；$date=日期欄位
-  // public function update($table, $data, $date, $where){
-  //   $date = $this->date($date);
-  //   $data = array_merge($data, $date);//array_merge=類似array_push，差別於merge可加key
-  //   $this->db->where($where);
-  //   return $this->db->update($table, $data);
-  // }
+  public function update($table, $data, $date, $where){
+    $date = $this->date($date);
+    $data = array_merge($data, $date);//array_merge=類似array_push，差別於merge可加key
+    $this->db->where($where);
+    return $this->db->update($table, $data);
+  }
 
 
   public function date($date){

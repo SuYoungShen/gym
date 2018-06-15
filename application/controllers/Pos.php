@@ -47,40 +47,37 @@ class Pos extends CI_Controller {
   }
 
   // 會員出場
-  // public function out()
-  // {
-  //   $view_data = array(
-  //     "title" => "會員出場",
-  //     "url" => "in",//返回進場連結用
-  //     "url_name" => "會員進場"//返回進場連結用
-  //   );
-  //
-  //   if(!empty($this->input->post("card_id"))){
-  //
-  //     $card_id = $this->input->post("card_id");
-  //
-  //     //進場資料表
-  //     $in_out_data = array(
-  //       'types' => 1, //0=進場;1=出場
-  //       'who' => $card_id
-  //     );
-  //
-  //
-  //     //出場的時間欄位名
-  //     $in_out_date_column = array('out_date', 'out_time');
-  //     $where = "card_id ="."'".$in_out_data['who']."' AND Order By in_date DESC , in_time DESC limit 1";
-  //     //出場時間功能 in 20180615
-  //     $this->pos_model->update('in_and_out', $in_out_data, $in_out_date_column, $where);
-  //     //查詢member與進出場時間資料，取出最後一筆 in 20180615
-  //     $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."'Order By io.out_date DESC , io.out_time DESC limit 1";
-  //
-  //     $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-  //     $view_data['data'] = $data;
-  //     $view_data['page'] = 'member_info.php';
-  //   }
-  //
-  //   $this->load->view('layout', $view_data);
-  // }
+  public function out(){
+    $view_data = array(
+      "title" => "會員出場",
+      "url" => "in",//返回進場連結用
+      "url_name" => "會員進場"//返回進場連結用
+    );
+
+    if(!empty($this->input->post("card_id"))){
+
+      $card_id = $this->input->post("card_id");
+
+      //出場資料表
+      $in_out_data = array(
+        'types' => 1 //0=進場;1=出場
+      );
+
+      //出場的時間欄位名
+      $in_out_date_column = array('out_date', 'out_time');
+      $where = "who ="."'".$card_id."' Order By in_date DESC , in_time DESC limit 1";
+      //出場時間功能 in 20180615
+      $this->pos_model->update('in_and_out', $in_out_data, $in_out_date_column, $where);
+      //查詢member與進出場時間資料，取出最後一筆 in 20180615
+      $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."'Order By io.out_date DESC , io.out_time DESC limit 1";
+
+      $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
+      $view_data['data'] = $data;
+      $view_data['page'] = 'member_info.php';
+    }
+
+    $this->load->view('layout', $view_data);
+  }
 
   public function do_upload(){
     $config['upload_path']          = './image/';
