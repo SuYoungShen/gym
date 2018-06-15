@@ -20,28 +20,34 @@ class Pos extends CI_Controller {
     );
 
     if(!empty($this->input->post("card_id"))){
-
+      //卡號
       $card_id = $this->input->post("card_id");
+      //用於查詢此卡是否存在與已使用
+      $where = "card_id ="."'".$card_id."' AND status = 1";
+      if ($this->pos_model->num_rows('card_status', $where) > 0) {
+        //進場資料表
+        $in_out_data = array(
+          'id' => uniqid(),
+          'types' => 0, //0=進場;1=出場
+          'who' => $card_id
+        );
+        //進場的時間欄位名
+        $in_out_date_column = array('in_date', 'in_time');
+        //進場時間功能 in 20180615
+        $this->pos_model->insert('in_and_out', $in_out_data, $in_out_date_column);
+        //查詢member與進出場時間資料，取出最後一筆 in 20180615
 
-      //進場資料表
-      $in_out_data = array(
-        'id' => uniqid(),
-        'types' => 0, //0=進場;1=出場
-        'who' => $card_id
-      );
-      //進場的時間欄位名
-      $in_out_date_column = array('in_date', 'in_time');
-      //進場時間功能 in 20180615
-      $this->pos_model->insert('in_and_out', $in_out_data, $in_out_date_column);
-      //查詢member與進出場時間資料，取出最後一筆 in 20180615
+        $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
 
-      $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC limit 1";
-      // $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
+        $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
 
-      $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-      // $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-      $view_data['data'] = $data;
-      $view_data['page'] = 'member_info.php';
+        $view_data['data'] = $data;
+        $view_data['page'] = 'member_info.php';
+
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "查無此會員卡或會員卡未啟用，請與管理員聯繫。";
+      }
     }
     $this->load->view('layout', $view_data);
   }
@@ -56,6 +62,7 @@ class Pos extends CI_Controller {
 
     if(!empty($this->input->post("card_id"))){
 
+      //卡號
       $card_id = $this->input->post("card_id");
 
       //出場資料表
@@ -69,7 +76,7 @@ class Pos extends CI_Controller {
       //出場時間功能 in 20180615
       $this->pos_model->update('in_and_out', $in_out_data, $in_out_date_column, $where);
       //查詢member與進出場時間資料，取出最後一筆 in 20180615
-      $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."'Order By io.out_date DESC , io.out_time DESC limit 1";
+      $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC , io.in_time DESC limit 1";
 
       $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
       $view_data['data'] = $data;
