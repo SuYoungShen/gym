@@ -9,7 +9,11 @@ class Pos_model extends CI_Model {
     // $this->db->where($where);
     // return $this->db->get_compiled_select($table);//以class方式呈現
     return $this->db->get_where($table, $where)->row();//以class方式呈現
+  }
 
+  //檢查表單是否有資料 in 20180616
+  public function num_rows($table, $where){
+    return $this->db->get_where($table, $where)->num_rows();//有資料會大於0
   }
 
   //新增資料，$table=資料表；$data=資料；$date=日期欄位
