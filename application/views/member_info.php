@@ -4,7 +4,7 @@
   }
 </style>
 <?php
- // var_dump($data);
+
  ?>
 <div class="login100-more">
   <section>
