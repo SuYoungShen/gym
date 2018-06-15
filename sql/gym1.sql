@@ -66,8 +66,36 @@ CREATE TABLE IF NOT EXISTS `in_and_out` (
   CONSTRAINT `member_id` FOREIGN KEY (`who`) REFERENCES `member` (`card_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='進出場紀錄';
 
--- 正在傾印表格  gym.in_and_out 的資料：~0 rows (大約)
+-- 正在傾印表格  gym.in_and_out 的資料：~19 rows (大約)
 /*!40000 ALTER TABLE `in_and_out` DISABLE KEYS */;
+INSERT INTO `in_and_out` (`id`, `types`, `who`, `in_date`, `in_time`, `out_date`, `out_time`) VALUES
+	('5b234f54af', 0, '90218104', '2018-06-15', '13:32:04', NULL, NULL),
+	('5b234f5bd5', 0, '90218104', '2018-06-15', '13:32:11', NULL, NULL),
+	('5b234f89a7', 0, '90218104', '2018-06-15', '13:32:57', NULL, NULL),
+	('5b2350423c', 0, '90218104', '2018-06-15', '13:36:02', NULL, NULL),
+	('5b2350a1d5', 0, '90218104', '2018-06-15', '13:37:37', NULL, NULL),
+	('5b2350a452', 0, '90218104', '2018-06-15', '13:37:40', NULL, NULL),
+	('5b23518a99', 0, '90218104', '2018-06-15', '13:41:30', NULL, NULL),
+	('5b23518cd0', 0, '90218104', '2018-06-15', '13:41:32', NULL, NULL),
+	('5b235190ef', 0, '90218104', '2018-06-15', '13:41:36', NULL, NULL),
+	('5b2351a9a1', 0, '90218104', '2018-06-15', '13:42:01', NULL, NULL),
+	('5b2351b61e', 0, '90218104', '2018-06-15', '13:42:14', NULL, NULL),
+	('5b235220e7', 0, '90218104', '2018-06-15', '13:44:00', NULL, NULL),
+	('5b235748c8', 0, '90218104', '2018-06-15', '14:06:00', NULL, NULL),
+	('5b235b53a9', 0, '90218104', '2018-06-15', '14:23:15', NULL, NULL),
+	('5b235b8883', 0, '90218104', '2018-06-15', '14:24:08', NULL, NULL),
+	('5b235baca2', 0, '90218104', '2018-06-15', '14:24:44', NULL, NULL),
+	('5b235bb097', 0, '90218104', '2018-06-15', '14:24:48', NULL, NULL),
+	('5b235bbb02', 0, '90218104', '2018-06-15', '14:24:59', NULL, NULL),
+	('5b235bd267', 0, '90218104', '2018-06-15', '14:25:22', NULL, NULL),
+	('5b235c4802', 0, '90218104', '2018-06-15', '14:27:20', NULL, NULL),
+	('5b235cf7e9', 0, '90218104', '2018-06-15', '14:30:15', NULL, NULL),
+	('5b235d02a3', 0, '90218104', '2018-06-15', '14:30:26', NULL, NULL),
+	('5b235d5386', 0, '90218104', '2018-06-15', '14:31:47', NULL, NULL),
+	('5b235db862', 0, '90218104', '2018-06-15', '14:33:28', NULL, NULL),
+	('5b235e040e', 0, '90218104', '2018-06-15', '14:34:44', NULL, NULL),
+	('5b235e05b1', 0, '90218104', '2018-06-15', '14:34:45', NULL, NULL),
+	('5b236038a7', 0, '90218104', '2018-06-15', '14:44:08', NULL, NULL);
 /*!40000 ALTER TABLE `in_and_out` ENABLE KEYS */;
 
 -- 傾印  表格 gym.login_history 結構
@@ -102,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `emergency_phone` int(10) NOT NULL COMMENT '緊急聯絡人手機',
   `start_contract` date DEFAULT NULL COMMENT '合約開始日',
   `end_contract` date DEFAULT NULL COMMENT '合約結束日',
-  `types` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '會籍類型(年、月)',
+  `categorys` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '會籍類型(年、月)',
   `who` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '哪位員工處理(連結staff id)',
   `note` longtext COLLATE utf8_unicode_ci COMMENT '備註',
   `join_date` date DEFAULT NULL COMMENT '加入日期',
@@ -117,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 
 -- 正在傾印表格  gym.member 的資料：~0 rows (大約)
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` (`card_id`, `pics`, `name`, `identity_card`, `birthday`, `phone`, `email`, `address`, `emergency_contact`, `emergency_phone`, `start_contract`, `end_contract`, `types`, `who`, `note`, `join_date`, `join_time`, `up_date`, `up_time`) VALUES
+INSERT INTO `member` (`card_id`, `pics`, `name`, `identity_card`, `birthday`, `phone`, `email`, `address`, `emergency_contact`, `emergency_phone`, `start_contract`, `end_contract`, `categorys`, `who`, `note`, `join_date`, `join_time`, `up_date`, `up_time`) VALUES
 	('90218104', 'http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif', '蘇', 'T123456123', '2018-06-15', 906451236, NULL, NULL, '你', 445522136, '2018-06-15', '2018-06-23', '3年', '123', NULL, '2018-06-15', '10:44:36', NULL, NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
