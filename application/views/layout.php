@@ -220,6 +220,40 @@
 	}).resize();
 	// $('.login100-more').css('background-image', 'url(assets/images/0001.jpg)');
 
+	$(document).ready(function() {
+		<?php if(isset($code) && $code == 404){ ?>
+		swal({
+			title: '有錯誤哦!',
+			text: "<?=$msg;?>",
+			type: 'warning'
+		}).then((result) => {
+			if (result.value) {
+				if ("<?=$url;?>" == "out") {
+					document.location.href = "<?=base_url();?>in";
+				}else if("<?=$url;?>" == "in"){
+					document.location.href = "<?=base_url();?>out";
+				}
+			}
+		});
+		<?php } ?>
+		// 防止重新整理
+	  $(this).keydown(function(e) {
+	    if (e.ctrlKey && e.which == 82 || e.which == 116) {
+				// 82 = r
+				// 116 = F5
+				if (e.preventDefault) {
+					e.preventDefault();
+					if ("<?=$url;?>" == "out") {
+						document.location.href = "<?=base_url();?>in";
+					}else if("<?=$url;?>" == "in"){
+						document.location.href = "<?=base_url();?>out";
+					}
+				}else {
+					return false;
+				}
+	    }
+	  });
+	});
 	</script>
 </body>
 </html>
