@@ -26,6 +26,10 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <!--===============================================================================================-->
+	<!-- 彈跳視窗 -->
+	<link rel="stylesheet" href="assets/css/sweetalert2.css">
+	<!-- 彈跳視窗 -->
+
 <style media="screen">
 	h1{
 		font-size: 30px;
@@ -204,7 +208,12 @@
 <!--===============================================================================================-->
 	<script src="assets/js/main.js"></script>
 
+	<!-- 彈跳視窗 -->
+	<script src="assets/js/sweetalert2.all.js"></script>
+	<!-- 彈跳視窗 -->
+
 	<script type="text/javascript">
+
 	$(window).on("load resize ", function() {
 		var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
 		$('.tbl-header').css({'padding-right':scrollWidth});

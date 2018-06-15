@@ -3,7 +3,9 @@
     background: linear-gradient(to right, #000, #dadad6);
   }
 </style>
-
+<?php
+ // var_dump($data);
+ ?>
 <div class="login100-more">
   <section>
     <h1>會員資訊</h1>
@@ -70,13 +72,14 @@
         </thead>
       </table>
     </div>
+
     <div class="tbl-content">
       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
           <tr>
             <td><?=$data->start_contract;?></td>
             <td><?=$data->end_contract;?></td>
-            <td><?=$data->types;?></td>
+            <td><?=$data->categorys;?></td>
             <td><?=$data->join_date;?></td>
             <td><?=$data->join_time;?></td>
           </tr>
