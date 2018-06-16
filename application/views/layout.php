@@ -221,11 +221,22 @@
 	// $('.login100-more').css('background-image', 'url(assets/images/0001.jpg)');
 
 	$(document).ready(function() {
-		<?php if(isset($code) && $code == 404){ ?>
+		<?php
+		if(isset($code)){
+			if ($code == 200) {
+		?>
+		swal({
+			title: '成功!',
+			text: "<?=$msg;?>",
+			type: 'success'
+		});
+		<?php
+			}else if($code == 404){
+		?>
 		swal({
 			title: '有錯誤哦!',
 			text: "<?=$msg;?>",
-			type: 'warning'
+			type: 'success'
 		}).then((result) => {
 			if (result.value) {
 				if ("<?=$url;?>" == "out") {
@@ -235,7 +246,10 @@
 				}
 			}
 		});
-		<?php } ?>
+		<?php
+			}
+		}
+		?>
 		// 防止重新整理
 	  $(this).keydown(function(e) {
 	    if (e.ctrlKey && e.which == 82 || e.which == 116) {

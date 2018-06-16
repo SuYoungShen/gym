@@ -49,9 +49,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+// 前台
 $route['in'] = 'pos/in';//會員進場 in 20180611
 $route['out'] = 'pos/out';//會員出場 in 20180611
+$route['login'] = 'pos/login';//登入 in 20180616
+// 前台
 
+//後台
+$route['console/'] = 'console/index';//登入 in 20180616
+$route['offer'] = 'console/offer';//優惠方案 in 20180616
+$route['in_and_out'] = 'console/in_and_out';//會員進出場 in 20180616
+$route['login_history'] = 'console/login_history';//登入紀錄 in 20180616
+$route['member'] = 'console/member';//會員管理區 in 20180616
+
+//後台
 
 $route["upload"] = 'upload/index';
 $route["mail"] = 'upload/mail';

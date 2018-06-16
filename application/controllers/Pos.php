@@ -41,6 +41,9 @@ class Pos extends CI_Controller {
 
         $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
 
+        $view_data['code'] = 200;
+        $view_data['msg'] = "出場時也要記得刷卡哦!";
+
         $view_data['data'] = $data;
         $view_data['page'] = 'member_info.php';
 
@@ -64,27 +67,38 @@ class Pos extends CI_Controller {
 
       //卡號
       $card_id = $this->input->post("card_id");
+      //用於查詢此卡是否存在與已使用
+      $where = "card_id ="."'".$card_id."' AND status = 1";
+      if ($this->pos_model->num_rows('card_status', $where) > 0) {
+        //出場資料表
+        $in_out_data = array(
+          'types' => 1 //0=進場;1=出場
+        );
 
-      //出場資料表
-      $in_out_data = array(
-        'types' => 1 //0=進場;1=出場
-      );
+        //出場的時間欄位名
+        $in_out_date_column = array('out_date', 'out_time');
+        $where = "who ="."'".$card_id."' Order By in_date DESC , in_time DESC limit 1";
+        //出場時間功能 in 20180615
+        $this->pos_model->update('in_and_out', $in_out_data, $in_out_date_column, $where);
+        //查詢member與進出場時間資料，取出最後一筆 in 20180615
+        $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC , io.in_time DESC limit 1";
 
-      //出場的時間欄位名
-      $in_out_date_column = array('out_date', 'out_time');
-      $where = "who ="."'".$card_id."' Order By in_date DESC , in_time DESC limit 1";
-      //出場時間功能 in 20180615
-      $this->pos_model->update('in_and_out', $in_out_data, $in_out_date_column, $where);
-      //查詢member與進出場時間資料，取出最後一筆 in 20180615
-      $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC , io.in_time DESC limit 1";
-
-      $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-      $view_data['data'] = $data;
-      $view_data['page'] = 'member_info.php';
+        $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
+        $view_data['data'] = $data;
+        $view_data['page'] = 'member_info.php';
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "查無此會員卡或會員卡未啟用，請與管理員聯繫。";
+      }
     }
 
     $this->load->view('layout', $view_data);
   }
+
+  public function login(){
+    $this->load->view('login');
+  }
+
 
   public function do_upload(){
     $config['upload_path']          = './image/';
