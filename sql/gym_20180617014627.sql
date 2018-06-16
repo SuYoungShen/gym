@@ -109,7 +109,7 @@ CREATE TABLE `in_and_out` (
 
 LOCK TABLES `in_and_out` WRITE;
 /*!40000 ALTER TABLE `in_and_out` DISABLE KEYS */;
-INSERT INTO `in_and_out` VALUES ('5b23ead8ad',0,'90218104','2018-06-16','00:35:36',NULL,NULL),('5b23eb439b',1,'90218104','2018-06-16','00:37:23','2018-06-16','00:37:47'),('5b23eb64af',0,'90218104','2018-06-16','00:37:56',NULL,NULL),('5b23eb8730',0,'90218104','2018-06-16','00:38:31',NULL,NULL);
+INSERT INTO `in_and_out` VALUES ('5b23ead8ad',0,'90218104','2018-06-16','00:35:36',NULL,NULL),('5b23eb439b',1,'90218104','2018-06-16','00:37:23','2018-06-16','00:37:47'),('5b23eb64af',0,'90218104','2018-06-16','00:37:56',NULL,NULL),('5b23eb8730',0,'90218104','2018-06-16','00:38:31',NULL,NULL),('5b24745307',0,'90218104','2018-06-16','10:22:11',NULL,NULL),('5b2475a4bc',0,'90218104','2018-06-16','10:27:48',NULL,NULL),('5b2475dcad',1,'90218104','2018-06-16','10:28:44','2018-06-16','10:28:53');
 /*!40000 ALTER TABLE `in_and_out` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +156,7 @@ CREATE TABLE `member` (
   `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '姓名',
   `identity_card` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '身分證',
   `birthday` date DEFAULT NULL COMMENT '生日',
-  `phone` int(10) DEFAULT NULL COMMENT '手機',
+  `phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '手機',
   `email` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '信箱',
   `address` text COLLATE utf8_unicode_ci COMMENT '地址',
   `emergency_contact` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '緊急聯絡人',
@@ -183,7 +183,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('90218104','http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif','蘇','T123456123','2018-06-15',906451236,NULL,NULL,'你',445522136,'2018-06-15','2018-06-23','3年','123',NULL,'2018-06-15','10:44:36',NULL,NULL);
+INSERT INTO `member` VALUES ('90218104','http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif','蘇','T123456123','2018-06-15','(09) 06-405-019',NULL,NULL,'你',445522136,'2018-06-15','2018-06-23','3年','123',NULL,'2018-06-15','10:44:36',NULL,NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,4 +228,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-16  1:02:25
+-- Dump completed on 2018-06-17  1:46:36
