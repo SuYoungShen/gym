@@ -10,8 +10,8 @@ $(function () {
     //Masked Input ============================================================================================================================
     var $demoMaskedInput = $('.demo-masked-input');
 
-    //Date
-    $demoMaskedInput.find('.date').inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });
+    //Date;原dd/mm/yyyy __-__-____ 更新成以下 in 20180617
+    $demoMaskedInput.find('.date').inputmask('yyyy-mm-dd', { placeholder: '____-__-__' });
 
     //Time
     $demoMaskedInput.find('.time12').inputmask('hh:mm t', { placeholder: '__:__ _m', alias: 'time12', hourFormat: '12' });
@@ -20,8 +20,8 @@ $(function () {
     //Date Time
     $demoMaskedInput.find('.datetime').inputmask('d/m/y h:s', { placeholder: '__/__/____ __:__', alias: "datetime", hourFormat: '24' });
 
-    //Mobile Phone Number
-    $demoMaskedInput.find('.mobile-phone-number').inputmask('+99 (999) 999-99-99', { placeholder: '+__ (___) ___-__-__' });
+    //Mobile Phone Number; 原 +99 (999) 999-99-99 +__ (___) ___-__-__ 更新成以下 in 20180617
+    $demoMaskedInput.find('.mobile-phone-number').inputmask('(99) 99-999-999', { placeholder: '(__) __-___-___' });
     //Phone Number
     $demoMaskedInput.find('.phone-number').inputmask('+99 (999) 999-99-99', { placeholder: '+__ (___) ___-__-__' });
 
