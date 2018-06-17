@@ -33,7 +33,9 @@
                                   <div class="input-group">
                                     <span class="input-group-addon">會籍：</span>
                                     <div class="form-line">
-                                      <input type="number" class="form-control" name="number" required placeholder="請輸入整數">
+                                      <input type="hidden" class="form-control" name="rule" value="insert">
+                                      <input type="number" class="form-control" name="number"
+                                      placeholder="請輸入整數" min="1" max="11" required>
                                     </div>
                                   </div>
                                 </div>
@@ -61,7 +63,8 @@
                                   <div class="input-group">
                                     <span class="input-group-addon">折扣：</span>
                                     <div class="form-line">
-                                      <input type="number" class="form-control" name="discount" required placeholder="請輸入整數">
+                                      <input type="number" class="form-control" name="discount"
+                                      placeholder="請輸入整數"  min="1" max="9" required>
                                     </div>
                                     <span class="input-group-addon">%</span>
                                   </div>
@@ -72,7 +75,8 @@
                                   <div class="input-group">
                                     <span class="input-group-addon">折扣後：$</span>
                                     <div class="form-line">
-                                      <input type="number" disabled class="form-control" name="after_discount" required placeholder="請輸入整數">
+                                      <input type="number" class="form-control" name="after_discount"
+                                              placeholder="請輸入整數" readOnly="true" required>
                                     </div>
                                   </div>
                                 </div>
@@ -83,6 +87,7 @@
                               <div class="col-lg-6">
                                 <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">送出</button>
                               </div>
+
                               <div class="col-lg-6">
                                 <button class="btn btn-block btn-lg bg-red waves-effect" type="reset">重設</button>
                               </div>
@@ -92,6 +97,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 彈跳視窗 -->
             <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
                <div class="modal-dialog" role="document">
@@ -107,13 +113,13 @@
                                  <div class="input-group">
                                    <span class="input-group-addon">會籍：</span>
                                    <div class="form-line">
-                                     <input type="number" class="form-control" name="sss" required placeholder="請輸入整數">
+                                     <input type="number" class="form-control" name="m_number" required placeholder="請輸入整數">
                                    </div>
                                  </div>
                                </div>
                              </div>
                              <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
-                               <select class="form-control show-tick">
+                               <select class="form-control show-tick m_categorys">
                                  <option>月</option>
                                  <option>年</option>
                                </select>
@@ -170,16 +176,28 @@
            <!-- 彈跳視窗 -->
            <script type="text/javascript">
              $(document).ready(function() {
-               $("input[name='m_original_price'], input[name='m_discount']").focusout(function(event) {
-                 var original_price = $("input[name='m_original_price']");
-                 var discount = $("input[name='m_discount']");
+               $("input[name='original_price'], input[name='discount']").focusout(function(event) {
+                 var original_price = $("input[name='original_price']");
+                 var discount = $("input[name='discount']");
                  original_price = original_price.val();
                  discount = discount.val();
                  if(discount > 9){
                    discount = discount/10;
                  }
-                 after_discount = original_price*discount/10;
-                 $("input[name='m_after_discount']").val(after_discount);
+                 after_discount = Math.round(original_price*discount/10); //Math.round 四捨五入
+                 $("input[name='after_discount']").val(after_discount).attr("readOnly", true);// 變唯獨不能修改
+               });
+
+               $("input[name='m_original_price'], input[name='m_discount']").focusout(function(event) {
+                 var m_original_price = $("input[name='m_original_price']");
+                 var m_discount = $("input[name='m_discount']");
+                 m_original_price = m_original_price.val();
+                 m_discount = m_discount.val();
+                 if(m_discount > 9){
+                   m_discount = m_discount/10;
+                 }
+                 m_after_discount = Math.round(m_original_price*m_discount/10);
+                 $("input[name='m_after_discount']").val(m_after_discount).attr("readOnly", true);
                });
 
              });
@@ -218,39 +236,25 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                          <th>會籍類型</th>
+                                          <th>原價</th>
+                                          <th>折扣</th>
+                                          <th>折扣後</th>
+                                          <th>新增時間</th>
+                                          <th>更新時間</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                      <?php foreach ($data as $key => $value){ ?>
                                         <tr class="offer">
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                          <td><?=$value["types"]?></td>
+                                          <td>$<?=$value["price"]?></td>
+                                          <td><?=$value["discount"]?>%</td>
+                                          <td>$<?=$value["discount_price"]?></td>
+                                          <td><?=$value["join_date"].'~'.$value["join_time"]?></td>
+                                          <td><?=$value["up_date"].'~'.$value["up_time"]?></td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
+                                      <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -259,7 +263,5 @@
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-
-
         </div>
     </section>
