@@ -247,8 +247,8 @@
 			}
 		});
 		<?php
-			}
-		}
+			} //404
+		} // isset($code)
 		?>
 		// 防止重新整理
 	  $(this).keydown(function(e) {
