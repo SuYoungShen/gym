@@ -57,6 +57,16 @@ class Console extends CI_Controller {
     $this->load->view('console/layout', $view_data);
   }
 
+  // 員工專區
+  public function staff(){
+    $view_data = array(
+      'title' => "員工專區",
+      'page' => 'staff.php',
+      'menu' => 'staff'
+    );
+    $this->load->view('console/layout', $view_data);
+  }
+
   public function do_upload(){
     $config['upload_path']          = './image/';
     $config['allowed_types']        = 'gif|jpg|png';
