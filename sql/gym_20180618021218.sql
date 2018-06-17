@@ -61,13 +61,13 @@ DROP TABLE IF EXISTS `discount_program`;
 CREATE TABLE `discount_program` (
   `id` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'id',
   `price` int(10) unsigned NOT NULL COMMENT '原價',
-  `discount` int(10) unsigned DEFAULT NULL COMMENT '折扣(範圍1-9折)',
-  `discount_price` int(10) unsigned DEFAULT NULL COMMENT '折扣後價位',
-  `types` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '類型(年、月)',
+  `discount` int(10) unsigned NOT NULL COMMENT '折扣(範圍1-9折)',
+  `discount_price` int(10) unsigned NOT NULL COMMENT '折扣後價位',
+  `types` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '類型(年、月)',
   `up_date` date DEFAULT NULL COMMENT '更改日期',
   `up_time` time DEFAULT NULL COMMENT '更改時間',
-  `join_date` date DEFAULT NULL COMMENT '加入日期',
-  `join_time` time DEFAULT NULL COMMENT '加入時間',
+  `join_date` date NOT NULL COMMENT '加入日期',
+  `join_time` time NOT NULL COMMENT '加入時間',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='優惠方案';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -78,6 +78,7 @@ CREATE TABLE `discount_program` (
 
 LOCK TABLES `discount_program` WRITE;
 /*!40000 ALTER TABLE `discount_program` DISABLE KEYS */;
+INSERT INTO `discount_program` VALUES ('5b269eed52',100,1,10,'1月',NULL,NULL,'2018-06-18','01:48:29'),('5b269f20b4',100,1,10,'2月',NULL,NULL,'2018-06-18','01:49:20');
 /*!40000 ALTER TABLE `discount_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-17  1:46:36
+-- Dump completed on 2018-06-18  2:12:20
