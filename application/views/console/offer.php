@@ -33,15 +33,15 @@
                                   <div class="input-group">
                                     <span class="input-group-addon">會籍：</span>
                                     <div class="form-line">
-                                      <input type="number" class="form-control" name="sss" required placeholder="請輸入整數">
+                                      <input type="number" class="form-control" name="number" required placeholder="請輸入整數">
                                     </div>
                                   </div>
                                 </div>
                               </div>
                               <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
-                                <select class="form-control show-tick">
-                                  <option>月</option>
-                                  <option>年</option>
+                                <select class="form-control show-tick" name="categorys">
+                                  <option value="月">月</option>
+                                  <option value="年">年</option>
                                 </select>
                               </div>
                             </div>
@@ -260,6 +260,6 @@
             </div>
             <!-- #END# Exportable Table -->
 
-          
+
         </div>
     </section>
