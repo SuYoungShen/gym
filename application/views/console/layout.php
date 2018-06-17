@@ -23,7 +23,7 @@
     <link href="../admin/plugins/animate-css/animate.css" rel="stylesheet" />
     <?php
       if(isset($menu)){
-        if($menu == "offer" || $menu == "member") {
+        if($menu == "offer" || $menu == "member" || $menu == "staff") {
     ?>
     <!-- Colorpicker Css -->
     <link href="../admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet" />
@@ -78,7 +78,7 @@
     <script src="../admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <?php
       if(isset($menu)){
-        if ($menu == "offer" || $menu == "in_and_out" || $menu == "login_history" || $menu == "member") {
+        if ($menu == "offer" || $menu == "in_and_out" || $menu == "login_history" || $menu == "member" || $menu == "staff") {
     ?>
     <!-- Jquery DataTable Plugin Js -->
     <script src="../admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -93,7 +93,7 @@
     <script src="../admin/js/pages/tables/jquery-datatable.js"></script>
     <?php } // $menu == "offer"、"in_and_out" ?>
 
-    <?php if($menu == "offer" || $menu == "member"){ ?>
+    <?php if($menu == "offer" || $menu == "member" || $menu == "staff"){ ?>
     <!-- Jquery Validation Plugin Css -->
     <script src="../admin/plugins/jquery-validation/jquery.validate.js"></script>
 
@@ -159,7 +159,7 @@
   <!-- Custom Js -->
   <script src="../admin/js/admin.js"></script>
 
-  <?php if($menu == "offer" || $menu == "member"){ ?>
+  <?php if($menu == "offer" || $menu == "member" || $menu == "staff"){ ?>
 
     <script src="../admin/js/pages/ui/modals.js"></script>
     <script src="../admin/js/pages/forms/advanced-form-elements.js"></script>
