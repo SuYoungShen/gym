@@ -21,6 +21,10 @@
 
     <!-- Animation Css -->
     <link href="../admin/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Sweetalert Css -->
+    <link href="../admin/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <?php
       if(isset($menu)){
         if($menu == "offer" || $menu == "member" || $menu == "staff") {
@@ -158,6 +162,7 @@
 
   <!-- Custom Js -->
   <script src="../admin/js/admin.js"></script>
+  <script src="../admin/js/pages/ui/dialogs.js"></script>
 
   <?php if($menu == "offer" || $menu == "member" || $menu == "staff"){ ?>
 
@@ -166,8 +171,57 @@
   <?php } ?>
   <?php } ?>
 
-    <!-- Demo Js -->
-    <script src="../admin/js/demo.js"></script>
+  <!-- Demo Js -->
+  <script src="../admin/js/demo.js"></script>
+  <script type="text/javascript">
+  // 防止重新整理
+  $(this).keydown(function(e) {
+
+    if (e.ctrlKey && e.which == 82 || e.which == 116) {
+      // 82 = r
+      // 116 = F5
+      if (e.preventDefault) {
+        e.preventDefault();
+        if ("<?=$menu;?>" == "offer") {
+          document.location.href = "<?=base_url().'console/'.$menu;?>";
+        }
+      }else {
+        return false;
+      }
+    }
+  });
+
+  <?php
+  if(isset($code)){
+    if ($code == 200) {
+      ?>
+      swal({
+        title: '成功!',
+        text: "<?=$msg;?>",
+        type: 'success'
+      }, function (isConfirm) {
+        if (isConfirm) {
+          document.location.href = "<?=base_url().'console/'.$menu;?>";
+        }
+      });
+      <?php
+    }else if($code == 404){
+      ?>
+      swal({
+        title: '有錯誤哦!',
+        text: "<?=$msg;?>",
+        type: 'error'
+      }, function (isConfirm) {
+        if (isConfirm) {
+          document.location.href = "<?=base_url().'console/'.$menu;?>";
+        }
+      });
+      <?php
+    } //404
+  } // isset($code)
+  ?>
+
+  </script>
 </body>
 
 </html>
