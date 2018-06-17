@@ -57,11 +57,12 @@ $route['login'] = 'pos/login';//登入 in 20180616
 // 前台
 
 //後台
-$route['console/'] = 'console/index';//登入 in 20180616
+$route['console'] = 'console/index';//登入 in 20180616
 $route['offer'] = 'console/offer';//優惠方案 in 20180616
 $route['in_and_out'] = 'console/in_and_out';//會員進出場 in 20180616
 $route['login_history'] = 'console/login_history';//登入紀錄 in 20180616
-$route['member'] = 'console/member';//會員管理區 in 20180616
+$route['member'] = 'console/member';//會員管理區 in 20180617
+$route['staff'] = 'console/staff';//員工專區 in 20180617
 
 //後台
 
