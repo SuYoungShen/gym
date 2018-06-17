@@ -55,7 +55,13 @@
                 <li class="<?php if($menu == 'member') { echo 'active'; } ?>">
                     <a href="member">
                         <i class="material-icons">group_add</i>
-                        <span class="icon-name">會員管理區</span>
+                        <span class="icon-name">會員專區</span>
+                    </a>
+                </li>
+                <li class="<?php if($menu == 'staff') { echo 'active'; } ?>">
+                    <a href="staff">
+                        <i class="material-icons">person</i>
+                        <span class="icon-name">員工專區</span>
                     </a>
                 </li>
                 <li>
