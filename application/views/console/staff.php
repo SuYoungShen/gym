@@ -3,7 +3,6 @@
             <div class="block-header">
                 <h2></h2>
             </div>
-
             <!-- Input Group -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -46,6 +45,7 @@
                                         <i class="material-icons">person</i>
                                       </span>
                                       <div class="form-line">
+                                        <input type="hidden" name="rule" value="insert">
                                         <input type="text" class="form-control" name="name" placeholder="請輸入姓名" required>
                                       </div>
                                     </div>
@@ -58,7 +58,7 @@
                                         <i class="material-icons">fingerprint</i>
                                       </span>
                                       <div class="form-line">
-                                        <input type="password" class="form-control date" name="passwd" placeholder="請輸入密碼" required>
+                                        <input type="password" class="form-control" name="passwd" placeholder="請輸入密碼" required>
                                       </div>
                                     </div>
                                   </div>
@@ -98,26 +98,14 @@
                                       <select class="form-control show-tick" name="identity">
                                         <option value="0">Boss</option>
                                         <option value="1" selected>員工</option>
-                                        <option value="2">系統管理員</option>
+                                        <option value="99">系統管理員</option>
                                       </select>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                               <div class="row clearfix">
-                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
-                                  <div class="form-group">
-                                    <div class="input-group input-group-lg">
-                                      <span class="input-group-addon">
-                                        <i class="material-icons">email</i>
-                                      </span>
-                                      <div class="form-line">
-                                        <input type="text" class="form-control email" name="email" placeholder="Ex: example@example.com">
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
                                       <span class="input-group-addon">
@@ -139,7 +127,7 @@
                                         <i class="material-icons">person</i>
                                       </span>
                                       <div class="form-line">
-                                        <input type="text" class="form-control" name="emergency_contact" placeholder="請輸入緊急聯絡人" required>
+                                        <input type="text" class="form-control" name="emergency_contact" placeholder="請輸入緊急聯絡人">
                                       </div>
                                     </div>
                                   </div>
@@ -151,7 +139,7 @@
                                         <i class="material-icons">phone_iphone</i>
                                       </span>
                                       <div class="form-line">
-                                        <input type="text" class="form-control mobile-phone-number" name="emergency_phone" placeholder="請輸入緊急聯絡人電話" required>
+                                        <input type="text" class="form-control mobile-phone-number" name="emergency_phone" placeholder="請輸入緊急聯絡人電話">
                                       </div>
                                     </div>
                                   </div>
@@ -179,7 +167,7 @@
                        <div class="modal-header">
                            <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
                        </div>
-                       <form id="form_validation" method="POST" enctype="multipart/form-data">
+                       <form id="form_validation" method="POST">
                          <div class="modal-body">
                            <div class="demo-masked-input">
                              <div class="row clearfix">
@@ -190,7 +178,9 @@
                                        <i class="material-icons">person</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="number" class="form-control" name="job_code" placeholder="請輸入職編" required>
+                                       <input type="hidden" name="rule" value="update">
+                                       <input type="hidden" name="m_id" value="">
+                                       <input type="number" class="form-control" name="m_job_code" placeholder="請輸入職編" required>
                                      </div>
                                    </div>
                                  </div>
@@ -202,7 +192,7 @@
                                        <i class="material-icons">person</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="text" class="form-control" name="name" placeholder="請輸入姓名" required>
+                                       <input type="text" class="form-control" name="m_name" placeholder="請輸入姓名" required>
                                      </div>
                                    </div>
                                  </div>
@@ -214,7 +204,7 @@
                                        <i class="material-icons">fingerprint</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="password" class="form-control date" name="passwd" placeholder="請輸入密碼" required>
+                                       <input type="password" class="form-control" name="m_passwd" placeholder="請輸入密碼" required>
                                      </div>
                                    </div>
                                  </div>
@@ -228,7 +218,7 @@
                                        <i class="material-icons">cake</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="text" class="form-control date" name="birthday" placeholder="請輸入生日" >
+                                       <input type="text" class="form-control date" name="m_birthday" placeholder="請輸入生日" >
                                      </div>
                                    </div>
                                  </div>
@@ -240,7 +230,7 @@
                                        <i class="material-icons">phone_iphone</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="text" class="form-control mobile-phone-number" name="phone" placeholder="Ex: (00)00-000-000" required>
+                                       <input type="text" class="form-control mobile-phone-number" name="m_phone" placeholder="Ex: (00)00-000-000" required>
                                      </div>
                                    </div>
                                  </div>
@@ -251,36 +241,24 @@
                                      <span class="input-group-addon">
                                        <i class="material-icons">signal_cellular_4_bar</i>
                                      </span>
-                                     <select class="form-control show-tick" name="identity">
-                                       <option value="0">Boss</option>
-                                       <option value="1" selected>員工</option>
-                                       <option value="2">系統管理員</option>
+                                     <select class="form-control show-tick" name="m_identity">
+                                       <option value="0">老闆</option>
+                                       <option value="1">員工</option>
+                                       <option value="99">系統管理員</option>
                                      </select>
                                    </div>
                                  </div>
                                </div>
                              </div>
                              <div class="row clearfix">
-                               <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
-                                 <div class="form-group">
-                                   <div class="input-group input-group-lg">
-                                     <span class="input-group-addon">
-                                       <i class="material-icons">email</i>
-                                     </span>
-                                     <div class="form-line">
-                                       <input type="text" class="form-control email" name="email" placeholder="Ex: example@example.com">
-                                     </div>
-                                   </div>
-                                 </div>
-                               </div>
-                               <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                               <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
                                  <div class="form-group">
                                    <div class="input-group input-group-lg">
                                      <span class="input-group-addon">
                                        <i class="material-icons">room</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="text" class="form-control" name="address" placeholder="請輸入地址" required>
+                                       <input type="text" class="form-control" name="m_address" placeholder="請輸入地址" required>
                                      </div>
                                    </div>
                                  </div>
@@ -295,7 +273,7 @@
                                        <i class="material-icons">person</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="text" class="form-control" name="emergency_contact" placeholder="請輸入緊急聯絡人" required>
+                                       <input type="text" class="form-control" name="m_emergency_contact" placeholder="請輸入緊急聯絡人">
                                      </div>
                                    </div>
                                  </div>
@@ -307,7 +285,7 @@
                                        <i class="material-icons">phone_iphone</i>
                                      </span>
                                      <div class="form-line">
-                                       <input type="text" class="form-control mobile-phone-number" name="emergency_phone" placeholder="請輸入緊急聯絡人電話" required>
+                                       <input type="text" class="form-control mobile-phone-number" name="m_emergency_phone" placeholder="請輸入緊急聯絡人電話">
                                      </div>
                                    </div>
                                  </div>
@@ -363,8 +341,8 @@
                                             <th>身分</th>
                                             <th>緊急聯絡人</th>
                                             <th>聯絡人電話</th>
-                                            <th>更新時間</th>
                                             <th>加入時間</th>
+                                            <th>更新時間</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -377,47 +355,35 @@
                                           <th>身分</th>
                                           <th>緊急聯絡人</th>
                                           <th>聯絡人電話</th>
-                                          <th>更新時間</th>
                                           <th>加入時間</th>
+                                          <th>更新時間</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr class="staff">
-                                            <td>sss</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>更新時間</td>
-                                            <td>更新時間</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
+                                      <?php foreach ($data as $key => $value) { ?>
+                                        <tr class="staff" data-id="<?=$value['id'];?>">
+                                          <td><?=$value['job_code'];?></td>
+                                          <td><?=$value['name'];?></td>
+                                          <td><?=$value['password'];?></td>
+                                          <td><?=$value['birthday'];?></td>
+                                          <td><?=$value['phone'];?></td>
+                                          <td>
+                                            <?php
+                                              if ($value['identity'] == 0) {
+                                                echo "老闆";
+                                              }else if ($value['identity'] == 1) {
+                                                echo "員工";
+                                              }else if ($value['identity'] == 99) {
+                                                echo "系統管理員";
+                                              }
+                                            ?>
+                                          </td>
+                                          <td><?=$value['emergency_contact'];?></td>
+                                          <td><?=$value['emergency_phone'];?></td>
+                                          <td><?=$value['join_date'].' '.$value['join_time'];?></td>
+                                          <td><?=$value['up_date'].' '.$value['up_time'];?></td>
                                         </tr>
-                                        <tr>
-                                          <td>Tiger Nixon</td>
-                                          <td>System Architect</td>
-                                          <td>Edinburgh</td>
-                                          <td>61</td>
-                                          <td>2011/04/25</td>
-                                          <td>更新時間</td>
-                                          <td>更新時間</td>
-                                          <td>$320,800</td>
-                                          <td>$320,800</td>
-                                          <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                          <td>Tiger Nixon</td>
-                                          <td>System Architect</td>
-                                          <td>Edinburgh</td>
-                                          <td>61</td>
-                                          <td>2011/04/25</td>
-                                          <td>更新時間</td>
-                                          <td>$320,800</td>
-                                          <td>$320,800</td>
-                                          <td>$320,800</td>
-                                          <td>$320,800</td>
-                                        </tr>
+                                      <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
