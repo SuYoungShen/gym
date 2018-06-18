@@ -39,7 +39,8 @@ class Console extends CI_Controller {
         if ($dataArray["discount"] >= 1 && $dataArray["discount"] <= 9) {
 
           // 會籍：number整數1-11; categorys=月、年
-          $dataArray["types"] = $this->input->post('number').$this->input->post('categorys');
+          $dataArray['number'] = $this->input->post('number');
+          $dataArray["types"] = $this->input->post('categorys');
           // 此優惠方案加入時間欄位名; dp=discount_program 優惠方案
           $dp_date_column = array('join_date', 'join_time');
 
@@ -60,6 +61,27 @@ class Console extends CI_Controller {
         $view_data['msg'] = "會籍範圍錯誤，請注意範圍是1-9哦!";
       }
     }
+    if($this->input->post('rule') == "update"){
+
+      $id = $this->input->post('m_id');
+      $dataArray = array(
+        "number" => $this->input->post('m_number'),
+        "types" => $this->input->post('m_categorys'),
+        "price" => $this->input->post('m_original_price'), // 原價
+        "discount" => $this->input->post('m_discount'), // 折扣：整數 1-9
+        "discount_price" => $this->input->post('m_after_discount') // 折扣後，整數四捨五入
+      );
+      $dp_date_column = array('up_date', 'up_time');
+      $where = "id =".'"'.$id.'"';
+      if($this->console_model->update('discount_program', $dataArray, $dp_date_column, $where)){
+        $view_data['code'] = 200;
+        $view_data['msg'] = "更新成功!!!";
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "更新失敗!!!";
+      }
+
+    }
     $this->load->view('console/layout', $view_data);
   }
 
@@ -70,6 +92,10 @@ class Console extends CI_Controller {
       'page' => 'in_and_out.php',
       'menu' => 'in_and_out'
     );
+    $table = "in_and_out as io, member as m ";
+    $where = "io.who = m.card_id";
+    $view_data['data'] = $this->console_model->get_once_all($table, $where);
+
     $this->load->view('console/layout', $view_data);
   }
 
@@ -80,6 +106,9 @@ class Console extends CI_Controller {
       'page' => 'login_history.php',
       'menu' => 'login_history'
     );
+    $table = "login_history as lh, staff as s";
+    $where = "lh.who = s.id";
+    $view_data['data'] = $this->console_model->get_once_all($table, $where);
     $this->load->view('console/layout', $view_data);
   }
 
