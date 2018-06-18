@@ -46,12 +46,6 @@
                         <span class="icon-name">會員進出場時間</span>
                     </a>
                 </li>
-                <li class="<?php if($menu == 'login_history') { echo 'active'; } ?>">
-                    <a href="login_history">
-                        <i class="material-icons">layers</i>
-                        <span class="icon-name">登入紀錄</span>
-                    </a>
-                </li>
                 <li class="<?php if($menu == 'member') { echo 'active'; } ?>">
                     <a href="member">
                         <i class="material-icons">group_add</i>
@@ -62,6 +56,12 @@
                     <a href="staff">
                         <i class="material-icons">person</i>
                         <span class="icon-name">員工專區</span>
+                    </a>
+                </li>
+                <li class="<?php if($menu == 'login_history') { echo 'active'; } ?>">
+                    <a href="login_history">
+                        <i class="material-icons">layers</i>
+                        <span class="icon-name">登入紀錄</span>
                     </a>
                 </li>
             </ul>

@@ -6,6 +6,12 @@
                     <!-- <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small> -->
                 </h2>
             </div>
+            <?php
+            // echo "<pre>";
+            //   var_dump($data);
+            //   echo "</pre>";
+
+            ?>
           <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -39,35 +45,23 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
+                                          <th>卡號</th>
+                                          <th>姓名</th>
+                                          <th>狀態</th>
+                                          <th>進場時間</th>
+                                          <th>出場時間</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                      <?php foreach ($data as $key => $value){ ?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
+                                          <td><?=$value['card_id'];?></td>
+                                          <td><?=$value['name'];?></td>
+                                          <td><?=$value['types']==0?"進場":"出場";?></td>
+                                          <td><?=$value['in_date'].' '.$value['in_time'];?></td>
+                                          <td><?=$value['out_date'].' '.$value['out_time'];?></td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                        </tr>
+                                      <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
