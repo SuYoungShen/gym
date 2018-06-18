@@ -119,6 +119,7 @@ class Console extends CI_Controller {
       'page' => 'member.php',
       'menu' => 'member'
     );
+
     $this->load->view('console/layout', $view_data);
   }
 
@@ -129,9 +130,77 @@ class Console extends CI_Controller {
       'page' => 'staff.php',
       'menu' => 'staff'
     );
+
+    $view_data['data'] = $this->console_model->get_all('staff');
+
+    if ($this->input->post('rule') == "insert") {
+      $dataArray = array(
+        'id' => uniqid(),
+        "job_code" => $this->input->post('job_code'), // 員工編號
+        "name" => $this->input->post('name'), // 員工姓名
+        "password" => sha1($this->input->post('passwd')), // 員工登入密碼
+        "birthday" => $this->input->post('birthday'), // 員工生日
+        "phone" => $this->input->post('phone'), // 員工手機號碼
+        "identity" => $this->input->post('identity'), // 員工身分
+        "address" => $this->input->post('address'), // 地址
+        "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
+        "emergency_phone" => $this->input->post('emergency_phone') // 聯絡人電話
+      );
+
+      if (!empty($dataArray["job_code"])){
+        if (!empty($dataArray["name"])){
+          if (!empty($dataArray["password"])){
+            // 員工加入時間欄位名;
+            $st_date_column = array('join_date', 'join_time');
+
+            if($this->console_model->insert('staff', $dataArray, $st_date_column)){
+              $view_data['code'] = 200;
+              $view_data['msg'] = "新增成功!!!";
+            }else {
+              $view_data['code'] = 404;
+              $view_data['msg'] = "新增失敗~~~";
+            }
+          }else {
+            $view_data['code'] = 404;
+            $view_data['msg'] = "密碼不得為空!!!";
+          }
+        }else {
+          $view_data['code'] = 404;
+          $view_data['msg'] = "姓名不得為空!!!";
+        }
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "職編不得為空!!!";
+      }
+    }
+
+    if($this->input->post('rule') == "update"){
+
+      $id = $this->input->post('m_id');
+      $dataArray = array(
+        "job_code" => $this->input->post('m_job_code'), // 員工編號
+        "name" => $this->input->post('m_name'), // 員工姓名
+        "password" => sha1($this->input->post('m_passwd')), // 員工登入密碼
+        "birthday" => $this->input->post('m_birthday'), // 員工生日
+        "phone" => $this->input->post('m_phone'), // 員工手機號碼
+        "identity" => $this->input->post('m_identity'), // 員工身分
+        "address" => $this->input->post('m_address'), // 地址
+        "emergency_contact" => $this->input->post('m_emergency_contact'), // 緊急聯絡人
+        "emergency_phone" => $this->input->post('m_emergency_phone') // 聯絡人電話
+      );
+      $st_date_column = array('up_date', 'up_time');
+      $where = "id =".'"'.$id.'"';
+      if($this->console_model->update('staff', $dataArray, $st_date_column, $where)){
+        $view_data['code'] = 200;
+        $view_data['msg'] = "更新成功!!!";
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "更新失敗!!!";
+      }
+
+    }
     $this->load->view('console/layout', $view_data);
   }
-
   public function do_upload(){
     $config['upload_path']          = './image/';
     $config['allowed_types']        = 'gif|jpg|png';
