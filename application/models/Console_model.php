@@ -12,6 +12,13 @@ class Console_model extends CI_Model {
   }
 
   //查詢特定全部資料並以陣列回傳
+  public function get_once_all($table, $where){
+    // $this->db->where($where);
+    // return $this->db->get_compiled_select($table);//以class方式呈現
+    return $this->db->get_where($table, $where)->result_array();// 以陣列方式呈現
+  }
+
+  //查詢全部資料並以陣列回傳
   public function get_all($table){
     return $this->db->get($table)->result_array();// 以陣列方式呈現
   }
@@ -36,6 +43,11 @@ class Console_model extends CI_Model {
     return $this->db->update($table, $data);
   }
 
+  // 刪除指定資料
+  public function delete_once($table, $where){
+    $this->db->where($where);
+    return $this->db->delete($table);
+  }
 
   public function date($date){
     date_default_timezone_set("Asia/Taipei");
