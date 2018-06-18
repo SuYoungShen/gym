@@ -103,7 +103,7 @@
                <div class="modal-dialog" role="document">
                    <div class="modal-content">
                        <div class="modal-header">
-                           <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                           <h4 class="modal-title" id="defaultModalLabel">修改優惠方案</h4>
                        </div>
                        <form id="form_validation" method="POST">
                          <div class="modal-body">
@@ -113,46 +113,50 @@
                                  <div class="input-group">
                                    <span class="input-group-addon">會籍：</span>
                                    <div class="form-line">
-                                     <input type="number" class="form-control" name="m_number" required placeholder="請輸入整數">
+                                     <input type="hidden" name="rule" value="update">
+                                     <input type="hidden" name="m_id" value="">
+                                     <input type="number" class="form-control" name="m_number" placeholder="請輸入整數"  min="1" max="11" required>
                                    </div>
                                  </div>
                                </div>
                              </div>
                              <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
-                               <select class="form-control show-tick m_categorys">
-                                 <option>月</option>
-                                 <option>年</option>
+                               <select class="form-control show-tick" id="m_categorys" name="m_categorys">
+                                 <option value="月">月</option>
+                                 <option value="年">年</option>
                                </select>
                              </div>
                            </div>
                            <div class="row clearfix">
-                             <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                             <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
                                <div class="form-group">
                                  <div class="input-group">
                                    <span class="input-group-addon">原價：$</span>
                                    <div class="form-line">
-                                     <input type="number" class="form-control" name="m_original_price" required placeholder="請輸入價位">
+                                     <input type="number" class="form-control" name="m_original_price" placeholder="請輸入價位" required>
                                    </div>
                                  </div>
                                </div>
                              </div>
-                             <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                             <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
                                <div class="form-group">
                                  <div class="input-group">
                                    <span class="input-group-addon">折扣：</span>
                                    <div class="form-line">
-                                     <input type="number" class="form-control" name="m_discount" required placeholder="請輸入整數">
+                                     <input type="number" class="form-control" name="m_discount" required placeholder="請輸入整數" required>
                                    </div>
                                    <span class="input-group-addon">%</span>
                                  </div>
                                </div>
                              </div>
-                             <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                           </div>
+                           <div class="row clearfix">
+                             <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
                                <div class="form-group">
                                  <div class="input-group">
                                    <span class="input-group-addon">折扣後：$</span>
                                    <div class="form-line">
-                                     <input type="number" disabled class="form-control" name="m_after_discount" required placeholder="請輸入整數">
+                                     <input type="number" class="form-control" name="m_after_discount" placeholder="請輸入整數" readonly="true" required>
                                    </div>
                                  </div>
                                </div>
@@ -162,10 +166,10 @@
                          <div class="modal-footer">
                            <div class="row clearfix">
                              <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">送出</button>
+                               <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">更新</button>
                              </div>
                              <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg bg-red waves-effect" type="reset">重設</button>
+                               <button class="btn btn-block btn-lg bg-red waves-effect" type="button" name="delete">刪除</button>
                              </div>
                            </div>
                          </div>
@@ -173,6 +177,7 @@
                    </div>
                </div>
            </div>
+
            <!-- 彈跳視窗 -->
            <script type="text/javascript">
              $(document).ready(function() {
@@ -246,13 +251,13 @@
                                     </tfoot>
                                     <tbody>
                                       <?php foreach ($data as $key => $value){ ?>
-                                        <tr class="offer">
-                                          <td><?=$value["types"]?></td>
+                                        <tr class="offer" data-id="<?=$value['id'];?>">
+                                          <td><?=$value["number"].$value["types"]?></td>
                                           <td>$<?=$value["price"]?></td>
                                           <td><?=$value["discount"]?>%</td>
                                           <td>$<?=$value["discount_price"]?></td>
-                                          <td><?=$value["join_date"].'~'.$value["join_time"]?></td>
-                                          <td><?=$value["up_date"].'~'.$value["up_time"]?></td>
+                                          <td><?=$value["join_date"].' '.$value["join_time"]?></td>
+                                          <td><?=$value["up_date"].' '.$value["up_time"]?></td>
                                         </tr>
                                       <?php } ?>
                                     </tbody>

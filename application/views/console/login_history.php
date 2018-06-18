@@ -39,35 +39,23 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
+                                          <th>id</th>
+                                          <th>哪邊登入</th>
+                                          <th>誰登入</th>
+                                          <th>登入時間</th>
+                                          <th>登出時間</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                      <?php foreach ($data as $key => $value){ ?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
+                                          <td><?=$value['id'];?></td>
+                                          <td><?=$value['web']==0?"前台":"後台";?></td>
+                                          <td><?=$value['name'];?></td>
+                                          <td><?=$value['sign_in_date'].' '.$value['sign_in_time'];?></td>
+                                          <td><?=$value['sign_out_date'].' '.$value['sign_out_time'];?></td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                        </tr>
+                                      <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
