@@ -13,7 +13,6 @@ $(function () {
 
     var url = "../api_console/offer";
     var id = $(this).data('id');
-    alert(id);
     get_offer_ajax(url, id);
 
     $('#mdModal').modal('show');
