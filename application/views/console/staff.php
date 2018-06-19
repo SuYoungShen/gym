@@ -335,7 +335,7 @@
                                         <tr>
                                             <th>職編</th>
                                             <th>姓名</th>
-                                            <th>密碼</th>
+                                            <!-- <th>密碼</th> -->
                                             <th>生日</th>
                                             <th>手機</th>
                                             <th>身分</th>
@@ -349,7 +349,7 @@
                                         <tr>
                                           <th>職編</th>
                                           <th>姓名</th>
-                                          <th>密碼</th>
+                                          <!-- <th>密碼</th> -->
                                           <th>生日</th>
                                           <th>手機</th>
                                           <th>身分</th>
@@ -364,7 +364,6 @@
                                         <tr class="staff" data-id="<?=$value['id'];?>">
                                           <td><?=$value['job_code'];?></td>
                                           <td><?=$value['name'];?></td>
-                                          <td><?=$value['password'];?></td>
                                           <td><?=$value['birthday'];?></td>
                                           <td><?=$value['phone'];?></td>
                                           <td>
