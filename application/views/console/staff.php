@@ -33,6 +33,7 @@
                                         <i class="material-icons">person</i>
                                       </span>
                                       <div class="form-line">
+                                        <input type="hidden" name="rule" value="insert">
                                         <input type="number" class="form-control" name="job_code" placeholder="請輸入職編" required>
                                       </div>
                                     </div>
@@ -45,7 +46,6 @@
                                         <i class="material-icons">person</i>
                                       </span>
                                       <div class="form-line">
-                                        <input type="hidden" name="rule" value="insert">
                                         <input type="text" class="form-control" name="name" placeholder="請輸入姓名" required>
                                       </div>
                                     </div>
@@ -165,7 +165,7 @@
                <div class="modal-dialog modal-lg" role="document">
                    <div class="modal-content">
                        <div class="modal-header">
-                           <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                           <h4 class="modal-title" id="defaultModalLabel">員工資料</h4>
                        </div>
                        <form id="form_validation" method="POST">
                          <div class="modal-body">
@@ -299,7 +299,7 @@
                                <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">送出</button>
                              </div>
                              <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg bg-red waves-effect" type="reset">重設</button>
+                               <button class="btn btn-block btn-lg bg-red waves-effect" type="button" name="delete">刪除</button>
                              </div>
                            </div>
                          </div>

@@ -67,6 +67,9 @@ $(function () {
 
     get_staff_ajax(url, id);
     $('#largeModal').modal('show');
+    $('button[name=delete]').click(function(event) {
+      de_data(url, id, 'staff');
+    });
   });
 });
 

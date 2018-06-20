@@ -29,13 +29,29 @@
                           <form id="form_validation" method="POST" enctype="multipart/form-data">
                             <div class="demo-masked-input">
                               <div class="row clearfix">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                  <div class="form-group">
+                                    <div class="input-group input-group-lg">
+                                      <span class="input-group-addon">
+                                        <i class="material-icons">credit_card</i>
+                                      </span>
+                                      <select class="form-control show-tick" name="card_id">
+                                        <?php foreach ($card_id as $key => $value){ ?>
+                                        <option value="<?=$value['card_id'];?>"><?=$value['card_id'];?></option>
+                                      <?php } ?>
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
                                       <span class="input-group-addon">
                                         <i class="material-icons">person</i>
                                       </span>
                                       <div class="form-line">
+                                        <input type="hidden" name="rule" value="insert">
                                         <input type="text" class="form-control" name="name" placeholder="請輸入姓名" required>
                                       </div>
                                     </div>
@@ -53,6 +69,8 @@
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                              <div class="row clearfix">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
@@ -65,8 +83,6 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row clearfix">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
@@ -91,6 +107,8 @@
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                              <div class="row clearfix">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
@@ -103,32 +121,30 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row clearfix">
-                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                   <div class="form-group">
                                     <div class="input-group">
                                       <span class="input-group-addon">會籍</span>
-                                      <div class="form-line">
-                                        <input type="number" class="form-control" name="number" required placeholder="請輸入整數">
-                                      </div>
+                                      <select class="form-control show-tick" name="number">
+              
+                                      </select>
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                   <select class="form-control show-tick" name="categorys">
                                     <option value="月">月</option>
                                     <option value="年">年</option>
                                   </select>
                                 </div>
                               </div>
-                              <div class="row clearfix">
+                              <!-- <div class="row clearfix">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                                   <div class="form-group">
                                     <div class="input-group">
                                       <span class="input-group-addon">原價：$</span>
                                       <div class="form-line">
-                                        <input type="number" class="form-control" name="original_price" placeholder="請輸入價位" disabled required>
+                                        <input type="number" class="form-control" name="original_price" placeholder="請輸入價位" disabled>
                                       </div>
                                     </div>
                                   </div>
@@ -138,7 +154,7 @@
                                     <div class="input-group">
                                       <span class="input-group-addon">折扣：</span>
                                       <div class="form-line">
-                                        <input type="number" class="form-control" name="discount" placeholder="請輸入整數" disabled required>
+                                        <input type="number" class="form-control" name="discount" placeholder="請輸入整數" disabled>
                                       </div>
                                       <span class="input-group-addon">%</span>
                                     </div>
@@ -150,6 +166,32 @@
                                       <span class="input-group-addon">折扣後：$</span>
                                       <div class="form-line">
                                         <input type="number" class="form-control" name="after_discount" placeholder="請輸入整數" disabled required>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> -->
+                              <div class="row clearfix">
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                  <div class="form-group">
+                                    <div class="input-group input-group-lg">
+                                      <span class="input-group-addon">
+                                        <i class="material-icons">date_range</i>
+                                      </span>
+                                      <div class="form-line">
+                                        <input type="text" class="form-control" name="start_contract" placeholder="合約開始日" >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                  <div class="form-group">
+                                    <div class="input-group input-group-lg">
+                                      <span class="input-group-addon">
+                                        <i class="material-icons">date_range</i>
+                                      </span>
+                                      <div class="form-line">
+                                        <input type="text" class="form-control" name="end_contract" placeholder="合約結束日">
                                       </div>
                                     </div>
                                   </div>
@@ -176,6 +218,20 @@
                                       </span>
                                       <div class="form-line">
                                         <input type="text" class="form-control mobile-phone-number" name="emergency_phone" placeholder="請輸入緊急聯絡人電話" required>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row clearfix">
+                                <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
+                                  <div class="form-group">
+                                    <div class="input-group input-group-lg">
+                                      <span class="input-group-addon">
+                                        <i class="material-icons">note</i>
+                                      </span>
+                                      <div class="form-line">
+                                        <input type="text" class="form-control" name="note" placeholder="備註">
                                       </div>
                                     </div>
                                   </div>

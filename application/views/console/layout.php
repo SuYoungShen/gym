@@ -163,6 +163,10 @@
   <!-- Custom Js -->
   <script src="../admin/js/admin.js"></script>
   <script src="../admin/js/pages/ui/dialogs.js"></script>
+  <?php if($menu == "member"){ ?>
+    <!-- 會員專區用 -->
+  <script src="../admin/js/script.js"></script>
+  <?php } ?>
 
   <?php if($menu == "offer" || $menu == "member" || $menu == "staff"){ ?>
 
@@ -170,6 +174,8 @@
     <script src="../admin/js/pages/forms/advanced-form-elements.js"></script>
   <?php } ?>
   <?php } ?>
+
+
 
   <!-- Demo Js -->
   <script src="../admin/js/demo.js"></script>
@@ -192,6 +198,7 @@
   });
 
   <?php
+
   if(isset($code)){
     if ($code == 200) {
       ?>
@@ -202,6 +209,7 @@
       }, function (isConfirm) {
         if (isConfirm) {
           document.location.href = "<?=base_url().'console/'.$menu;?>";
+
         }
       });
       <?php

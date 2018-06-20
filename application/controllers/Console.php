@@ -119,6 +119,76 @@ class Console extends CI_Controller {
       'page' => 'member.php',
       'menu' => 'member'
     );
+    $where = "status = 0";// 0表示此卡無人使用
+    $view_data['card_id'] = $this->console_model->get_once_all('card_status', $where);
+
+    if ($this->input->post('rule') == "insert") {
+      $dataArray = array(
+        'card_id' => $this->input->post('card_id'), // 卡號
+        "name" => $this->input->post('name'), // 會員姓名
+        "identity_card" => $this->input->post('identity_card'), // 會員身份證字號
+        "birthday" => $this->input->post('birthday'), // 會員生日
+        "phone" => $this->input->post('phone'), // 會員手機號碼
+        "email" => $this->input->post('email'), // 會員身分
+        "address" => $this->input->post('address'), // 地址
+        "number" => $this->input->post('number'), // 會籍數字
+        "categorys" => $this->input->post('categorys'), // 會籍種類
+        "note" => $this->input->post('note'), // 備註
+        "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
+        "emergency_phone" => $this->input->post('emergency_phone'), // 聯絡人電話
+        "start_contract" => $this->input->post('start_contract'), // 合約開始日
+        "end_contract" => $this->input->post('end_contract') // 合約結束日
+      );
+
+      if (!empty($dataArray["card_id"])){
+        if (!empty($dataArray["name"])){
+          if (!empty($dataArray["identity_card"])){
+            if (!empty($dataArray["phone"])){
+              if (!empty($dataArray["emergency_phone"]) || !empty($dataArray["emergency_contact"])){
+
+                $data = array(
+                  "status" => 1
+                );
+                // cs = card_status
+                $cs_date_column = array('use_date', 'use_time');
+                $where = "card_id =".'"'.$dataArray['card_id'].'"';
+                if ($this->console_model->update('card_status', $data, $cs_date_column, $where)) {
+                  // 員工加入時間欄位名;
+                  $m_date_column = array('join_date', 'join_time');
+
+                  if($this->console_model->insert('member', $dataArray, $m_date_column)){
+                    $view_data['code'] = 200;
+                    $view_data['msg'] = "新增成功!!!";
+                  }else {
+                    $view_data['code'] = 404;
+                    $view_data['msg'] = "新增失敗!!!";
+                  }
+                }else {
+                  $view_data['code'] = 404;
+                  $view_data['msg'] = "卡片未啟用成功!!!";
+                }
+
+              }else {
+                $view_data['code'] = 404;
+                $view_data['msg'] = "緊急聯絡人或聯絡人電話不得為空!!!";
+              }
+            }else {
+              $view_data['code'] = 404;
+              $view_data['msg'] = "手機不得為空!!!";
+            }
+          }else {
+            $view_data['code'] = 404;
+            $view_data['msg'] = "身分證字號不得為空!!!";
+          }
+        }else {
+          $view_data['code'] = 404;
+          $view_data['msg'] = "姓名不得為空!!!";
+        }
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "卡號不得為空!!!";
+      }
+    }
 
     $this->load->view('console/layout', $view_data);
   }

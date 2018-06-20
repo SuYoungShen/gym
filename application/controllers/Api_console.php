@@ -55,7 +55,7 @@ class Api_console extends CI_Controller {
     if ($this->input->post('rule') == "delete") {
       $id = $this->input->post('id');
       $where = "id=".'"'.$id.'"';
-      if($this->console_model->delete_once('discount_program', $where)){
+      if($this->console_model->delete_once('staff', $where)){
         $view_data['code'] = 200;
         $view_data['msg'] = "刪除成功";
       }else {
@@ -67,5 +67,14 @@ class Api_console extends CI_Controller {
     }
   }
 
+  // 會員專區
+  public function member(){
+
+    $where = "types =".'"'.$this->input->post('categorys').'" Order By number';// 0表示此卡無人使用
+    $data = $this->console_model->get_once_all('discount_program', $where);
+
+    $this->output->set_content_type('application/json')->set_output(json_encode($data));
+
+  }
 }
 ?>
