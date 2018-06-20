@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `card_status`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `card_status` (
   `card_id` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '卡片ID',
-  `status` int(2) NOT NULL COMMENT '卡片狀態(0=無人；1=有人)',
+  `status` int(2) NOT NULL DEFAULT '0' COMMENT '卡片狀態(0=無人；1=有人)',
   `use_date` date NOT NULL COMMENT '使用日期',
   `use_time` time NOT NULL COMMENT '使用時間',
   `stop_date` date NOT NULL COMMENT '停用日期',
@@ -47,7 +47,7 @@ CREATE TABLE `card_status` (
 
 LOCK TABLES `card_status` WRITE;
 /*!40000 ALTER TABLE `card_status` DISABLE KEYS */;
-INSERT INTO `card_status` VALUES ('90218104',1,'2018-06-01','00:00:23','0000-00-00','00:00:00');
+INSERT INTO `card_status` VALUES ('90218104',1,'2018-06-01','00:00:23','0000-00-00','00:00:00'),('90218105',1,'2018-06-20','23:20:15','0000-00-00','00:00:00'),('90218113',1,'2018-06-21','00:50:54','0000-00-00','00:00:00');
 /*!40000 ALTER TABLE `card_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ CREATE TABLE `discount_program` (
 
 LOCK TABLES `discount_program` WRITE;
 /*!40000 ALTER TABLE `discount_program` DISABLE KEYS */;
-INSERT INTO `discount_program` VALUES ('5b27b64a3a',1000,2,200,1,'年','2018-06-18','23:22:23','2018-06-18','21:40:26'),('5b27d221d6',123,1,12,2,'月',NULL,NULL,'2018-06-18','23:39:13');
+INSERT INTO `discount_program` VALUES ('5b27d221d6',123,1,12,1,'月','2018-06-20','23:31:21','2018-06-18','23:39:13'),('5b2a733c26',1000,1,100,2,'月',NULL,NULL,'2018-06-20','23:31:08'),('5b2a7b9f02',10210,1,1021,3,'年',NULL,NULL,'2018-06-21','00:06:55'),('5b2a7ba7ea',111,9,100,2,'年',NULL,NULL,'2018-06-21','00:07:03');
 /*!40000 ALTER TABLE `discount_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +111,7 @@ CREATE TABLE `in_and_out` (
 
 LOCK TABLES `in_and_out` WRITE;
 /*!40000 ALTER TABLE `in_and_out` DISABLE KEYS */;
-INSERT INTO `in_and_out` VALUES ('5b23ead8ad',0,'90218104','2018-06-16','00:35:36',NULL,NULL),('5b23eb439b',1,'90218104','2018-06-16','00:37:23','2018-06-16','00:37:47'),('5b23eb64af',0,'90218104','2018-06-16','00:37:56',NULL,NULL),('5b23eb8730',0,'90218104','2018-06-16','00:38:31',NULL,NULL),('5b24745307',0,'90218104','2018-06-16','10:22:11',NULL,NULL),('5b2475a4bc',0,'90218104','2018-06-16','10:27:48',NULL,NULL),('5b2475dcad',1,'90218104','2018-06-16','10:28:44','2018-06-16','10:28:53'),('5b27742630',1,'90218104','2018-06-18','16:58:14','2018-06-18','16:58:34');
+INSERT INTO `in_and_out` VALUES ('5b23ead8ad',0,'90218104','2018-06-16','00:35:36',NULL,NULL),('5b23eb439b',1,'90218104','2018-06-16','00:37:23','2018-06-16','00:37:47'),('5b23eb64af',0,'90218104','2018-06-16','00:37:56',NULL,NULL),('5b23eb8730',0,'90218104','2018-06-16','00:38:31',NULL,NULL),('5b24745307',0,'90218104','2018-06-16','10:22:11',NULL,NULL),('5b2475a4bc',0,'90218104','2018-06-16','10:27:48',NULL,NULL),('5b2475dcad',1,'90218104','2018-06-16','10:28:44','2018-06-16','10:28:53'),('5b27742630',1,'90218104','2018-06-18','16:58:14','2018-06-18','16:58:34'),('5b2a860c5a',1,'90218113','2018-06-21','00:51:24','2018-06-21','00:51:30');
 /*!40000 ALTER TABLE `in_and_out` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,6 +166,7 @@ CREATE TABLE `member` (
   `emergency_phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL COMMENT '緊急聯絡人手機',
   `start_contract` date DEFAULT NULL COMMENT '合約開始日',
   `end_contract` date DEFAULT NULL COMMENT '合約結束日',
+  `number` int(5) DEFAULT NULL COMMENT '會籍數字(1-9)',
   `categorys` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '會籍類型(年、月)',
   `who` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '哪位員工處理(連結staff id)',
   `note` longtext COLLATE utf8_unicode_ci COMMENT '備註',
@@ -186,7 +187,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('90218104','http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif','蘇','T123456123','2018-06-15','(09) 06-405-019',NULL,NULL,'你','445522136','2018-06-15','2018-06-23','3年','123',NULL,'2018-06-15','10:44:36',NULL,NULL);
+INSERT INTO `member` VALUES ('90218104','http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif','蘇','T123456123','2018-06-15','(09) 06-405-019',NULL,NULL,'你','445522136','2018-06-15','2018-06-23',NULL,'3年','123',NULL,'2018-06-15','10:44:36',NULL,NULL),('90218105',NULL,'蘇','T124065760','0000-00-00','(09) 06-405-019','','屏東',' s','(09) 06-405-019',NULL,NULL,1,'月',NULL,'','2018-06-20','23:20:15',NULL,NULL),('90218113',NULL,'蘇','T124065760','1994-09-15','(09) 06-405-019','d7339803@gmail.com','屏東市','蘇','(09) 83-808-112','2018-06-21','2018-07-21',1,'月',NULL,'','2018-06-21','00:50:56',NULL,NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +223,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES ('123','456','nj ','','0000-00-00','0',0,'','','','0000-00-00','00:00:00','0000-00-00','00:00:00'),('5b27c96eda','112123','蘇','54327551c2e8f7a915cd','1994-09-15','(09) 06-405-019',99,NULL,'','',NULL,NULL,'2018-06-18','23:02:06'),('5b27c9af98','123123','蘇','77dd6695008ac9849a37','1994-09-15','(09) 06-405-011',1,'屏東市大洲里65號','永盛','','2018-06-18','23:49:15','2018-06-18','23:03:11');
+INSERT INTO `staff` VALUES ('123','456','nj ','','0000-00-00','0',0,'','','','0000-00-00','00:00:00','0000-00-00','00:00:00'),('5b27c96eda','112123','蘇','54327551c2e8f7a915cd','1994-09-15','(09) 06-405-019',99,NULL,'','',NULL,NULL,'2018-06-18','23:02:06'),('5b2a665a85','1230','蘇永勝','4fdce3181bc2a76dae96','1994-09-15','(09) 06-405-019',1,'屏東市大洲里65號','蘇','(09) 06-405-019',NULL,NULL,'2018-06-20','22:36:10');
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -235,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-18 23:53:18
+-- Dump completed on 2018-06-21  1:07:36
