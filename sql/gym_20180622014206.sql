@@ -47,7 +47,7 @@ CREATE TABLE `card_status` (
 
 LOCK TABLES `card_status` WRITE;
 /*!40000 ALTER TABLE `card_status` DISABLE KEYS */;
-INSERT INTO `card_status` VALUES ('90218104',1,'2018-06-01','00:00:23','0000-00-00','00:00:00'),('90218105',1,'2018-06-20','23:20:15','0000-00-00','00:00:00'),('90218113',1,'2018-06-21','00:50:54','0000-00-00','00:00:00');
+INSERT INTO `card_status` VALUES ('90218104',1,'2018-06-01','00:00:23','0000-00-00','00:00:00'),('90218105',1,'2018-06-22','01:39:08','0000-00-00','00:00:00'),('90218113',1,'2018-06-21','00:50:54','0000-00-00','00:00:00');
 /*!40000 ALTER TABLE `card_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +158,7 @@ CREATE TABLE `member` (
   `pics` longtext COLLATE utf8_unicode_ci COMMENT '照片',
   `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '姓名',
   `identity_card` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '身分證',
-  `birthday` date DEFAULT NULL COMMENT '生日',
+  `birthday` date DEFAULT '0000-00-00' COMMENT '生日',
   `phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '手機',
   `email` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '信箱',
   `address` text COLLATE utf8_unicode_ci COMMENT '地址',
@@ -187,7 +187,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('90218104','http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif','蘇','T123456123','2018-06-15','(09) 06-405-019',NULL,NULL,'你','445522136','2018-06-15','2018-06-23',NULL,'3年','123',NULL,'2018-06-15','10:44:36',NULL,NULL),('90218105',NULL,'蘇','T124065760','0000-00-00','(09) 06-405-019','','屏東',' s','(09) 06-405-019',NULL,NULL,1,'月',NULL,'','2018-06-20','23:20:15',NULL,NULL),('90218113',NULL,'蘇','T124065760','1994-09-15','(09) 06-405-019','d7339803@gmail.com','屏東市','蘇','(09) 83-808-112','2018-06-21','2018-07-21',1,'月',NULL,'','2018-06-21','00:50:56',NULL,NULL);
+INSERT INTO `member` VALUES ('90218104','http://w9.loxa.edu.tw/a923528/pictures/doraemon/ada5.gif','蘇','T123456123','2018-06-15','(09) 06-405-019',NULL,NULL,'你','445522136','2018-06-15','2020-06-15',2,'年','123',NULL,'2018-06-15','10:44:36',NULL,NULL),('90218105','20180622013907.jpg','123','123123','2018-02-11','(12) 31-231-231','','123123213','123123','(12) 31-231-231','0000-00-00','0000-00-00',1,'月',NULL,'','2018-06-22','01:39:07',NULL,NULL),('90218113',NULL,'蘇','T124065760','1994-09-15','(09) 06-405-019','d7339803@gmail.com','屏東市','蘇','(09) 83-808-112','2018-06-21','2018-07-21',1,'月',NULL,'','2018-06-21','00:50:56',NULL,NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-21  1:07:36
+-- Dump completed on 2018-06-22  1:42:10
