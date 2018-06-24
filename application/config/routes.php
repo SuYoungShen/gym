@@ -66,6 +66,7 @@ $route['staff'] = 'console/staff';//員工專區 in 20180617
 //後台
 $route['api_console/offer'] = 'api_console/offer';// 優惠方案api in 20180618
 $route['api_console/staff'] = 'api_console/staff';// 員工api in 20180618
+$route['api_console/member'] = 'api_console/member';// 會員api in 20180622
 
 
 

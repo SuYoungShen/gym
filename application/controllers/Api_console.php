@@ -70,6 +70,17 @@ class Api_console extends CI_Controller {
   // 會員專區
   public function member(){
 
+    if($this->input->post('rule') == "select"){
+      $id = $this->input->post('id');
+      $where = "card_id =".'"'.$id.'"';
+      $data = $this->console_model->get_once('member', $where);
+      $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+  }
+
+  // 會員專區裡的月、年
+  public function member_categorys(){
+
     $where = "types =".'"'.$this->input->post('categorys').'" Order By number';// 0表示此卡無人使用
     $data = $this->console_model->get_once_all('discount_program', $where);
 

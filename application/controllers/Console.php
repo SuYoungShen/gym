@@ -121,8 +121,10 @@ class Console extends CI_Controller {
     );
     $where = "status = 0";// 0表示此卡無人使用
     $view_data['card_id'] = $this->console_model->get_once_all('card_status', $where);
+    $view_data['data'] = $this->console_model->get_all('member');
 
     if ($this->input->post('rule') == "insert") {
+
       $dataArray = array(
         'card_id' => $this->input->post('card_id'), // 卡號
         "name" => $this->input->post('name'), // 會員姓名
@@ -149,23 +151,50 @@ class Console extends CI_Controller {
                 $data = array(
                   "status" => 1
                 );
-                // cs = card_status
-                $cs_date_column = array('use_date', 'use_time');
-                $where = "card_id =".'"'.$dataArray['card_id'].'"';
-                if ($this->console_model->update('card_status', $data, $cs_date_column, $where)) {
-                  // 員工加入時間欄位名;
-                  $m_date_column = array('join_date', 'join_time');
 
-                  if($this->console_model->insert('member', $dataArray, $m_date_column)){
+                if(isset($_FILES)) {
+                  date_default_timezone_set("Asia/Taipei");
+
+                  $dataArray['pics'] = date('YmdHis');
+                  if($_FILES['pics']['type'] == 'image/png' ||
+                  $_FILES['pics']['type'] == 'image/jpeg' ||
+                  $_FILES['pics']['type'] == 'image/jpg') {
+                    if($_FILES['pics']['type'] == 'image/png') {
+                      $dataArray['pics'] = $dataArray['pics'] . '.png';
+                    }else{
+                      $dataArray['pics'] = $dataArray['pics'] . '.jpg';
+                    }
+                    if(!file_exists('assets/images/m_pics')) {
+                      mkdir('assets/images/m_pics', 0777, true);
+                    }
+                    if(!copy($_FILES['pics']['tmp_name'], 'assets/images/m_pics/'.$dataArray['pics'])) {
+                      $view_data['code'] = 500;
+                      $view_data['msg'] = '圖片新增失敗...';
+                    }
+                  }else{
+                    $view_data['code'] = 404;
+                    $view_data['msg'] = '檔案格式不符合';
+                  }
+                }else{
+                  $view_data['pics'] = '../assets/images/default.png';
+                }
+
+                $m_date_column = array('join_date', 'join_time');
+                if($this->console_model->insert('member', $dataArray, $m_date_column)){
+                  // cs = card_status
+                  $cs_date_column = array('use_date', 'use_time');
+                  $where = "card_id =".'"'.$dataArray['card_id'].'"';
+                  if ($this->console_model->update('card_status', $data, $cs_date_column, $where)) {
+                    // 員工加入時間欄位名;
                     $view_data['code'] = 200;
                     $view_data['msg'] = "新增成功!!!";
                   }else {
                     $view_data['code'] = 404;
-                    $view_data['msg'] = "新增失敗!!!";
+                    $view_data['msg'] = "卡片未啟用成功!!!";
                   }
                 }else {
                   $view_data['code'] = 404;
-                  $view_data['msg'] = "卡片未啟用成功!!!";
+                  $view_data['msg'] = "新增失敗!!!";
                 }
 
               }else {
@@ -188,7 +217,9 @@ class Console extends CI_Controller {
         $view_data['code'] = 404;
         $view_data['msg'] = "卡號不得為空!!!";
       }
+
     }
+    $view_data['pics'] = '../assets/images/default.png';
 
     $this->load->view('console/layout', $view_data);
   }
@@ -271,8 +302,9 @@ class Console extends CI_Controller {
     }
     $this->load->view('console/layout', $view_data);
   }
+
   public function do_upload(){
-    $config['upload_path']          = './image/';
+    $config['upload_path']          = './assets/images/';
     $config['allowed_types']        = 'gif|jpg|png';
     // $config['max_size']             = 100;
     // $config['max_width']            = 1024;
@@ -280,14 +312,14 @@ class Console extends CI_Controller {
 
     $this->load->library('upload', $config);
 
-    if ( ! $this->upload->do_upload('s')){
+    if ( ! $this->upload->do_upload('pics')){
       $error = array('error' => $this->upload->display_errors());
 
       $this->load->view('upload_form', $error);
     }else{
       $data = array('upload_data' => $this->upload->data());
-
-      $this->load->view('upload_success', $data);
+      return $data;
+      // $this->load->view('upload_success', $data);
     }
   }
 

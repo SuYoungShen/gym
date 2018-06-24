@@ -53,9 +53,50 @@ $(function () {
   $('.member').on('click', function () {
     var color = $(this).data('color');
     $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+    var url = "../api_console/member";
+    var id = $(this).data('id');
+    get_member_ajax(url, id);
+
     $('#largeModal').modal('show');
   });
 });
+
+// 用ajax傳資料並取得
+function get_member_ajax(url, id){
+  $.ajax({
+    url: url,
+    type: 'POST',
+    data: {
+      rule: 'select',
+      id: id
+    },
+    dataType: "json",
+    success: function(ResOk){
+      $("input[name=m_card_id]").val(ResOk.card_id);
+      $("input[name=m_name]").val(ResOk.name);
+      $("input[name=m_identity_card]").val(ResOk.identity_card);
+      $("input[name=m_birthday]").val(ResOk.birthday);
+      $("input[name=m_phone]").val(ResOk.phone);
+      $("input[name=m_email]").val(ResOk.email);
+      $("input[name=m_address]").val(ResOk.address);
+      $("input[name=m_start_contract]").val(ResOk.start_contract);
+      $("input[name=m_end_contract]").val(ResOk.end_contract);
+      $("input[name=m_emergency_contact]").val(ResOk.emergency_contact);
+      $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
+      $('select[name=m_number]').selectpicker('val', ResOk.number);
+      $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);
+
+      $('#m_blah').attr('src', '../assets/images/m_pics/'+ResOk.pics);
+      $('select[name=m_number]').selectpicker('refresh');
+      $('select[name=m_categorys]').selectpicker('refresh');
+    },
+    error: function(ResError){
+      console.log('Error');
+      console.log(resError);
+    }
+  });
+}
+
 
 $(function () {
   $('.staff').on('click', function () {
