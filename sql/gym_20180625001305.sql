@@ -200,9 +200,9 @@ DROP TABLE IF EXISTS `staff`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `staff` (
   `id` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT 'id',
-  `job_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '職編',
+  `job_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '職編',
   `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '姓名',
-  `password` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '密碼',
+  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT '密碼',
   `birthday` date NOT NULL COMMENT '生日',
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL COMMENT '手機',
   `identity` int(5) NOT NULL COMMENT '身分(0=boss、1=staff、99=admin)',
@@ -223,7 +223,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES ('123','456','nj ','','0000-00-00','0',0,'','','','0000-00-00','00:00:00','0000-00-00','00:00:00'),('5b27c96eda','112123','蘇','54327551c2e8f7a915cd','1994-09-15','(09) 06-405-019',99,NULL,'','',NULL,NULL,'2018-06-18','23:02:06'),('5b2a665a85','1230','蘇永勝','4fdce3181bc2a76dae96','1994-09-15','(09) 06-405-019',1,'屏東市大洲里65號','蘇','(09) 06-405-019',NULL,NULL,'2018-06-20','22:36:10');
+INSERT INTO `staff` VALUES ('123','456','nj ','51eac6b471a284d3341d8c0c63d0f1a286262a18','0000-00-00','(0_) __-___-___',0,'123','','','2018-06-25','00:00:28','0000-00-00','00:00:00'),('5b27c96eda','112123','蘇','54327551c2e8f7a915cd','1994-09-15','(09) 06-405-019',99,NULL,'','',NULL,NULL,'2018-06-18','23:02:06'),('5b2a665a85','1230','蘇永勝','4fdce3181bc2a76dae96','1994-09-15','(09) 06-405-019',1,'屏東市大洲里65號','蘇','(09) 06-405-019',NULL,NULL,'2018-06-20','22:36:10');
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -236,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-22  1:42:10
+-- Dump completed on 2018-06-25  0:13:11
