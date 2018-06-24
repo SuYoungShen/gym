@@ -31,7 +31,54 @@ class Pos_model extends CI_Model {
     return $this->db->update($table, $data);
   }
 
+  // 確認員工信箱密碼是否存在
+  public function chk_login($job_code, $pwd) {
+    $this->db->where('job_code', $job_code);
+    $this->db->where('password', sha1($pwd));
+    // 透過藉由信箱密碼下去比對是否存在
+    if($this->db->count_all_results('staff') == 0) {
+      // 不存在
+      return false;
+    }else{
+      // 存在
+      return true;
+    }
+  }
 
+    // 員工進行登入
+    function do_login($job_code) {
+      $data = $this->get_once('staff', $job_code);
+
+      $session_arr = array(
+        'login_name'=> $data['name'],
+        'login_id'=> $data['id'],
+        'login_status'=> true
+      );
+
+      // 登入資訊保存到Session
+      $this->session->set_userdata($session_arr);
+
+      $this->set_last_login($data['id']);
+
+      return true;
+    }
+    
+    // 設定最後登入時間
+    function set_last_login($id) {
+      $dataArray = array(
+        'web' => 0,
+        'sign_in_date'=> date('Y-m-d'),
+        'sign_in_time'=> date('H:i:s')
+      );
+      $this->db->where('id', $id);
+      return $this->db->insert('login_history', $dataArray);
+    }
+    //
+    // // 確認管理者是否登入
+    // 	function chk_login_status() {
+    // 		return $this->session->userdata('login_status');
+    // 	}
+    //
   public function date($date){
     date_default_timezone_set("Asia/Taipei");
     $res = array();

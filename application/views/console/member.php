@@ -143,7 +143,7 @@
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
                                       <span class="input-group-addon">
-                                        <i class="material-icons">date_range</i>
+                                        會籍開始日：
                                       </span>
                                       <div class="form-line">
                                         <input type="date" class="form-control" name="start_contract" placeholder="合約開始日" >
@@ -155,7 +155,7 @@
                                   <div class="form-group">
                                     <div class="input-group input-group-lg">
                                       <span class="input-group-addon">
-                                        <i class="material-icons">date_range</i>
+                                        會籍截止日：
                                       </span>
                                       <div class="form-line">
                                         <input type="date" class="form-control" name="end_contract" placeholder="合約結束日">
@@ -249,11 +249,25 @@
                 reader.readAsDataURL(input.files[0]);
               }
             }
+            function m_readURL(input) {
+
+              if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('#m_blah').attr('src', e.target.result).addClass('img-responsive').css('width', '50%');
+                }
+
+                reader.readAsDataURL(input.files[0]);
+              }
+            }
             $(document).ready(function() {
               $("#imgInp").change(function() {
                 readURL(this);
               });
-
+              $("#m_imgInp").change(function() {
+                m_readURL(this);
+              });
             });
             </script>
 
@@ -262,7 +276,7 @@
                <div class="modal-dialog modal-lg" role="document">
                    <div class="modal-content">
                        <div class="modal-header">
-                           <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                           <h4 class="modal-title" id="defaultModalLabel">會員基本資料</h4>
                        </div>
                        <form id="form_validation" method="POST" enctype="multipart/form-data">
                          <div class="modal-body">
@@ -276,7 +290,7 @@
                                      </span>
                                      <div class="form-line">
                                        <input type="hidden" name="rule" value="update">
-                                       <input type="text" class="form-control" name="m_card_id"  readonly>
+                                       <input type="text" class="form-control" name="m_card_id" readonly>
                                      </div>
                                    </div>
                                  </div>
@@ -380,7 +394,7 @@
                                  <div class="form-group">
                                    <div class="input-group input-group-lg">
                                      <span class="input-group-addon">
-                                       <i class="material-icons">date_range</i>
+                                       會籍開始日：
                                      </span>
                                      <div class="form-line">
                                        <input type="date" class="form-control" name="m_start_contract" placeholder="合約開始日" >
@@ -392,7 +406,7 @@
                                  <div class="form-group">
                                    <div class="input-group input-group-lg">
                                      <span class="input-group-addon">
-                                       <i class="material-icons">date_range</i>
+                                       會籍截止日：
                                      </span>
                                      <div class="form-line">
                                        <input type="date" class="form-control" name="m_end_contract" placeholder="合約結束日">
@@ -449,7 +463,7 @@
                                        <i class="material-icons">file_upload</i>
                                      </span>
                                      <div class="form-line" style="border-bottom:0px;">
-                                       <input type='file' name="pics" id="imgInp" accept="image/gif, image/jpeg, image/png"/>
+                                       <input type='file' name="m_pics" id="m_imgInp" accept="image/gif, image/jpeg, image/png"/>
                                      </div>
                                    </div>
                                  </div>

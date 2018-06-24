@@ -197,9 +197,11 @@
     }
   });
 
+
   <?php
 
   if(isset($code)){
+
     if ($code == 200) {
       ?>
       swal({
@@ -213,7 +215,7 @@
         }
       });
       <?php
-    }else if($code == 404){
+      }else if($code == 404){
       ?>
       swal({
         title: '有錯誤哦!',
@@ -227,6 +229,7 @@
       <?php
     } //404
   } // isset($code)
+
   ?>
 
   </script>

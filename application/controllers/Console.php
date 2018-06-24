@@ -151,7 +151,7 @@ class Console extends CI_Controller {
                 $data = array(
                   "status" => 1
                 );
-
+// 檔案上傳部分要重用
                 if(isset($_FILES)) {
                   date_default_timezone_set("Asia/Taipei");
 
@@ -218,6 +218,90 @@ class Console extends CI_Controller {
         $view_data['msg'] = "卡號不得為空!!!";
       }
 
+    }elseif ($this->input->post('rule') == "update") {
+      $dataArray = array(
+        'card_id' => $this->input->post('m_card_id'), // 卡號
+        "name" => $this->input->post('m_name'), // 會員姓名
+        "identity_card" => $this->input->post('m_identity_card'), // 會員身份證字號
+        "birthday" => $this->input->post('m_birthday'), // 會員生日
+        "phone" => $this->input->post('m_phone'), // 會員手機號碼
+        "email" => $this->input->post('m_email'), // 會員身分
+        "address" => $this->input->post('m_address'), // 地址
+        "number" => $this->input->post('m_number'), // 會籍數字
+        "categorys" => $this->input->post('m_categorys'), // 會籍種類
+        "note" => $this->input->post('m_note'), // 備註
+        "emergency_contact" => $this->input->post('m_emergency_contact'), // 緊急聯絡人
+        "emergency_phone" => $this->input->post('m_emergency_phone'), // 聯絡人電話
+        "start_contract" => $this->input->post('m_start_contract'), // 合約開始日
+        "end_contract" => $this->input->post('m_end_contract') // 合約結束日
+      );
+
+      if (!empty($dataArray["card_id"])){
+        if (!empty($dataArray["name"])){
+          if (!empty($dataArray["identity_card"])){
+            if (!empty($dataArray["phone"])){
+              if (!empty($dataArray["emergency_phone"]) || !empty($dataArray["emergency_contact"])){
+
+                if(isset($_FILES)) {
+                  if ($_FILES['m_pics']['name'] != "") {
+                    date_default_timezone_set("Asia/Taipei");
+                    if(
+                      $_FILES['m_pics']['type'] == 'image/png' ||
+                      $_FILES['m_pics']['type'] == 'image/jpeg' ||
+                      $_FILES['m_pics']['type'] == 'image/jpg') {
+                        $dataArray['pics'] = date('YmdHis');
+                        if($_FILES['m_pics']['type'] == 'image/png') {
+                          $dataArray['pics'] = $dataArray['pics'] . '.png';
+                        }else{
+                          $dataArray['pics'] = $dataArray['pics'] . '.jpg';
+                        }
+                        if(!file_exists('assets/images/m_pics')) {
+                          mkdir('assets/images/m_pics', 0777, true);
+                        }
+                        if(!copy($_FILES['m_pics']['tmp_name'], 'assets/images/m_pics/'.$dataArray['pics'])) {
+                          $view_data['p_code'] = 500;
+                          $view_data['p_msg'] = '圖片新增失敗...';
+                        }
+                      }else{
+                        $view_data['p_code'] = 404;
+                        $view_data['p_msg'] = '檔案格式有誤!';
+                      }
+                    }
+
+                  }else{
+                    $view_data['pics'] = '../assets/images/default.png';
+                  }
+
+                $where = "card_id =".'"'.$dataArray['card_id'].'"';
+                $m_date_column = array('up_date', 'up_time');
+                if($this->console_model->update('member', $dataArray, $m_date_column, $where)){
+                  $view_data['code'] = 200;
+                  $view_data['msg'] = "更新成功!!!";
+                }else {
+                  $view_data['code'] = 404;
+                  $view_data['msg'] = "更新失敗!!!";
+                }
+
+              }else {
+                $view_data['code'] = 404;
+                $view_data['msg'] = "緊急聯絡人或聯絡人電話不得為空!!!";
+              }
+            }else {
+              $view_data['code'] = 404;
+              $view_data['msg'] = "手機不得為空!!!";
+            }
+          }else {
+            $view_data['code'] = 404;
+            $view_data['msg'] = "身分證字號不得為空!!!";
+          }
+        }else {
+          $view_data['code'] = 404;
+          $view_data['msg'] = "姓名不得為空!!!";
+        }
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "卡號不得為空!!!";
+      }
     }
     $view_data['pics'] = '../assets/images/default.png';
 
