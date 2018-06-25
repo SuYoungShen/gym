@@ -54,6 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['in'] = 'pos/in';//會員進場 in 20180611
 $route['out'] = 'pos/out';//會員出場 in 20180611
 $route['login'] = 'pos/login';//登入 in 20180616
+$route['logout'] = 'pos/logout';//登出 in 20180625
 // 前台
 
 //後台

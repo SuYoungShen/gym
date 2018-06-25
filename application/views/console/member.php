@@ -456,19 +456,7 @@
                                </div>
                              </div>
                              <div class="row clearfix">
-                               <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
-                                 <div class="form-group">
-                                   <div class="input-group input-group-lg">
-                                     <span class="input-group-addon">
-                                       <i class="material-icons">file_upload</i>
-                                     </span>
-                                     <div class="form-line" style="border-bottom:0px;">
-                                       <input type='file' name="m_pics" id="m_imgInp" accept="image/gif, image/jpeg, image/png"/>
-                                     </div>
-                                   </div>
-                                 </div>
-                               </div>
-                               <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                               <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
                                  <img id="m_blah" src="<?=$pics;?>" alt="會員個人照" style="width:50%;"/>
                                </div>
                              </div>

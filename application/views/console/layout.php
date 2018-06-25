@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Welcome To | Bootstrap Based Admin Template - Material Design</title>
+    <title><?=$title;?></title>
     <!-- Favicon-->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -66,7 +66,7 @@
     <script src="../admin/plugins/jquery/jquery.min.js"></script>
 </head>
 
-<body class="theme-red"><!-- 如果要改顏色可重這裡改, theme-black -->
+<body class="theme-black"><!-- 如果要改顏色可重這裡改, theme-black -->
 
   <?php include 'header.php'; ?>
   <?php include 'menu.php'; ?>

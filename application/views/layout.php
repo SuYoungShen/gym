@@ -143,7 +143,7 @@
 						<span class="label-input100">Password</span>
 					</div> -->
 
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
+					<div class="flex-sb-m w-full p-t-3 p-b-32 text-right">
 						<!-- <div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 							<label class="label-checkbox100" for="ckb1">
@@ -151,11 +151,13 @@
 							</label>
 						</div> -->
 
-						<div>
-							<a href="<?=$url;?>" class="txt1">
-								<?=$url_name;?>
-							</a>
-						</div>
+						<a href="<?=$url;?>" class="txt1">
+							<?=$url_name;?>
+						</a>
+						<a href="logout" class="txt1">
+							員工登出
+						</a>
+
 					</div>
 
 

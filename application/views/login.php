@@ -44,7 +44,7 @@
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
 						<input class="input100" type="hidden" name="rule" value="login">
 						<input class="input100" type="text" name="job_code">
-						<span class="focus-input100" data-placeholder="請輸入帳號"></span>
+						<span class="focus-input100" data-placeholder="請輸入職編"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">

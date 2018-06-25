@@ -107,7 +107,7 @@ class Console extends CI_Controller {
       'menu' => 'login_history'
     );
     $table = "login_history as lh, staff as s";
-    $where = "lh.who = s.id";
+    $where = "lh.who = s.job_code";
     $view_data['data'] = $this->console_model->get_once_all($table, $where);
     $this->load->view('console/layout', $view_data);
   }
@@ -151,7 +151,7 @@ class Console extends CI_Controller {
                 $data = array(
                   "status" => 1
                 );
-// 檔案上傳部分要重用
+                // 檔案上傳部分要重用
                 if(isset($_FILES)) {
                   date_default_timezone_set("Asia/Taipei");
 
@@ -242,36 +242,6 @@ class Console extends CI_Controller {
             if (!empty($dataArray["phone"])){
               if (!empty($dataArray["emergency_phone"]) || !empty($dataArray["emergency_contact"])){
 
-                if(isset($_FILES)) {
-                  if ($_FILES['m_pics']['name'] != "") {
-                    date_default_timezone_set("Asia/Taipei");
-                    if(
-                      $_FILES['m_pics']['type'] == 'image/png' ||
-                      $_FILES['m_pics']['type'] == 'image/jpeg' ||
-                      $_FILES['m_pics']['type'] == 'image/jpg') {
-                        $dataArray['pics'] = date('YmdHis');
-                        if($_FILES['m_pics']['type'] == 'image/png') {
-                          $dataArray['pics'] = $dataArray['pics'] . '.png';
-                        }else{
-                          $dataArray['pics'] = $dataArray['pics'] . '.jpg';
-                        }
-                        if(!file_exists('assets/images/m_pics')) {
-                          mkdir('assets/images/m_pics', 0777, true);
-                        }
-                        if(!copy($_FILES['m_pics']['tmp_name'], 'assets/images/m_pics/'.$dataArray['pics'])) {
-                          $view_data['p_code'] = 500;
-                          $view_data['p_msg'] = '圖片新增失敗...';
-                        }
-                      }else{
-                        $view_data['p_code'] = 404;
-                        $view_data['p_msg'] = '檔案格式有誤!';
-                      }
-                    }
-
-                  }else{
-                    $view_data['pics'] = '../assets/images/default.png';
-                  }
-
                 $where = "card_id =".'"'.$dataArray['card_id'].'"';
                 $m_date_column = array('up_date', 'up_time');
                 if($this->console_model->update('member', $dataArray, $m_date_column, $where)){
@@ -316,7 +286,12 @@ class Console extends CI_Controller {
       'menu' => 'staff'
     );
 
-    $view_data['data'] = $this->console_model->get_all('staff');
+    if ($this->session->userdata('login_identity') == 1) {
+      $where = "identity =".'"'.$this->session->userdata('login_identity').'"';
+      $view_data['data'] = $this->console_model->get_once_all('staff', $where);
+    }else {
+      $view_data['data'] = $this->console_model->get_all('staff');
+    }
 
     if ($this->input->post('rule') == "insert") {
       $dataArray = array(
@@ -386,27 +361,5 @@ class Console extends CI_Controller {
     }
     $this->load->view('console/layout', $view_data);
   }
-
-  public function do_upload(){
-    $config['upload_path']          = './assets/images/';
-    $config['allowed_types']        = 'gif|jpg|png';
-    // $config['max_size']             = 100;
-    // $config['max_width']            = 1024;
-    // $config['max_height']           = 768;
-
-    $this->load->library('upload', $config);
-
-    if ( ! $this->upload->do_upload('pics')){
-      $error = array('error' => $this->upload->display_errors());
-
-      $this->load->view('upload_form', $error);
-    }else{
-      $data = array('upload_data' => $this->upload->data());
-      return $data;
-      // $this->load->view('upload_success', $data);
-    }
-  }
-
-
 }
 ?>
