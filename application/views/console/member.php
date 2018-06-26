@@ -544,7 +544,7 @@
                                           <td><?=$value['number'].$value['categorys'];?></td>
                                           <td><?=$value['emergency_contact'];?></td>
                                           <td><?=$value['emergency_phone'];?></td>
-                                          <td>who</td>
+                                          <td><?=$value['who'];?></td>
                                           <td><?=$value['join_date'].' '.$value['join_time'];?></td>
                                           <td><?=$value['up_date'].' '.$value['up_time'];?></td>
                                         </tr>

@@ -135,6 +135,7 @@ class Console extends CI_Controller {
         "address" => $this->input->post('address'), // 地址
         "number" => $this->input->post('number'), // 會籍數字
         "categorys" => $this->input->post('categorys'), // 會籍種類
+        "who" => $this->session->userdata('login_name'), // 那位員工更新
         "note" => $this->input->post('note'), // 備註
         "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
         "emergency_phone" => $this->input->post('emergency_phone'), // 聯絡人電話
@@ -229,6 +230,7 @@ class Console extends CI_Controller {
         "address" => $this->input->post('m_address'), // 地址
         "number" => $this->input->post('m_number'), // 會籍數字
         "categorys" => $this->input->post('m_categorys'), // 會籍種類
+        "who" => $this->session->userdata('login_name'), // 那位員工更新
         "note" => $this->input->post('m_note'), // 備註
         "emergency_contact" => $this->input->post('m_emergency_contact'), // 緊急聯絡人
         "emergency_phone" => $this->input->post('m_emergency_phone'), // 聯絡人電話
