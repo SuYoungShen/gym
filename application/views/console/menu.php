@@ -33,7 +33,12 @@
                         <span class="icon-name">優惠方案</span>
                     </a>
                 </li>
-
+                <li class="<?php if($menu == 'card') { echo 'active'; } ?>">
+                    <a href="card">
+                        <i class="material-icons">card_membership</i>
+                        <span class="icon-name">卡片狀態</span>
+                    </a>
+                </li>
                 <li class="<?php if($menu == 'in_and_out') { echo 'active'; } ?>">
                     <a href="in_and_out">
                         <i class="material-icons">compare_arrows</i>

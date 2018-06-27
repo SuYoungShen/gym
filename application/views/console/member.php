@@ -465,10 +465,10 @@
                          <div class="modal-footer">
                            <div class="row clearfix">
                              <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">送出</button>
+                               <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">更新</button>
                              </div>
                              <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg bg-red waves-effect" type="reset">重設</button>
+                               <button class="btn btn-block btn-lg bg-red waves-effect" type="button" name="delete">刪除</button>
                              </div>
                            </div>
                          </div>

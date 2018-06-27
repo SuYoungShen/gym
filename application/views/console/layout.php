@@ -27,7 +27,7 @@
 
     <?php
       if(isset($menu)){
-        if($menu == "offer" || $menu == "member" || $menu == "staff") {
+        if($menu == "offer" || $menu == "member" || $menu == "staff" || $menu == "card") {
     ?>
     <!-- Colorpicker Css -->
     <link href="../admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet" />
@@ -82,7 +82,7 @@
     <script src="../admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <?php
       if(isset($menu)){
-        if ($menu == "offer" || $menu == "in_and_out" || $menu == "login_history" || $menu == "member" || $menu == "staff") {
+        if ($menu == "offer" || $menu == "in_and_out" || $menu == "login_history" || $menu == "member" || $menu == "staff" || $menu == "card") {
     ?>
     <!-- Jquery DataTable Plugin Js -->
     <script src="../admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -97,7 +97,7 @@
     <script src="../admin/js/pages/tables/jquery-datatable.js"></script>
     <?php } // $menu == "offer"、"in_and_out" ?>
 
-    <?php if($menu == "offer" || $menu == "member" || $menu == "staff"){ ?>
+    <?php if($menu == "offer" || $menu == "member" || $menu == "staff" || $menu == "card"){ ?>
     <!-- Jquery Validation Plugin Css -->
     <script src="../admin/plugins/jquery-validation/jquery.validate.js"></script>
 
@@ -168,7 +168,7 @@
   <script src="../admin/js/script.js"></script>
   <?php } ?>
 
-  <?php if($menu == "offer" || $menu == "member" || $menu == "staff"){ ?>
+  <?php if($menu == "offer" || $menu == "member" || $menu == "staff" || $menu == "card"){ ?>
 
     <script src="../admin/js/pages/ui/modals.js"></script>
     <script src="../admin/js/pages/forms/advanced-form-elements.js"></script>

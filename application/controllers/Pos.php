@@ -26,7 +26,8 @@ class Pos extends CI_Controller {
           $in_out_data = array(
             'id' => uniqid(),
             'types' => 0, //0=進場;1=出場
-            'who' => $card_id
+            'who' => $card_id,
+            'staff' => $this->session->userdata('login_name')
           );
           //進場的時間欄位名
           $in_out_date_column = array('in_date', 'in_time');
@@ -35,8 +36,12 @@ class Pos extends CI_Controller {
           //查詢member與進出場時間資料，取出最後一筆 in 20180615
           $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
           $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-          $view_data['code'] = 200;
-          $view_data['msg'] = "出場時也要記得刷卡哦!";
+          $remain_day = (strtotime($data->end_contract)-strtotime($data->start_contract))/3600/24;// 剩餘天數
+          // 3600 = 小時;24 = 天
+          if ($remain_day <= 31) {
+            $view_data['code'] = 500;
+            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
+          }
           $view_data['data'] = $data;
           $view_data['page'] = 'member_info.php';
         }else {
@@ -77,6 +82,13 @@ class Pos extends CI_Controller {
           //查詢member與進出場時間資料，取出最後一筆 in 20180615
           $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC , io.in_time DESC limit 1";
           $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
+
+          $remain_day = (strtotime($data->end_contract)-strtotime($data->start_contract))/3600/24;// 剩餘天數
+          // 3600 = 小時;24 = 天
+          if ($remain_day <= 31) {
+            $view_data['code'] = 500;
+            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
+          }
           $view_data['data'] = $data;
           $view_data['page'] = 'member_info.php';
         }else {

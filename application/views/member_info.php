@@ -1,12 +1,10 @@
 <style media="screen">
   .login100-more::before {
-    background: linear-gradient(to right, #000, #dadad6);
+    background: rgba(0,0,0,0.7);
   }
 </style>
-<?php
 
- ?>
-<div class="login100-more">
+<div class="login100-more" style="background-image: url('assets/images/0001.jpg');">
   <section>
     <h1>會員資訊</h1>
     <div class="tbl-header">
@@ -27,7 +25,7 @@
         <tbody>
           <tr>
             <td><?=$data->card_id;?></td>
-            <td><img src="<?=$data->pics;?>" class="img-fluid pull-xs-left"></td>
+            <td><img src="assets/images/m_pics/<?=$data->pics;?>" class="img-fluid pull-xs-left"></td>
             <td><?=$data->identity_card;?></td>
             <td><?=$data->birthday;?></td>
             <td><?=$data->phone;?></td>
@@ -79,7 +77,7 @@
           <tr>
             <td><?=$data->start_contract;?></td>
             <td><?=$data->end_contract;?></td>
-            <td><?=$data->categorys;?></td>
+            <td><?=$data->number.$data->categorys;?></td>
             <td><?=$data->join_date;?></td>
             <td><?=$data->join_time;?></td>
           </tr>

@@ -85,6 +85,75 @@ class Console extends CI_Controller {
     $this->load->view('console/layout', $view_data);
   }
 
+  // 卡片狀態
+  public function card(){
+    $view_data = array(
+      'title' => "卡片狀態",
+      'page' => 'card.php',
+      'menu' => 'card'
+    );
+
+    $view_data['data'] = $this->console_model->get_all('discount_program');
+
+    if ($this->input->post('rule') == "insert") {
+      $dataArray = array(
+        'id' => uniqid(),
+        "price" => $this->input->post('original_price'), // 原價
+        "discount" => $this->input->post('discount'), // 折扣：整數 1-9
+        "discount_price" => $this->input->post('after_discount') // 折扣後，整數四捨五入
+      );
+
+      if ($this->input->post('number') >= 1 && $this->input->post('number') <= 11){
+        if ($dataArray["discount"] >= 1 && $dataArray["discount"] <= 9) {
+
+          // 會籍：number整數1-11; categorys=月、年
+          $dataArray['number'] = $this->input->post('number');
+          $dataArray["types"] = $this->input->post('categorys');
+          // 此優惠方案加入時間欄位名; dp=discount_program 優惠方案
+          $dp_date_column = array('join_date', 'join_time');
+
+          if($this->console_model->insert('discount_program', $dataArray, $dp_date_column)){
+            $view_data['code'] = 200;
+            $view_data['msg'] = "恭喜新增此方案成功!!!";
+          }else {
+            $view_data['code'] = 404;
+            $view_data['msg'] = "新增失敗~~~";
+          }
+
+        }else {
+          $view_data['code'] = 404;
+          $view_data['msg'] = "折扣範圍錯誤，請注意範圍是1-9哦!";
+        }
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "會籍範圍錯誤，請注意範圍是1-9哦!";
+      }
+    }
+    if($this->input->post('rule') == "update"){
+
+      $id = $this->input->post('m_id');
+      $dataArray = array(
+        "number" => $this->input->post('m_number'),
+        "types" => $this->input->post('m_categorys'),
+        "price" => $this->input->post('m_original_price'), // 原價
+        "discount" => $this->input->post('m_discount'), // 折扣：整數 1-9
+        "discount_price" => $this->input->post('m_after_discount') // 折扣後，整數四捨五入
+      );
+      $dp_date_column = array('up_date', 'up_time');
+      $where = "id =".'"'.$id.'"';
+      if($this->console_model->update('discount_program', $dataArray, $dp_date_column, $where)){
+        $view_data['code'] = 200;
+        $view_data['msg'] = "更新成功!!!";
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "更新失敗!!!";
+      }
+
+    }
+    $this->load->view('console/layout', $view_data);
+  }
+
+
   // 會員進出場
   public function in_and_out(){
     $view_data = array(

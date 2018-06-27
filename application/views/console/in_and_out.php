@@ -38,6 +38,7 @@
                                         <tr>
                                             <th>卡號</th>
                                             <th>姓名</th>
+                                            <th>員工</th>
                                             <th>狀態</th>
                                             <th>進場時間</th>
                                             <th>出場時間</th>
@@ -47,6 +48,7 @@
                                         <tr>
                                           <th>卡號</th>
                                           <th>姓名</th>
+                                          <th>員工</th>
                                           <th>狀態</th>
                                           <th>進場時間</th>
                                           <th>出場時間</th>
@@ -57,6 +59,7 @@
                                         <tr>
                                           <td><?=$value['card_id'];?></td>
                                           <td><?=$value['name'];?></td>
+                                          <td><?=$value['staff'];?></td>
                                           <td><?=$value['types']==0?"進場":"出場";?></td>
                                           <td><?=$value['in_date'].' '.$value['in_time'];?></td>
                                           <td><?=$value['out_date'].' '.$value['out_time'];?></td>

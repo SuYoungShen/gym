@@ -55,9 +55,13 @@ $(function () {
     $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
     var url = "../api_console/member";
     var id = $(this).data('id');
+
     get_member_ajax(url, id);
 
     $('#largeModal').modal('show');
+    $('button[name=delete]').click(function(event) {
+      de_data(url, id, 'member');
+    });
   });
 });
 
@@ -85,7 +89,7 @@ function get_member_ajax(url, id){
       $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
       $('select[name=m_number]').selectpicker('val', ResOk.number);
       $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);
-      
+
       $('#m_blah').attr('src', '../assets/images/m_pics/'+ResOk.pics);
       $('select[name=m_number]').selectpicker('refresh');
       $('select[name=m_categorys]').selectpicker('refresh');
@@ -162,8 +166,6 @@ $("#m_imgInp").change(function() {
   m_readURL(this);
 });
 
-
-
 function de_data(url, id, urls){
   swal({
       title: "確定要刪除嗎?",
@@ -173,8 +175,8 @@ function de_data(url, id, urls){
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "是的!刪除!",
       cancelButtonText: "關閉",
-      closeOnConfirm: false,
-      closeOnCancel: false
+      closeOnConfirm: true,
+      closeOnCancel: true
   }, function (isConfirm) {
       if (isConfirm) {
         ajax(url, id, urls);

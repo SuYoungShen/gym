@@ -238,7 +238,7 @@
 		swal({
 			title: '有錯誤哦!',
 			text: "<?=$msg;?>",
-			type: 'success'
+			type: 'error'
 		}).then((result) => {
 			if (result.value) {
 				if ("<?=$url;?>" == "out") {
@@ -249,7 +249,16 @@
 			}
 		});
 		<?php
-			} //404
+		}else if($code == 500){
+			?>
+			swal({
+				title: '注意哦!',
+				text: "<?=$msg;?>",
+				type: 'warning',
+				confirmButtonColor: '#2e8e3f',
+			});
+		<?php
+			}
 		} // isset($code)
 		?>
 		// 防止重新整理

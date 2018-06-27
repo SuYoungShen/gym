@@ -76,6 +76,21 @@ class Api_console extends CI_Controller {
       $data = $this->console_model->get_once('member', $where);
       $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
+
+    if ($this->input->post('rule') == "delete") {
+      $id = $this->input->post('id');
+      $where = "card_id=".'"'.$id.'"';
+      if($this->console_model->delete_once('member', $where)){
+        $view_data['code'] = 200;
+        $view_data['msg'] = "刪除成功";
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "刪除失敗";
+      }
+      $this->output->set_content_type('application/json')->set_output(json_encode($view_data));
+
+    }
+
   }
 
   // 會員專區裡的月、年

@@ -247,8 +247,7 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  /* background: rgba(0,0,0,0.1); */
-  /* background: linear-gradient(to right, #000, #fff); */
+  background: linear-gradient(to right, #000, #fff);
 
 }
 
