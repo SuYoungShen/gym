@@ -154,6 +154,9 @@
 						<a href="<?=$url;?>" class="txt1">
 							<?=$url_name;?>
 						</a>
+						<a href="console/" class="txt1">
+							後臺管理
+						</a>
 						<a href="logout" class="txt1">
 							員工登出
 						</a>

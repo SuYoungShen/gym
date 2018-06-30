@@ -9,9 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                <?=$title;?>
-                            </h2>
+                            <h2>新增會員卡號</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -34,8 +32,20 @@
                                     <span class="input-group-addon">卡號:</span>
                                     <div class="form-line">
                                       <input type="hidden" class="form-control" name="rule" value="insert">
-                                      <input type="number" class="form-control" name="number"
-                                      placeholder="請輸入整數" min="1" max="11" required>
+                                      <input type="number" class="form-control" name="start_number"
+                                      placeholder="請輸入開始值" required>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                <div class="form-group">
+                                  <div class="input-group">
+                                    <span class="input-group-addon">-</span>
+                                    <div class="form-line">
+                                      <input type="hidden" class="form-control" name="rule" value="insert">
+                                      <input type="number" class="form-control" name="end_number"
+                                      placeholder="請輸入結束值" required>
                                     </div>
                                   </div>
                                 </div>
@@ -193,6 +203,7 @@
                                             <th>卡號</th>
                                             <th>狀態</th>
                                             <th>新增時間</th>
+                                            <th>使用時間</th>
                                             <th>更新時間</th>
                                         </tr>
                                     </thead>
@@ -201,16 +212,18 @@
                                           <th>卡號</th>
                                           <th>狀態</th>
                                           <th>新增時間</th>
+                                          <th>使用時間</th>
                                           <th>更新時間</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                       <?php foreach ($data as $key => $value){ ?>
-                                        <tr class="offer" data-id="<?=$value['id'];?>">
-                                          <td><?=$value["number"].$value["types"]?></td>
-                                          <td>$<?=$value["price"]?></td>
-                                          <td><?=$value["join_date"].' '.$value["join_time"]?></td>
-                                          <td><?=$value["up_date"].' '.$value["up_time"]?></td>
+                                        <tr class="card" data-id="<?=$value['card_id'];?>">
+                                          <td><?=$value["card_id"];?></td>
+                                          <td><?=$value["status"]==0?"未使用":"已使用";?></td>
+                                          <td><?=$value["add_date"].' '.$value["add_time"];?></td>
+                                          <td><?=$value["use_date"].' '.$value["use_time"];?></td>
+                                          <td><?=$value["stop_date"].' '.$value["stop_time"];?></td>
                                         </tr>
                                       <?php } ?>
                                     </tbody>

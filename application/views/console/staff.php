@@ -4,11 +4,14 @@
                 <h2></h2>
             </div>
             <!-- Input Group -->
+            <?php
+            if($this->session->userdata('login_identity') == 0 ||
+              $this->session->userdata('login_identity') == 99){ ?>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>新增員工資訊</h2>
+                            <h2>新增員工基本資料</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -34,7 +37,7 @@
                                       </span>
                                       <div class="form-line">
                                         <input type="hidden" name="rule" value="insert">
-                                        <input type="number" class="form-control" name="job_code" placeholder="請輸入職編" required>
+                                        <input type="text" class="form-control" name="job_code" placeholder="請輸入職編" required>
                                       </div>
                                     </div>
                                   </div>
@@ -159,7 +162,7 @@
                     </div>
                 </div>
             </div>
-
+          <?php } ?>
             <!-- 彈跳視窗 -->
             <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
                <div class="modal-dialog modal-lg" role="document">
@@ -180,7 +183,7 @@
                                      <div class="form-line">
                                        <input type="hidden" name="rule" value="update">
                                        <input type="hidden" name="m_id" value="">
-                                       <input type="number" class="form-control" name="m_job_code" placeholder="請輸入職編" required>
+                                       <input type="text" class="form-control" name="m_job_code" placeholder="請輸入職編" required>
                                      </div>
                                    </div>
                                  </div>
@@ -295,12 +298,14 @@
                          </div>
                          <div class="modal-footer">
                            <div class="row clearfix">
-                             <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">送出</button>
+                             <div class="col-lg-<?=$this->session->userdata('login_identity')==1?"12":"6";?>">
+                               <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">更新</button>
                              </div>
-                             <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg bg-red waves-effect" type="button" name="delete">刪除</button>
-                             </div>
+                             <?php if($this->session->userdata('login_identity') != 1){ ?>
+                               <div class="col-lg-6">
+                                 <button class="btn btn-block btn-lg bg-red waves-effect" type="button" name="delete">刪除</button>
+                               </div>
+                             <?php } ?>
                            </div>
                          </div>
                      </form>

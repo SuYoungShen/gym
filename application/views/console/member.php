@@ -9,9 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                <?=$title;?>
-                            </h2>
+                            <h2>新增會員基本資料</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -212,7 +210,8 @@
                                         <i class="material-icons">file_upload</i>
                                       </span>
                                       <div class="form-line" style="border-bottom:0px;">
-                                        <input type='file' name="pics" id="imgInp" accept="image/gif, image/jpeg, image/png"/>
+                                        <label for="imgInp" class="text-danger">單檔請勿超過10M</label>
+                                        <input type='file' name="pics" id="imgInp" accept="image/gif, image/jpeg, image/png"/ placeholder="請勿超過10M">
                                       </div>
                                     </div>
                                   </div>

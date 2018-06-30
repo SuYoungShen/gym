@@ -96,30 +96,60 @@ class Console extends CI_Controller {
     $view_data['data'] = $this->console_model->get_all('card_status');
 
     if ($this->input->post('rule') == "insert") {
+
+      foreach ($view_data['data'] as $key => $value) {
+        $card_id[$key] = $value['card_id'];
+      }
+
       $start = $this->input->post('start_number');
       $end = $this->input->post('end_number');
 
-      for ($i=$start; $i <= $end ; $i++) {
-        if ($i >= 2 && $i <= 9) {
-          $i = str_pad($i, 5, '0', STR_PAD_LEFT);
-        }
+      $val_true = array();// 用於卡號已存在的存放位置
+      for ($i = $start; $i <= $end ; $i++) {
 
-        $dataArray = array(
-          "card_id" => $i
-        );
-        // 此優惠方案加入時間欄位名; dp=discount_program 優惠方案
-        $dp_date_column = array('add_date', 'add_time');
+        $i = str_pad($i, 6, '0', STR_PAD_LEFT);// 補0用
 
-        if($this->console_model->insert('card_status', $dataArray, $dp_date_column)){
-          $view_data['code'] = 200;
-          $view_data['msg'] = "恭喜新增會員卡號成功!!!";
+        if (isset($card_id) && !empty($card_id)) {
+
+          $array_search = array_search($i, $card_id);// 用於判斷搜尋的值資料庫是否已存在
+
+          if(isset($array_search) && $array_search != false){
+            array_push($val_true, $i.",");
+          }else {
+            // 用於一開始新增卡片用
+            $dataArray = array(
+              'id' => uniqid(),
+              'card_id' => $i
+            );
+            $dp_date_column = array('add_date', 'add_time');
+            $How = $this->console_model->insert('card_status', $dataArray, $dp_date_column);
+          }
         }else {
-          $view_data['code'] = 404;
-          $view_data['msg'] = "新增失敗~~~";
-        }
+          // 用於一開始新增卡片用
+          $dataArray = array(
+            'id' => uniqid(),
+            'card_id' => $i
+          );
 
+          $dp_date_column = array('add_date', 'add_time');
+          $How = $this->console_model->insert('card_status', $dataArray, $dp_date_column);
+        }// else
+      }// for
+
+      if($How){
+        $view_data['code'] = 200;
+        if(isset($val_true) && !empty($val_true)){
+          $view_data['msg'] = "恭喜新增會員卡號成功，但是".implode($val_true)."有重複!!!";
+        }else {
+          $view_data['msg'] = "恭喜新增會員卡號成功!!!";
+        }
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "新增會員卡號失敗";
       }
-    }
+
+    }// Insert
+
     // if($this->input->post('rule') == "update"){
     //
     //   $id = $this->input->post('m_id');
@@ -152,9 +182,16 @@ class Console extends CI_Controller {
       'page' => 'in_and_out.php',
       'menu' => 'in_and_out'
     );
-    $table = "in_and_out as io, member as m ";
-    $where = "io.who = m.card_id";
-    $view_data['data'] = $this->console_model->get_once_all($table, $where);
+
+    if ($this->session->userdata('login_identity') == 1) {
+      $table = "in_and_out as io, member as m ";
+      $where = "io.who = m.card_id AND io.staff=".'"'.$this->session->userdata('login_name').'"';
+      $view_data['data'] = $this->console_model->get_once_all($table, $where);
+    }else {
+      $table = "in_and_out as io, member as m ";
+      $where = "io.who = m.card_id";
+      $view_data['data'] = $this->console_model->get_once_all($table, $where);
+    }
 
     $this->load->view('console/layout', $view_data);
   }
@@ -181,7 +218,13 @@ class Console extends CI_Controller {
     );
     $where = "status = 0";// 0表示此卡無人使用
     $view_data['card_id'] = $this->console_model->get_once_all('card_status', $where);
-    $view_data['data'] = $this->console_model->get_all('member');
+
+    if ($this->session->userdata('login_identity') == 1) {
+      $where = "who =".'"'.$this->session->userdata('login_name').'"';
+      $view_data['data'] = $this->console_model->get_once_all('member', $where);
+    }else {
+      $view_data['data'] = $this->console_model->get_all('member');
+    }
 
     if ($this->input->post('rule') == "insert") {
 
@@ -349,52 +392,62 @@ class Console extends CI_Controller {
     );
 
     if ($this->session->userdata('login_identity') == 1) {
-      $where = "identity =".'"'.$this->session->userdata('login_identity').'"';
+      $where = "identity =".'"'.$this->session->userdata('login_identity').'" AND job_code ='.'"'.$this->session->userdata('login_id').'"';
       $view_data['data'] = $this->console_model->get_once_all('staff', $where);
     }else {
       $view_data['data'] = $this->console_model->get_all('staff');
     }
-
     if ($this->input->post('rule') == "insert") {
-      $dataArray = array(
-        'id' => uniqid(),
-        "job_code" => $this->input->post('job_code'), // 員工編號
-        "name" => $this->input->post('name'), // 員工姓名
-        "password" => sha1($this->input->post('passwd')), // 員工登入密碼
-        "birthday" => $this->input->post('birthday'), // 員工生日
-        "phone" => $this->input->post('phone'), // 員工手機號碼
-        "identity" => $this->input->post('identity'), // 員工身分
-        "address" => $this->input->post('address'), // 地址
-        "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
-        "emergency_phone" => $this->input->post('emergency_phone') // 聯絡人電話
-      );
 
-      if (!empty($dataArray["job_code"])){
-        if (!empty($dataArray["name"])){
-          if (!empty($dataArray["password"])){
-            // 員工加入時間欄位名;
-            $st_date_column = array('join_date', 'join_time');
+      foreach ($view_data['data'] as $key => $value) {
+        $job_code[$key] = $value['job_code'];
+      }
 
-            if($this->console_model->insert('staff', $dataArray, $st_date_column)){
-              $view_data['code'] = 200;
-              $view_data['msg'] = "新增成功!!!";
+      if(!in_array($this->input->post('job_code'), $job_code)){// 用於判斷搜尋的值資料庫是否已存在
+        $dataArray = array(
+          'id' => uniqid(),
+          "job_code" => $this->input->post('job_code'), // 員工編號
+          "name" => $this->input->post('name'), // 員工姓名
+          "password" => sha1($this->input->post('passwd')), // 員工登入密碼
+          "birthday" => $this->input->post('birthday'), // 員工生日
+          "phone" => $this->input->post('phone'), // 員工手機號碼
+          "identity" => $this->input->post('identity'), // 員工身分
+          "address" => $this->input->post('address'), // 地址
+          "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
+          "emergency_phone" => $this->input->post('emergency_phone') // 聯絡人電話
+        );
+
+        if (!empty($dataArray["job_code"])){
+          if (!empty($dataArray["name"])){
+            if (!empty($dataArray["password"])){
+              // 員工加入時間欄位名;
+              $st_date_column = array('join_date', 'join_time');
+
+              if($this->console_model->insert('staff', $dataArray, $st_date_column)){
+                $view_data['code'] = 200;
+                $view_data['msg'] = "新增成功!!!";
+              }else {
+                $view_data['code'] = 404;
+                $view_data['msg'] = "新增失敗~~~";
+              }
             }else {
               $view_data['code'] = 404;
-              $view_data['msg'] = "新增失敗~~~";
+              $view_data['msg'] = "密碼不得為空!!!";
             }
           }else {
             $view_data['code'] = 404;
-            $view_data['msg'] = "密碼不得為空!!!";
+            $view_data['msg'] = "姓名不得為空!!!";
           }
         }else {
           $view_data['code'] = 404;
-          $view_data['msg'] = "姓名不得為空!!!";
+          $view_data['msg'] = "職編不得為空!!!";
         }
       }else {
         $view_data['code'] = 404;
-        $view_data['msg'] = "職編不得為空!!!";
+        $view_data['msg'] = "此員工編號重複囉!!!";
       }
-    }
+
+    }// Insert
 
     if($this->input->post('rule') == "update"){
 

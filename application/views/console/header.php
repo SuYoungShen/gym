@@ -35,7 +35,18 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="javascript:void(0);">歡迎~<?=$this->session->userdata('login_name');?>登入!</a>
+            <a class="navbar-brand" href="javascript:void(0);">歡迎~
+              <?=$this->session->userdata('login_name');?>
+              <?php
+                if ($this->session->userdata('login_identity')==0) {
+                  echo "老闆";
+                }else if($this->session->userdata('login_identity')==1){
+                  echo "員工";
+                }else if($this->session->userdata('login_identity')==99){
+                  echo "管理員";
+                };
+              ?>
+              登入!</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
 

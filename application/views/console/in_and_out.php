@@ -6,12 +6,7 @@
                     <!-- <small>Taken from <a href="https://datatables.net/" target="_blank">datatables.net</a></small> -->
                 </h2>
             </div>
-            <?php
-            // echo "<pre>";
-            //   var_dump($data);
-            //   echo "</pre>";
-
-            ?>
+        
           <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -37,8 +32,8 @@
                                     <thead>
                                         <tr>
                                             <th>卡號</th>
-                                            <th>姓名</th>
-                                            <th>員工</th>
+                                            <th>會員姓名</th>
+                                            <th>員工刷入</th>
                                             <th>狀態</th>
                                             <th>進場時間</th>
                                             <th>出場時間</th>
@@ -47,8 +42,8 @@
                                     <tfoot>
                                         <tr>
                                           <th>卡號</th>
-                                          <th>姓名</th>
-                                          <th>員工</th>
+                                          <th>會員姓名</th>
+                                          <th>員工刷入</th>
                                           <th>狀態</th>
                                           <th>進場時間</th>
                                           <th>出場時間</th>

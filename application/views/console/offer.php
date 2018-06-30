@@ -3,15 +3,15 @@
             <div class="block-header">
                 <h2></h2>
             </div>
-
+            <?php
+            if($this->session->userdata('login_identity') == 0 ||
+              $this->session->userdata('login_identity') == 99){ ?>
             <!-- Input Group -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                <?=$title;?>
-                            </h2>
+                            <h2>新增優惠方案</h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-
+          <?php } ?>
             <!-- 彈跳視窗 -->
             <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
                <div class="modal-dialog" role="document">
