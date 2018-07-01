@@ -51,7 +51,7 @@ class Pos_model extends CI_Model {
     $data = $this->get_once('staff', $where);
 
     $session_arr = array(
-      'login_name'=> $data->name,
+      'login_name'=> $data->staff_name,
       'login_id'=> $data->job_code,
       'login_status'=> true,
       'login_identity' => $data->identity //身分(0=boss、1=staff、99=admin)
@@ -62,6 +62,20 @@ class Pos_model extends CI_Model {
 
     $this->set_last_login($data->job_code);
 
+    return true;
+  }
+
+  // 確認管理者是否登入
+  public function chk_login_status() {
+    return $this->session->userdata('login_status');
+  }
+
+  // 管理員登出
+  public function logout() {
+    $this->session->unset_userdata('login_name');
+    $this->session->unset_userdata('login_id');
+    $this->session->unset_userdata('login_status');
+    $this->session->unset_userdata('login_identity');
     return true;
   }
 
@@ -79,19 +93,6 @@ class Pos_model extends CI_Model {
     return $this->db->insert('login_history', $dataArray);
   }
 
-  // 確認管理者是否登入
-  public function chk_login_status() {
-    return $this->session->userdata('login_status');
-  }
-
-  // 管理員登出
-  public function logout() {
-    $this->session->unset_userdata('login_name');
-    $this->session->unset_userdata('login_id');
-    $this->session->unset_userdata('login_status');
-    $this->session->unset_userdata('login_identity');
-    return true;
-  }
 
 
   public function date($date){

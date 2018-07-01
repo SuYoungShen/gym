@@ -96,7 +96,7 @@ function get_member_ajax(url, id){
     },
     error: function(ResError){
       console.log('Error');
-      console.log(resError);
+      console.log(ResError);
     }
   });
 }
@@ -131,7 +131,7 @@ function get_staff_ajax(url, id){
     success: function(ResOk){
       $("input[name=m_id]").val(ResOk.id);
       $("input[name=m_job_code]").val(ResOk.job_code);
-      $("input[name=m_name]").val(ResOk.name);
+      $("input[name=m_name]").val(ResOk.staff_name);
       $("input[name=m_passwd]").val(ResOk.password);
       $("input[name=m_birthday]").val(ResOk.birthday);
       $("input[name=m_phone]").val(ResOk.phone);
@@ -179,11 +179,14 @@ function de_data(url, id, urls){
       closeOnCancel: true
   }, function (isConfirm) {
       if (isConfirm) {
+        // test();
         ajax(url, id, urls);
       }
   });
 }
-
+function test(){
+  alert('s');
+}
 function ajax(url, id, urls){
   $.ajax({
     url: url,
@@ -210,7 +213,7 @@ function ajax(url, id, urls){
     },
     error: function(ResError){
       console.log('Error');
-      console.log(resError);
+      console.log(ResError);
     }
   });
 }

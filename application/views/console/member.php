@@ -3,7 +3,6 @@
             <div class="block-header">
                 <h2></h2>
             </div>
-
             <!-- Input Group -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -464,7 +463,7 @@
                          <div class="modal-footer">
                            <div class="row clearfix">
                              <div class="col-lg-6">
-                               <button class="btn btn-block btn-lg btn-primary waves-effect" type="submit">更新</button>
+                               <button class="btn btn-block btn-lg btn-success waves-effect" type="submit">更新</button>
                              </div>
                              <div class="col-lg-6">
                                <button class="btn btn-block btn-lg bg-red waves-effect" type="button" name="delete">刪除</button>
@@ -543,7 +542,7 @@
                                           <td><?=$value['number'].$value['categorys'];?></td>
                                           <td><?=$value['emergency_contact'];?></td>
                                           <td><?=$value['emergency_phone'];?></td>
-                                          <td><?=$value['who'];?></td>
+                                          <td><?=$value['staff_name'];?></td>
                                           <td><?=$value['join_date'].' '.$value['join_time'];?></td>
                                           <td><?=$value['up_date'].' '.$value['up_time'];?></td>
                                         </tr>

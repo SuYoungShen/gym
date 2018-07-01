@@ -45,7 +45,7 @@
                                     <tbody>
                                       <?php foreach ($data as $key => $value){ ?>
                                         <tr>
-                                          <td><?=$value['name'];?></td>
+                                          <td><?=$value['staff_name'];?></td>
                                           <td><?=$value['sign_in_date'];?></td>
                                           <td><?=$value['sign_in_time'];?></td>
                                         </tr>

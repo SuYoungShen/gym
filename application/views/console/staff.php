@@ -368,7 +368,7 @@
                                       <?php foreach ($data as $key => $value) { ?>
                                         <tr class="staff" data-id="<?=$value['id'];?>">
                                           <td><?=$value['job_code'];?></td>
-                                          <td><?=$value['name'];?></td>
+                                          <td><?=$value['staff_name'];?></td>
                                           <td><?=$value['birthday'];?></td>
                                           <td><?=$value['phone'];?></td>
                                           <td>

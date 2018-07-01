@@ -79,7 +79,14 @@ class Api_console extends CI_Controller {
 
     if ($this->input->post('rule') == "delete") {
       $id = $this->input->post('id');
+      $data = array(
+        'status' => 0
+      );
+
+      $m_date_column = array('add_date', 'add_time');
       $where = "card_id=".'"'.$id.'"';
+      $this->console_model->update('card_status', $data, $m_date_column, $where);
+
       if($this->console_model->delete_once('member', $where)){
         $view_data['code'] = 200;
         $view_data['msg'] = "刪除成功";
