@@ -21,10 +21,10 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">選單</li>
-                <li class="<?php if($menu == 'index') { echo 'active'; } ?>">
-                    <a href="console">
+                <li>
+                    <a href="../in">
                         <i class="material-icons">home</i>
-                        <span class="icon-name">首頁</span>
+                        <span class="icon-name">回前台</span>
                     </a>
                 </li>
                 <li class="<?php if($menu == 'offer') { echo 'active'; } ?>">

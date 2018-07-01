@@ -58,7 +58,8 @@ class Console_model extends CI_Model {
   }
 
   // 計算table總筆數
-  public function count_all($table){
+  public function count_all($table, $where){
+    $this->db->where($where);
     return $this->db->count_all($table);
   }
 

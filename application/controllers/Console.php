@@ -15,8 +15,9 @@ class Console extends CI_Controller {
       'menu' => 'index'
     );
     if($this->pos_model->chk_login_status()) {
-      $view_data["member_total"] = $this->console_model->count_all('member');
-      $view_data["staff_total"] = $this->console_model->count_all('staff');
+      $view_data["member_total"] = $this->console_model->count_all('member', 1);
+      $where = "identity != 99";
+      $view_data["staff_total"] = $this->console_model->count_all('staff', $where);
       $this->load->view('console/layout', $view_data);
     }else {
       redirect(base_url('login'));
