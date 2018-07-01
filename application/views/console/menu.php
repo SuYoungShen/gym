@@ -22,7 +22,7 @@
             <ul class="list">
                 <li class="header">選單</li>
                 <li class="<?php if($menu == 'index') { echo 'active'; } ?>">
-                    <a href="index">
+                    <a href="console">
                         <i class="material-icons">home</i>
                         <span class="icon-name">首頁</span>
                     </a>

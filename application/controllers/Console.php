@@ -8,10 +8,10 @@ class Console extends CI_Controller {
     $this->load->model(array('console_model', 'pos_model'));
   }
 
-  public function index(){
+  public function console(){
     $view_data = array(
       'title' => "首頁",
-      'page' => 'index.php',
+      'page' => 'console.php',
       'menu' => 'index'
     );
     if($this->pos_model->chk_login_status()) {
