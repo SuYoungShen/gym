@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <p>Please wait...</p>
+        <p>請稍後...</p>
     </div>
 </div>
 <!-- #END# Page Loader -->

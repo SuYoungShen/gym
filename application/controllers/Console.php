@@ -128,7 +128,7 @@ class Console extends CI_Controller {
             }else {
               // 用於一開始新增卡片用
               $dataArray = array(
-                'id' => uniqid(),
+                // 'id' => uniqid(),
                 'card_id' => $i
               );
               $dp_date_column = array('add_date', 'add_time');
@@ -137,7 +137,7 @@ class Console extends CI_Controller {
           }else {
             // 用於一開始新增卡片用
             $dataArray = array(
-              'id' => uniqid(),
+              // 'id' => uniqid(),
               'card_id' => $i
             );
 
@@ -199,7 +199,7 @@ class Console extends CI_Controller {
     if($this->pos_model->chk_login_status()) {
       if ($this->session->userdata('login_identity') == 1) {
         $table = "in_and_out as io, member as m ";
-        $where = "io.who = m.card_id AND io.staff=".'"'.$this->session->userdata('login_name').'"';
+        $where = "io.who = m.card_id AND io.staff=".'"'.$this->session->userdata('login_name').'" order by in_time desc';
         $view_data['data'] = $this->console_model->get_once_all($table, $where);
       }else {
         $table = "in_and_out as io, member as m ";
@@ -252,9 +252,15 @@ class Console extends CI_Controller {
         $table = "member as m, staff as s";
         $view_data['data'] = $this->console_model->get_select_once_all($select, $table, $where);
       }else {
+        $select = "m.card_id, m.pics, m.name, m.identity_card,
+        m.birthday, m.phone, m.email, m.address,
+        m.emergency_contact, m.emergency_phone,
+        m.start_contract, m.end_contract, m.number,
+        m.categorys, m.note, m.join_date,
+        m.join_time, m.up_date,m.up_time, s.staff_name";
         $where = "m.who=s.job_code";
         $table = "member as m, staff as s";
-        $view_data['data'] = $this->console_model->get_once_all($table, $where);
+        $view_data['data'] = $this->console_model->get_select_once_all($select, $table, $where);
       }
 
       if ($this->input->post('rule') == "insert") {
