@@ -241,6 +241,9 @@ class Console extends CI_Controller {
       $where = "status = 0";// 0表示此卡無人使用
       $view_data['card_id'] = $this->console_model->get_once_all('card_status', $where);
 
+      $where = "status = 1";// 0表示此卡無人使用
+      $view_data['m_s_ci'] = $this->console_model->get_once_all('card_status', $where);
+
       if ($this->session->userdata('login_identity') == 1) {
         $select = "m.card_id, m.pics, m.name, m.identity_card,
         m.birthday, m.phone, m.email, m.address,
@@ -359,7 +362,7 @@ class Console extends CI_Controller {
           $view_data['msg'] = "卡號不得為空!!!";
         }
 
-      }elseif ($this->input->post('rule') == "update") {
+      }else if ($this->input->post('rule') == "update") {
         $dataArray = array(
         'card_id' => $this->input->post('m_card_id'), // 卡號
         "name" => $this->input->post('m_name'), // 會員姓名
@@ -409,6 +412,55 @@ class Console extends CI_Controller {
           }else {
             $view_data['code'] = 404;
             $view_data['msg'] = "姓名不得為空!!!";
+          }
+        }else {
+          $view_data['code'] = 404;
+          $view_data['msg'] = "卡號不得為空!!!";
+        }
+      }else if ($this->input->post('rule') == "m_up_pics") {
+
+        $dataArray = array(
+        'card_id' => $this->input->post('m_up_card_id') // 卡號
+        );
+
+        if (!empty($dataArray['card_id'])) {
+          // 檔案上傳部分要重用
+          if(isset($_FILES)) {
+            date_default_timezone_set("Asia/Taipei");
+
+            $dataArray['pics'] = date('YmdHis');
+            if($_FILES['m_up_pics']['type'] == 'image/png' ||
+            $_FILES['m_up_pics']['type'] == 'image/jpeg' ||
+            $_FILES['m_up_pics']['type'] == 'image/jpg') {
+              if($_FILES['m_up_pics']['type'] == 'image/png') {
+                $dataArray['pics'] = $dataArray['pics'] . '.png';
+              }else{
+                $dataArray['pics'] = $dataArray['pics'] . '.jpg';
+              }
+              if(!file_exists('assets/images/m_pics')) {
+                mkdir('assets/images/m_pics', 0777, true);
+              }
+              if(copy($_FILES['m_up_pics']['tmp_name'], 'assets/images/m_pics/'.$dataArray['pics'])) {
+                $data['pics'] = $dataArray['pics'];
+                //  m=member
+                $m_date_column = array('up_date', 'up_time');
+                $where = "card_id =".'"'.$dataArray['card_id'].'"';
+                if ($this->console_model->update('member', $data, $m_date_column, $where)) {
+                  // 員工加入時間欄位名;
+                  $view_data['code'] = 200;
+                  $view_data['msg'] = "更新成功!!!";
+                }
+
+              }else {
+                $view_data['code'] = 500;
+                $view_data['msg'] = '圖片更新失敗...';
+              }
+            }else{
+              $view_data['code'] = 404;
+              $view_data['msg'] = '檔案格式不符合';
+            }
+          }else{
+            $view_data['pics'] = '../assets/images/default.png';
           }
         }else {
           $view_data['code'] = 404;

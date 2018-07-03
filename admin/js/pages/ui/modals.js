@@ -65,6 +65,7 @@ $(function () {
   });
 });
 
+
 // 用ajax傳資料並取得
 function get_member_ajax(url, id){
   $.ajax({

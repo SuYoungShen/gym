@@ -98,6 +98,24 @@ class Api_console extends CI_Controller {
 
     }
 
+    if($this->input->post('rule') == "m_s_ci"){
+      $card_id = $this->input->post('card_id');
+
+      if (!empty($card_id)) {
+        $where = "card_id =".'"'.$card_id.'"';
+        if ($this->console_model->num_rows('member', $where)) {
+          $view_data['data'] = $this->console_model->get_once('member', $where);
+        }else {
+          $view_data['code'] = 404;
+          $view_data['msg'] = "查無此人";
+        }
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "卡號不得為空";
+      }
+      $this->output->set_content_type('application/json')->set_output(json_encode($view_data));
+    }
+
   }
 
   // 會員專區裡的月、年
