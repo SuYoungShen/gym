@@ -283,7 +283,8 @@ class Console extends CI_Controller {
           "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
           "emergency_phone" => $this->input->post('emergency_phone'), // 聯絡人電話
           "start_contract" => $this->input->post('start_contract'), // 合約開始日
-          "end_contract" => $this->input->post('end_contract') // 合約結束日
+          "end_contract" => $this->input->post('end_contract'), // 合約結束日
+          "next_pay" => $this->input->post('next_pay') // 下次繳款日 in 20180704
         );
 
         if (!empty($dataArray["card_id"])){
@@ -378,7 +379,8 @@ class Console extends CI_Controller {
         "emergency_contact" => $this->input->post('m_emergency_contact'), // 緊急聯絡人
         "emergency_phone" => $this->input->post('m_emergency_phone'), // 聯絡人電話
         "start_contract" => $this->input->post('m_start_contract'), // 合約開始日
-        "end_contract" => $this->input->post('m_end_contract') // 合約結束日
+        "end_contract" => $this->input->post('m_end_contract'), // 合約結束日
+        "next_pay" => $this->input->post('m_next_pay') // 下次繳款日 in 20180704
         );
 
         if (!empty($dataArray["card_id"])){
