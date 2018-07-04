@@ -5032,7 +5032,8 @@ section.content {
   font-size: 26px; }
 
 .input-group.input-group-lg .form-control {
-  font-size: 18px; }
+  /* font-size: 18px;  */
+}
 
 .form-control-label {
   text-align: right; }
