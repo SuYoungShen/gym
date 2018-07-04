@@ -40,7 +40,7 @@ class Pos extends CI_Controller {
           // 3600 = 小時;24 = 天
           if ($remain_day <= 31) {
             $view_data['code'] = 500;
-            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
+            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天，下次繳款日：".$data->next_pay;
           }
           $view_data['data'] = $data;
           $view_data['page'] = 'member_info.php';
