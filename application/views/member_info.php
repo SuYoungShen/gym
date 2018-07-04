@@ -13,7 +13,7 @@
           <tr>
             <th>會員卡號</th>
             <th>會員照片</th>
-            <th>身分證字號</th>
+            <th>姓名</th>
             <th>生日</th>
             <th>電話</th>
           </tr>
@@ -25,8 +25,15 @@
         <tbody>
           <tr>
             <td><?=$data->card_id;?></td>
-            <td><img src="assets/images/m_pics/<?=$data->pics;?>" class="img-fluid pull-xs-left"></td>
-            <td><?=$data->identity_card;?></td>
+            <?php
+              if (strpos($data->pics, '.jpg', 1)) {
+                $data->pics = 'assets/images/m_pics/'.$data->pics;
+              }else {
+                $data->pics = 'assets/images/default.png';
+              }
+            ?>
+            <td><img src="<?=$data->pics;?>" class="img-fluid pull-xs-left"></td>
+            <td><?=$data->name;?></td>
             <td><?=$data->birthday;?></td>
             <td><?=$data->phone;?></td>
           </tr>
@@ -65,7 +72,7 @@
             <th>合約結束日</th>
             <th>會籍類別</th>
             <th>加入日期</th>
-            <th>加入時間</th>
+            <th>下次繳款日</th>
           </tr>
         </thead>
       </table>
@@ -78,8 +85,8 @@
             <td><?=$data->start_contract;?></td>
             <td><?=$data->end_contract;?></td>
             <td><?=$data->number.$data->categorys;?></td>
-            <td><?=$data->join_date;?></td>
-            <td><?=$data->join_time;?></td>
+            <td><?=$data->join_date.' '.$data->join_time;?></td>
+            <td><?=$data->next_pay;?></td>
           </tr>
         </tbody>
       </table>
@@ -104,6 +111,24 @@
             <td><?=$data->in_time;?></td>
             <td><?=$data->out_date;?></td>
             <td><?=$data->out_time;?></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>備註</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          <tr>
+            <td><?=$data->note;?></td>
           </tr>
         </tbody>
       </table>
