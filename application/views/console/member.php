@@ -622,7 +622,7 @@
                     </div>
                   </div>
                   <!-- <div class="row clearfix"> -->
-                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                       <div class="form-group">
                         <div class="input-group input-group-lg">
                           <span class="input-group-addon">
@@ -636,7 +636,7 @@
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                      <img id="m_up_blah" src="<?=$pics;?>" alt="會員個人照" style="width:50%;"/>
+                      <img id="m_up_blah" src="<?=$pics;?>" alt="會員個人照" style="width:100%;"/>
                     </div>
                   <!-- </div> -->
                 </div>
@@ -657,6 +657,7 @@
   </div>
 </section>
 <script type="text/javascript">
+
   $(document).ready(function() {
     $("select[name=m_up_card_id]").change(function(event) {
       var card_id = $(this).val();
@@ -675,6 +676,13 @@
       })
       .done(function(ResOk) {
         $("input[name='name']").val(ResOk.data.name);
+        if(ResOk.data.pics.search('.jpg') == -1 && ResOk.data.pics.search('.png') == -1 &&
+        ResOk.data.pics.search('.jpeg') == -1){ // 等於-1表示沒照片
+          ResOk.data.pics = '../assets/images/default.png';
+        }else{
+          ResOk.data.pics = '../assets/images/m_pics/'+ResOk.data.pics;
+        }
+        $("#m_up_blah").attr('src', ResOk.data.pics);
       })
       .fail(function(ResError) {
         console.log("error");

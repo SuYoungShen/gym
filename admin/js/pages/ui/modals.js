@@ -1,26 +1,23 @@
-$(function () {
-    $('.js-modal-buttons .btn').on('click', function () {
-        var color = $(this).data('color');
-        $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
-        $('#mdModal').modal('show');
-    });
+$('.js-modal-buttons .btn').on('click', function () {
+  var color = $(this).data('color');
+  $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+  $('#mdModal').modal('show');
 });
 
-$(function () {
-  $('.offer').on('click', function () {
-    var color = $(this).data('color');
-    $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+$('.offer').on('click', function () {
+  var color = $(this).data('color');
+  $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
 
-    var url = "../api_console/offer";
-    var id = $(this).data('id');
-    get_offer_ajax(url, id);
+  var url = "../api_console/offer";
+  var id = $(this).data('id');
+  get_offer_ajax(url, id);
 
-    $('#mdModal').modal('show');
-    $('button[name=delete]').click(function(event) {
-      de_data(url, id, 'offer');
-    });
+  $('#mdModal').modal('show');
+  $('button[name=delete]').click(function(event) {
+    de_data(url, id, 'offer');
   });
 });
+
 
 // 用ajax傳資料並取得
 function get_offer_ajax(url, id){
@@ -49,21 +46,20 @@ function get_offer_ajax(url, id){
   });
 }
 
-$(function () {
-  $('.member').on('click', function () {
-    var color = $(this).data('color');
-    $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
-    var url = "../api_console/member";
-    var id = $(this).data('id');
+$('.member').on('click', function () {
+  var color = $(this).data('color');
+  $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+  var url = "../api_console/member";
+  var id = $(this).data('id');
 
-    get_member_ajax(url, id);
+  get_member_ajax(url, id);
 
-    $('#largeModal').modal('show');
-    $('button[name=delete]').click(function(event) {
-      de_data(url, id, 'member');
-    });
+  $('#largeModal').modal('show');
+  $('button[name=delete]').click(function(event) {
+    de_data(url, id, 'member');
   });
 });
+
 
 
 // 用ajax傳資料並取得
@@ -90,8 +86,14 @@ function get_member_ajax(url, id){
       $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
       $('select[name=m_number]').selectpicker('val', ResOk.number);
       $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);
-
-      $('#m_blah').attr('src', '../assets/images/m_pics/'+ResOk.pics);
+      if(ResOk.pics.search('.jpg') == -1 && ResOk.pics.search('.png') == -1 &&
+      ResOk.pics.search('.jpeg') == -1){ // 等於-1表示沒照片
+        alert('s');
+        ResOk.pics = '../assets/images/default.png';
+      }else{
+        ResOk.pics = '../assets/images/m_pics/'+ResOk.pics;
+      }
+      $('#m_blah').attr('src', ResOk.pics);
       $('select[name=m_number]').selectpicker('refresh');
       $('select[name=m_categorys]').selectpicker('refresh');
     },
@@ -102,22 +104,20 @@ function get_member_ajax(url, id){
   });
 }
 
+$('.staff').on('click', function () {
+  var color = $(this).data('color');
+  $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
 
-$(function () {
-  $('.staff').on('click', function () {
-    var color = $(this).data('color');
-    $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+  var url = "../api_console/staff";
+  var id = $(this).data('id');
 
-    var url = "../api_console/staff";
-    var id = $(this).data('id');
-
-    get_staff_ajax(url, id);
-    $('#largeModal').modal('show');
-    $('button[name=delete]').click(function(event) {
-      de_data(url, id, 'staff');
-    });
+  get_staff_ajax(url, id);
+  $('#largeModal').modal('show');
+  $('button[name=delete]').click(function(event) {
+    de_data(url, id, 'staff');
   });
 });
+
 
 // 用ajax傳資料並取得
 function get_staff_ajax(url, id){
@@ -148,6 +148,7 @@ function get_staff_ajax(url, id){
     }
   });
 }
+
 
 // 上傳圖片並顯示 in 20180617
 function m_readURL(input) {
