@@ -82,13 +82,13 @@ function get_member_ajax(url, id){
       $("input[name=m_address]").val(ResOk.address);
       $("input[name=m_start_contract]").val(ResOk.start_contract);
       $("input[name=m_end_contract]").val(ResOk.end_contract);
+      $("input[name=m_next_pay]").val(ResOk.next_pay);
       $("input[name=m_emergency_contact]").val(ResOk.emergency_contact);
       $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
       $('select[name=m_number]').selectpicker('val', ResOk.number);
       $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);
       if(ResOk.pics.search('.jpg') == -1 && ResOk.pics.search('.png') == -1 &&
       ResOk.pics.search('.jpeg') == -1){ // 等於-1表示沒照片
-        alert('s');
         ResOk.pics = '../assets/images/default.png';
       }else{
         ResOk.pics = '../assets/images/m_pics/'+ResOk.pics;
