@@ -1,3 +1,4 @@
+
 <section class="content">
   <div class="container-fluid">
     <div class="block-header">
@@ -105,7 +106,7 @@
                   </div>
                 </div>
                 <div class="row clearfix">
-                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                  <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -117,6 +118,8 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="row clearfix">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group">
@@ -133,10 +136,22 @@
                       <option value="年">年</option>
                     </select>
                   </div>
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                    <div class="form-group">
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          方案價位
+                        </span>
+                        <div class="form-line">
+                          <input type="hidden" id="discount_price">
+                          <input type="text" class="form-control" name="discount_price" placeholder="方案價位" readonly>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
                 <div class="row clearfix">
-                  <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -148,7 +163,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -160,6 +175,20 @@
                       </div>
                     </div>
                   </div>
+                  <!-- 20180704 下次繳款日 -->
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                    <div class="form-group">
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          下次繳款日
+                        </span>
+                        <div class="form-line">
+                          <input type="date" class="form-control" name="next_pay" placeholder="下次繳款日">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 20180704 下次繳款日 -->
                 </div>
                 <div class="row clearfix">
                   <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
@@ -372,7 +401,7 @@
                   </div>
                 </div>
                 <div class="row clearfix">
-                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                  <div class="col-lg-12 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -384,6 +413,8 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="row clearfix">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group">
@@ -400,10 +431,12 @@
                       <option value="年">年</option>
                     </select>
                   </div>
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                    <input type="text" class="form-control" name="m_discount_price" placeholder="方案價位" readonly>
+                  </div>
                 </div>
-
                 <div class="row clearfix">
-                  <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -415,7 +448,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
@@ -427,6 +460,20 @@
                       </div>
                     </div>
                   </div>
+                  <!-- 20180704 下次繳款日 -->
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                    <div class="form-group">
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          下次繳款日:
+                        </span>
+                        <div class="form-line">
+                          <input type="date" class="form-control" name="m_next_pay" placeholder="下次繳款日">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 20180704 下次繳款日 -->
                 </div>
                 <div class="row clearfix">
                   <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
@@ -719,6 +766,7 @@
         // console.log(ResOk);
         $.each(ResOk, function(key, val) {
           $('select[name=number]').append('<option>'+val.number+'</option>');
+          $("#discount_price").val(val.id);
           $('select[name=m_number]').append('<option>'+val.number+'</option>');
         });
 
