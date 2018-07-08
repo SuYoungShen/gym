@@ -127,5 +127,15 @@ class Api_console extends CI_Controller {
     $this->output->set_content_type('application/json')->set_output(json_encode($data));
 
   }
+
+  // 會員專區裡的方案價位;d_p = discount_program
+  public function member_d_p(){
+
+    $where = "id =".'"'.$this->input->post('id').'"';
+    $data = $this->console_model->get_once_all('discount_program', $where);
+
+    $this->output->set_content_type('application/json')->set_output(json_encode($data));
+
+  }
 }
 ?>
