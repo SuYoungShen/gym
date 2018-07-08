@@ -64,7 +64,7 @@
                                     <span class="input-group-addon">折扣：</span>
                                     <div class="form-line">
                                       <input type="number" class="form-control" name="discount"
-                                      placeholder="請輸入整數"  min="1" max="9" required>
+                                      placeholder="請輸入整數"  min="0" max="9" required>
                                     </div>
                                     <span class="input-group-addon">%</span>
                                   </div>
@@ -185,11 +185,14 @@
                  var original_price = $("input[name='original_price']");
                  var discount = $("input[name='discount']");
                  original_price = original_price.val();
-                 discount = discount.val();
+                 discount = discount.val(); // 折扣數字
                  if(discount > 9){
                    discount = discount/10;
+                 }else if(discount == 0){
+                   after_discount = original_price; 
+                 }else{
+                   after_discount = Math.round(original_price*discount/10); //Math.round 四捨五入
                  }
-                 after_discount = Math.round(original_price*discount/10); //Math.round 四捨五入
                  $("input[name='after_discount']").val(after_discount).attr("readOnly", true);// 變唯獨不能修改
                });
 
