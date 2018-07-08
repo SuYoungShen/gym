@@ -46,13 +46,14 @@ function get_offer_ajax(url, id){
   });
 }
 
+
 $('.member').on('click', function () {
   var color = $(this).data('color');
   $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
   var url = "../api_console/member";
   var id = $(this).data('id');
-
-  get_member_ajax(url, id);
+  get_member_ajax(url, id);// 取得會員資料
 
   $('#largeModal').modal('show');
   $('button[name=delete]').click(function(event) {
@@ -60,7 +61,65 @@ $('.member').on('click', function () {
   });
 });
 
+$('select[name=m_categorys]').change(function(event) {
+  $('select[name=m_number]').find('option').remove();
+  var m_number = $('select[name=m_number]');
+  var m_categorys = $('select[name=m_categorys]');
 
+  member_categorys(m_number, m_categorys);
+});
+
+$("select[name=m_number]").change(function(event) {
+  dp($(this));
+});
+
+// 優惠方案價位
+function dp(number){
+  //方案的id
+  var id = $(number).val();
+
+  $.ajax({
+    url: '../api_console/member_d_p',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+      id: id
+    }
+  })
+  .done(function(ResOk) {
+    $('input[name=m_discount_price]').val(ResOk[0]['discount_price']);
+  })
+  .fail(function(ResError) {
+    console.log("error");
+  });
+}
+// 優惠方案價位
+// 優惠方案分類
+function member_categorys(number, categorys, m_dp_id){
+  $('select[name=m_number]').find('option').remove();
+  $.ajax({
+    url: '../api_console/member_categorys',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      categorys: categorys.val()
+    }
+  })
+  .done(function(ResOk) {
+    // console.log(ResOk);
+    $.each(ResOk, function(key, val) {
+      $(number).append('<option value='+val.id+'>'+val.number+'</option>');
+    });
+
+    $(number).selectpicker('val', m_dp_id);
+    $(number).selectpicker('refresh');
+
+  })
+  .fail(function(ResError) {
+    console.log("error");
+  });
+}
+// 優惠方案分類
 
 // 用ajax傳資料並取得
 function get_member_ajax(url, id){
@@ -73,6 +132,8 @@ function get_member_ajax(url, id){
     },
     dataType: "json",
     success: function(ResOk){
+      var m_number = $('select[name=m_number]');
+      var m_categorys = $('select[name=m_categorys]');
       $("input[name=m_card_id]").val(ResOk.card_id);
       $("input[name=m_name]").val(ResOk.name);
       $("input[name=m_identity_card]").val(ResOk.identity_card);
@@ -85,17 +146,22 @@ function get_member_ajax(url, id){
       $("input[name=m_next_pay]").val(ResOk.next_pay);
       $("input[name=m_emergency_contact]").val(ResOk.emergency_contact);
       $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
-      $('select[name=m_number]').selectpicker('val', ResOk.number);
-      $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);
+
+      $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);// 月、年
+      m_dp_id = ResOk.dp_id;
+      member_categorys(m_number, m_categorys, m_dp_id);
+
+      $("input[name=m_discount_price]").val(ResOk.price);
+
       if(ResOk.pics.search('.jpg') == -1 && ResOk.pics.search('.png') == -1 &&
       ResOk.pics.search('.jpeg') == -1){ // 等於-1表示沒照片
         ResOk.pics = '../assets/images/default.png';
       }else{
         ResOk.pics = '../assets/images/m_pics/'+ResOk.pics;
       }
+
       $('#m_blah').attr('src', ResOk.pics);
-      $('select[name=m_number]').selectpicker('refresh');
-      $('select[name=m_categorys]').selectpicker('refresh');
+      $(m_categorys).selectpicker('refresh');
     },
     error: function(ResError){
       console.log('Error');
