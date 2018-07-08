@@ -36,7 +36,7 @@ class Pos extends CI_Controller {
           //查詢member與進出場時間資料，取出最後一筆 in 20180615
           $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
           $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-          $remain_day = (strtotime($data->end_contract)-strtotime($data->next_pay))/3600/24;// 剩餘天數
+          $remain_day = (strtotime($data->end_contract)-strtotime(date('Y-m-d')))/3600/24;// 剩餘天數
           // 3600 = 小時;24 = 天
           if ($remain_day <= 31) {
             $view_data['code'] = 500;
@@ -83,7 +83,7 @@ class Pos extends CI_Controller {
           $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC , io.in_time DESC limit 1";
           $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
 
-          $remain_day = (strtotime($data->end_contract)-strtotime($data->next_pay))/3600/24;// 剩餘天數
+          $remain_day = (strtotime($data->end_contract)-strtotime(date('Y-m-d')))/3600/24;// 剩餘天數
           // 3600 = 小時;24 = 天
           if ($remain_day <= 31) {
             $view_data['code'] = 500;
