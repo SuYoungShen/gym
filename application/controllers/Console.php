@@ -43,7 +43,7 @@ class Console extends CI_Controller {
         );
 
         if ($this->input->post('number') >= 1 && $this->input->post('number') <= 11){
-          if ($dataArray["discount"] >= 1 && $dataArray["discount"] <= 9) {
+          if ($dataArray["discount"] >= 0 && $dataArray["discount"] <= 9) {
 
             // 會籍：number整數1-11; categorys=月、年
             $dataArray['number'] = $this->input->post('number');
@@ -65,7 +65,7 @@ class Console extends CI_Controller {
           }
         }else {
           $view_data['code'] = 404;
-          $view_data['msg'] = "會籍範圍錯誤，請注意範圍是1-9哦!";
+          $view_data['msg'] = "會籍範圍錯誤，請注意範圍是0-9哦!";
         }
       }
       if($this->input->post('rule') == "update"){
