@@ -143,7 +143,6 @@
                           方案價位
                         </span>
                         <div class="form-line">
-                          <input type="hidden" id="discount_price">
                           <input type="text" class="form-control" name="discount_price" placeholder="方案價位" readonly>
                         </div>
                       </div>
@@ -432,7 +431,16 @@
                     </select>
                   </div>
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
-                    <input type="text" class="form-control" name="m_discount_price" placeholder="方案價位" readonly>
+                    <div class="form-group">
+                      <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                          方案價位
+                        </span>
+                        <div class="form-line">
+                          <input type="text" class="form-control" name="m_discount_price" placeholder="方案價位" readonly>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="row clearfix">
@@ -706,6 +714,7 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
+    // 更新圖片用
     $("select[name=m_up_card_id]").change(function(event) {
       var card_id = $(this).val();
       up_pics_ajax(card_id);
@@ -735,6 +744,7 @@
         console.log("error");
       });
     }
+    // 更新圖片用
 
       var dt = new Date();
       // Display the month, day, and year. getMonth() returns a 0-based number.
@@ -743,42 +753,69 @@
       var year = dt.getFullYear();
       $('input[name=start_contract]').val(year+'-'+month+'-'+day);
 
-      var number = parseInt($('select[name=number]').val());
-      var categorys = $('select[name=categorys]').val();
+      var number = $('select[name=number]');
+      var categorys = $('select[name=categorys]');
+      member_ajax(number, categorys);
 
-      member_ajax();
-
-       $('select[name=categorys]').change(function(event) {
-         $('select[name=number]').find('option').remove();
-         member_ajax();// 用於會員裡的月、年
+       $(categorys).change(function(event) {
+         var dp = $('input[name=discount_price]');
+         $(number).find('option').remove();
+         $(dp).val(''); // 變換月、年時，價位變空
+         member_ajax(number, categorys);// 用於會員裡的月、年
        });
 
-    function member_ajax(){
-      $.ajax({
-        url: '../api_console/member_categorys',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          categorys: $('select[name=categorys]').val()
-        }
-      })
-      .done(function(ResOk) {
-        // console.log(ResOk);
-        $.each(ResOk, function(key, val) {
-          $('select[name=number]').append('<option>'+val.number+'</option>');
-          $("#discount_price").val(val.id);
-          $('select[name=m_number]').append('<option>'+val.number+'</option>');
-        });
+       $(number).change(function(event) {
+         dp(number);
+       });
 
-        $('select[name=number]').selectpicker('refresh');
-        $('select[name=m_number]').selectpicker('refresh');
+       function dp(number){
+         //方案的id
+         var id = $(number).val();
+         $.ajax({
+           url: '../api_console/member_d_p',
+           type: 'POST',
+           dataType: 'JSON',
+           data: {
+             id: id
+           }
+         })
+         .done(function(ResOk) {
+           $('input[name=discount_price]').val(ResOk[0]['discount_price']);
+         })
+         .fail(function(ResError) {
+           console.log("error");
+         });
+       }
+       
+       function member_ajax(number, categorys){
+         $.ajax({
+           url: '../api_console/member_categorys',
+           type: 'POST',
+           dataType: 'json',
+           data: {
+             categorys: categorys.val()
+           }
+         })
+         .done(function(ResOk) {
+           // console.log(ResOk);
+           $.each(ResOk, function(key, val) {
+             $(number).append('<option value='+val.id+'>'+val.number+'</option>');
+           });
+           $(number).selectpicker('refresh');
+         })
+         .fail(function(ResError) {
+           console.log("error");
+         });
+       }
 
-      })
-      .fail(function(ResError) {
-        console.log("error");
-      });
-    }
-    ﻿
+    // $('select[name=m_categorys]').change(function(event) {
+    //   $('select[name=m_number]').find('option').remove();
+    //   // $('select[name=m_number]').selectpicker('refresh');
+    //   var m_number = $('select[name=m_number]');
+    //   var m_categorys = $('select[name=m_categorys]');
+    //
+    //   member_ajax(m_number, m_categorys);
+    // });
 
   });
 </script>
