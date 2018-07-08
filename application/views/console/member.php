@@ -765,7 +765,7 @@
        });
 
        $(number).change(function(event) {
-         dp(number);
+         dp($(this));
        });
 
        function dp(number){
@@ -786,7 +786,7 @@
            console.log("error");
          });
        }
-       
+
        function member_ajax(number, categorys){
          $.ajax({
            url: '../api_console/member_categorys',
@@ -799,9 +799,9 @@
          .done(function(ResOk) {
            // console.log(ResOk);
            $.each(ResOk, function(key, val) {
-             $(number).append('<option value='+val.id+'>'+val.number+'</option>');
+             $('select[name=number]').append('<option value='+val.id+'>'+val.number+'</option>');
            });
-           $(number).selectpicker('refresh');
+           $('select[name=number]').selectpicker('refresh');
          })
          .fail(function(ResError) {
            console.log("error");
