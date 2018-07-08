@@ -267,6 +267,8 @@ class Console extends CI_Controller {
       }
 
       if ($this->input->post('rule') == "insert") {
+        $where = "id=".'"'.$this->input->post('number').'"';// 裡面是放優惠方案的id
+        $dp_data = $this->console_model->get_once('discount_program', $where);// 優惠方案的資料
 
         $dataArray = array(
           'card_id' => $this->input->post('card_id'), // 卡號
@@ -276,8 +278,10 @@ class Console extends CI_Controller {
           "phone" => $this->input->post('phone'), // 會員手機號碼
           "email" => $this->input->post('email'), // 會員身分
           "address" => $this->input->post('address'), // 地址
-          "number" => $this->input->post('number'), // 會籍數字
-          "categorys" => $this->input->post('categorys'), // 會籍種類
+          "dp_id" => $dp_data->id, // 優惠方案id
+          "number" => $dp_data->number, // 會籍數字
+          "categorys" => $dp_data->types, // 會籍種類
+          "price" => $dp_data->discount_price, // 會籍價位
           "who" => $this->session->userdata('login_id'), // 那位員工更新
           "note" => $this->input->post('note'), // 備註
           "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
@@ -364,6 +368,10 @@ class Console extends CI_Controller {
         }
 
       }else if ($this->input->post('rule') == "update") {
+
+        $where = "id=".'"'.$this->input->post('m_number').'"';// 裡面是放優惠方案的id
+        $dp_data = $this->console_model->get_once('discount_program', $where);// 優惠方案的資料
+
         $dataArray = array(
         'card_id' => $this->input->post('m_card_id'), // 卡號
         "name" => $this->input->post('m_name'), // 會員姓名
@@ -372,8 +380,10 @@ class Console extends CI_Controller {
         "phone" => $this->input->post('m_phone'), // 會員手機號碼
         "email" => $this->input->post('m_email'), // 會員身分
         "address" => $this->input->post('m_address'), // 地址
-        "number" => $this->input->post('m_number'), // 會籍數字
-        "categorys" => $this->input->post('m_categorys'), // 會籍種類
+        "dp_id" => $dp_data->id, // 優惠方案id
+        "number" => $dp_data->number, // 會籍數字
+        "categorys" => $dp_data->types, // 會籍種類
+        "price" => $dp_data->discount_price, // 會籍價位
         "who" => $this->session->userdata('login_id'), // 那位員工更新
         "note" => $this->input->post('m_note'), // 備註
         "emergency_contact" => $this->input->post('m_emergency_contact'), // 緊急聯絡人
