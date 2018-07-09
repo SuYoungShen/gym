@@ -66,6 +66,8 @@ $('select[name=m_categorys]').change(function(event) {
   var m_number = $('select[name=m_number]');
   var m_categorys = $('select[name=m_categorys]');
 
+  $('input[name=m_discount_price]').val(''); // 變換月、年時，價位變空
+
   member_categorys(m_number, m_categorys);
 });
 
