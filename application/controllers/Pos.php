@@ -36,11 +36,18 @@ class Pos extends CI_Controller {
           //查詢member與進出場時間資料，取出最後一筆 in 20180615
           $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
           $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
+          $n_p_day = (strtotime($data->next_pay)-strtotime(date('Y-m-d')))/3600/24;// 下次繳款日剩餘天數n_p=next_pay in 20180710
           $remain_day = (strtotime($data->end_contract)-strtotime(date('Y-m-d')))/3600/24;// 剩餘天數
           // 3600 = 小時;24 = 天
-          if ($remain_day <= 31) {
+          if ($remain_day <= 31 && $n_p_day <= 31) {
             $view_data['code'] = 500;
             $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天，下次繳款日：".$data->next_pay;
+          }elseif ($remain_day <= 31) {
+            $view_data['code'] = 500;
+            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
+          }elseif ($n_p_day <= 31) {
+            $view_data['code'] = 500;
+            $view_data['msg'] = "下次繳款日：".$data->next_pay;
           }
           $view_data['data'] = $data;
           $view_data['page'] = 'member_info.php';
@@ -83,12 +90,18 @@ class Pos extends CI_Controller {
           $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC , io.in_time DESC limit 1";
           $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
 
+          $n_p_day = (strtotime($data->next_pay)-strtotime(date('Y-m-d')))/3600/24;// 下次繳款日剩餘天數n_p=next_pay in 20180710
           $remain_day = (strtotime($data->end_contract)-strtotime(date('Y-m-d')))/3600/24;// 剩餘天數
           // 3600 = 小時;24 = 天
-          if ($remain_day <= 31) {
+          if ($remain_day <= 31 && $n_p_day <= 31) {
             $view_data['code'] = 500;
             $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天，下次繳款日：".$data->next_pay;
-
+          }elseif ($remain_day <= 31) {
+            $view_data['code'] = 500;
+            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
+          }elseif ($n_p_day <= 31) {
+            $view_data['code'] = 500;
+            $view_data['msg'] = "下次繳款日：".$data->next_pay;
           }
           $view_data['data'] = $data;
           $view_data['page'] = 'member_info.php';
