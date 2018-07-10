@@ -112,7 +112,6 @@ function member_categorys(number, categorys, m_dp_id){
     $.each(ResOk, function(key, val) {
       $(number).append('<option value='+val.id+'>'+val.number+'</option>');
     });
-    alert(m_dp_id);
 
     $(number).selectpicker('val', m_dp_id);
     $(number).selectpicker('refresh');
@@ -152,6 +151,8 @@ function get_member_ajax(url, id){
 
       $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);// 月、年
       m_dp_id = ResOk.dp_id;
+      // alert(ResOk.dp_id);
+      console.log(ResOk);
       member_categorys(m_number, m_categorys, m_dp_id);
 
       $("input[name=m_discount_price]").val(ResOk.price);
