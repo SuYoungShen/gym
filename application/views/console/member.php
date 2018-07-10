@@ -800,7 +800,7 @@
            // console.log(ResOk);
            $.each(ResOk, function(key, val) {
              if(key == 0){
-               $('input[name=discount_price]').val(val.discount_price);// 顯示第一筆的價位 in 20180710
+               $('input[name=discount_price]').val(val.discount_price);// 新增顯示方案價位第一筆的價位 in 20180710
              }
              $('select[name=number]').append('<option value='+val.id+'>'+val.number+'</option>');
            });
