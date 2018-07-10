@@ -112,6 +112,7 @@ function member_categorys(number, categorys, m_dp_id){
     $.each(ResOk, function(key, val) {
       $(number).append('<option value='+val.id+'>'+val.number+'</option>');
     });
+    alert(m_dp_id);
 
     $(number).selectpicker('val', m_dp_id);
     $(number).selectpicker('refresh');
