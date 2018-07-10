@@ -189,7 +189,7 @@
                  if(discount > 9){
                    discount = discount/10;
                  }else if(discount == 0){
-                   after_discount = original_price; 
+                   after_discount = original_price;
                  }else{
                    after_discount = Math.round(original_price*discount/10); //Math.round 四捨五入
                  }
@@ -203,8 +203,12 @@
                  m_discount = m_discount.val();
                  if(m_discount > 9){
                    m_discount = m_discount/10;
+                 }else if(m_discount == 0){
+                   m_after_discount = m_original_price;
+                 }else{
+                   m_after_discount = Math.round(m_original_price*m_discount/10); //Math.round 四捨五入
                  }
-                 m_after_discount = Math.round(m_original_price*m_discount/10);
+                
                  $("input[name='m_after_discount']").val(m_after_discount).attr("readOnly", true);
                });
 
