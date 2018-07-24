@@ -61,16 +61,37 @@ $('.member').on('click', function () {
   });
 });
 
-$('select[name=m_categorys]').change(function(event) {
-  $('select[name=m_number]').find('option').remove();
-  var m_number = $('select[name=m_number]');
-  var m_categorys = $('select[name=m_categorys]');
+var m_number = $('select[name=m_number]');
+var m_categorys = $('select[name=m_categorys]');
+var m_dp = $('input[name=m_discount_price]');
 
-  $('input[name=m_discount_price]').val(''); // 變換月、年時，價位變空
+$(m_categorys).change(function(event) {
+  $(m_number).find('option').remove();
+  if(m_categorys.val() == "張"){
 
-  member_categorys(m_number, m_categorys);
+    $(m_number).selectpicker('hide'); // 隱藏選項
+    $(".m_categorys").text("張"); //把會籍->張
+    $(".m_count").removeClass('hidden'); // 移除張數hidden class
+    $("input[name=m_count]").attr('type', 'number'); // 把張數原input hidden -> number
+    $("input[name=m_start_contract], input[name=m_end_contract], input[name=m_next_pay]").val("").attr("disabled", "disabled");
+
+    $(m_dp).val(''); // 變換月、年時，價位變空
+
+  }else{
+
+    $(m_number).selectpicker('show');
+    $(".m_categorys").text("會籍");
+    $(".m_count").addClass('hidden');
+    $("input[name=m_count]").attr('type', 'hidden');
+    $("input[name=m_start_contract], input[name=m_end_contract], input[name=m_next_pay]").removeAttr("disabled", "disabled");
+
+    $(m_number).find('option').remove();
+    $(m_dp).val(''); // 變換月、年時，價位變空
+    member_categorys(m_number, m_categorys);// 用於會員裡的月、年
+  }
+
 });
-
+// 更改會籍數字時，方案價位也隨著變換
 $("select[name=m_number]").change(function(event) {
   dp($(this));
 });
@@ -96,6 +117,7 @@ function dp(number){
   });
 }
 // 優惠方案價位
+
 // 優惠方案分類
 function member_categorys(number, categorys, m_dp_id){
   $('select[name=m_number]').find('option').remove();
@@ -112,8 +134,8 @@ function member_categorys(number, categorys, m_dp_id){
     $.each(ResOk, function(key, val) {
       $(number).append('<option value='+val.id+'>'+val.number+'</option>');
     });
-
-    $(number).selectpicker('val', m_dp_id);
+    dp(number);
+    $(number).selectpicker('val', m_dp_id); // 利用ID選擇會籍的數字
     $(number).selectpicker('refresh');
 
   })
@@ -149,13 +171,29 @@ function get_member_ajax(url, id){
       $("input[name=m_emergency_contact]").val(ResOk.emergency_contact);
       $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
 
-      $('select[name=m_categorys]').selectpicker('val', ResOk.categorys);// 月、年
+      $(m_categorys).selectpicker('val', ResOk.categorys);// 月、年、票卷
+      if(ResOk.categorys == "張"){
+        $(m_number).selectpicker('hide'); // 隱藏選項
+        $(".m_categorys").text("張"); //把會籍->張
+        $(".m_count").removeClass('hidden'); // 移除張數hidden class
+        $("input[name=m_count").val(ResOk.number);
+        $("input[name=m_count]").attr('type', 'number'); // 把張數原input hidden -> number
+        $("input[name=m_start_contract], input[name=m_end_contract], input[name=m_next_pay]").attr("disabled", "disabled");
+        $(m_dp).val(''); // 變換月、年時，價位變空
+      }else{
+        $(m_number).selectpicker('show');
+        $(".m_categorys").text("會籍");
+        $(".m_count").addClass('hidden');
+        $("input[name=m_count]").attr('type', 'hidden');
+        $("input[name=m_start_contract], input[name=m_end_contract], input[name=m_next_pay]").removeAttr("disabled", "disabled");
+        $(m_number).find('option').remove();
+      }
       m_dp_id = ResOk.dp_id;
       // alert(ResOk.dp_id);
-      console.log(ResOk);
+      // console.log(ResOk);
       member_categorys(m_number, m_categorys, m_dp_id);
 
-      $("input[name=m_discount_price]").val(ResOk.price);
+      // $("input[name=m_discount_price]").val(ResOk.price);
 
       if(ResOk.pics.search('.jpg') == -1 && ResOk.pics.search('.png') == -1 &&
       ResOk.pics.search('.jpeg') == -1){ // 等於-1表示沒照片

@@ -16,6 +16,14 @@ class Pos_model extends CI_Model {
     return $this->db->get_where($table, $where)->num_rows();//有資料會大於0
   }
 
+  //查詢特定(select)全部資料並以陣列回傳
+  public function get_select_once_all($select, $table, $where){
+    $this->db->select($select);
+    // $this->db->where($where);
+    // return $this->db->get_compiled_select($table);//以class方式呈現
+    return $this->db->get_where($table, $where)->result_array();// 以陣列方式呈現
+  }
+  
   //新增資料，$table=資料表；$data=資料；$date=日期欄位
   public function insert($table, $data, $date){
     $date = $this->date($date);

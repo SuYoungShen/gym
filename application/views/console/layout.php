@@ -212,7 +212,6 @@
       }, function (isConfirm) {
         if (isConfirm) {
           document.location.href = "<?=base_url().'console/'.$menu;?>";
-
         }
       });
       <?php

@@ -1,4 +1,3 @@
-
 <section class="content">
   <div class="container-fluid">
     <div class="block-header">
@@ -123,10 +122,13 @@
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon">會籍</span>
-                        <select class="form-control show-tick" name="number">
 
-                        </select>
+                        <div class="form-line count hidden">
+                          <input type="hidden" class="form-control" name="count" placeholder="請輸入張數">
+                        </div>
+
+                        <span class="input-group-addon categorys">會籍</span>
+                        <select class="form-control show-tick" name="number"></select>
                       </div>
                     </div>
                   </div>
@@ -134,6 +136,7 @@
                     <select class="form-control show-tick" name="categorys">
                       <option value="月">月</option>
                       <option value="年">年</option>
+                      <option value="張">票卷</option>
                     </select>
                   </div>
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
@@ -157,7 +160,7 @@
                           會籍開始日：
                         </span>
                         <div class="form-line">
-                          <input type="date" class="form-control" name="start_contract" placeholder="合約開始日" >
+                          <input type="date" class="form-control" name="start_contract" placeholder="合約開始日">
                         </div>
                       </div>
                     </div>
@@ -417,10 +420,11 @@
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon">會籍</span>
-                        <select class="form-control show-tick" name="m_number">
-
-                        </select>
+                        <div class="form-line m_count hidden">
+                          <input type="hidden" class="form-control" name="m_count" placeholder="請輸入張數">
+                        </div>
+                        <span class="input-group-addon m_categorys">會籍</span>
+                        <select class="form-control show-tick" name="m_number"></select>
                       </div>
                     </div>
                   </div>
@@ -428,6 +432,7 @@
                     <select class="form-control show-tick" name="m_categorys">
                       <option value="月">月</option>
                       <option value="年">年</option>
+                      <option value="張">票卷</option>
                     </select>
                   </div>
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
@@ -758,10 +763,30 @@
       member_ajax(number, categorys);
 
        $(categorys).change(function(event) {
-         var dp = $('input[name=discount_price]');
-         $(number).find('option').remove();
-         $(dp).val(''); // 變換月、年時，價位變空
-         member_ajax(number, categorys);// 用於會員裡的月、年
+         if(categorys.val() == "張"){
+
+           $('select[name=number]').selectpicker('hide'); // 隱藏選項
+           $(".categorys").text("張"); //把會籍->張
+           $(".count").removeClass('hidden'); // 移除張數hidden class
+           $("input[name=count]").attr('type', 'number'); // 把張數原input hidden -> number
+           $("input[name=start_contract], input[name=end_contract], input[name=next_pay]").attr("disabled", "disabled");
+           var dp = $('input[name=discount_price]');
+           $(dp).val(''); // 變換月、年時，價位變空
+
+         }else{
+
+           $('select[name=number]').selectpicker('show');
+           $(".categorys").text("會籍");
+           $(".count").addClass('hidden');
+           $("input[name=count]").attr('type', 'hidden');
+           $("input[name=start_contract], input[name=end_contract], input[name=next_pay]").removeAttr("disabled", "disabled");
+
+           var dp = $('input[name=discount_price]');
+           $(number).find('option').remove();
+           $(dp).val(''); // 變換月、年時，價位變空
+           member_ajax(number, categorys);// 用於會員裡的月、年
+         }
+
        });
 
        $(number).change(function(event) {
@@ -802,23 +827,15 @@
              if(key == 0){
                $('input[name=discount_price]').val(val.discount_price);// 新增顯示方案價位第一筆的價位 in 20180710
              }
-             $('select[name=number]').append('<option value='+val.id+'>'+val.number+'</option>');
+             $(number).append('<option value='+val.id+'>'+val.number+'</option>');
            });
-           $('select[name=number]').selectpicker('refresh');
+           $(number).selectpicker('refresh');
          })
          .fail(function(ResError) {
            console.log("error");
          });
        }
 
-    // $('select[name=m_categorys]').change(function(event) {
-    //   $('select[name=m_number]').find('option').remove();
-    //   // $('select[name=m_number]').selectpicker('refresh');
-    //   var m_number = $('select[name=m_number]');
-    //   var m_categorys = $('select[name=m_categorys]');
-    //
-    //   member_ajax(m_number, m_categorys);
-    // });
 
   });
 </script>

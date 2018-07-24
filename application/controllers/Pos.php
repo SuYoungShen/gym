@@ -14,6 +14,7 @@ class Pos extends CI_Controller {
       "url" => "out",//返回出場連結用
       "url_name" => "會員出場"//返回出場連結用
     );
+    // 檢查是否有登入
     if($this->pos_model->chk_login_status()) {
 
       if(!empty($this->input->post("card_id"))){
@@ -33,21 +34,34 @@ class Pos extends CI_Controller {
           $in_out_date_column = array('in_date', 'in_time');
           //進場時間功能 in 20180615
           $this->pos_model->insert('in_and_out', $in_out_data, $in_out_date_column);
-          //查詢member與進出場時間資料，取出最後一筆 in 20180615
-          $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
-          $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
-          $n_p_day = (strtotime($data->next_pay)-strtotime(date('Y-m-d')))/3600/24;// 下次繳款日剩餘天數n_p=next_pay in 20180710
-          $remain_day = (strtotime($data->end_contract)-strtotime(date('Y-m-d')))/3600/24;// 剩餘天數
-          // 3600 = 小時;24 = 天
-          if ($remain_day <= 31 && $n_p_day <= 31) {
-            $view_data['code'] = 500;
-            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天，下次繳款日：".$data->next_pay;
-          }elseif ($remain_day <= 31) {
-            $view_data['code'] = 500;
-            $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
-          }elseif ($n_p_day <= 31) {
-            $view_data['code'] = 500;
-            $view_data['msg'] = "下次繳款日：".$data->next_pay;
+          $select = "number, categorys";
+          $table = "member";
+          $where = "card_id="."'".$card_id."'";
+          $n_c = $this->pos_model->get_select_once_all($select, $table, $where);
+          if ($n_c[0]['categorys'] == "張") {
+            $member_data = array('number' => $n_c[0]['number']-1);
+            $member_date_column = array('up_date', 'up_time');
+            $this->pos_model->update('member', $member_data, $member_date_column, $where);
+            //查詢member與進出場時間資料，取出最後一筆 in 20180615
+            $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
+            $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
+          }else {
+            //查詢member與進出場時間資料，取出最後一筆 in 20180615
+            $where = "m.card_id ="."'".$card_id."' AND io.who="."'".$card_id."' Order By io.in_date DESC, io.in_time DESC limit 1";
+            $data = $this->pos_model->get_once('member as m, in_and_out as io', $where);
+            $n_p_day = (strtotime($data->next_pay)-strtotime(date('Y-m-d')))/3600/24;// 下次繳款日剩餘天數n_p=next_pay in 20180710
+            $remain_day = (strtotime($data->end_contract)-strtotime(date('Y-m-d')))/3600/24;// 剩餘天數
+            // 3600 = 小時;24 = 天
+            if ($remain_day <= 31 && $n_p_day <= 31) {
+              $view_data['code'] = 500;
+              $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天，下次繳款日：".$data->next_pay;
+            }elseif ($remain_day <= 31) {
+              $view_data['code'] = 500;
+              $view_data['msg'] = "會籍時間快過期囉!剩餘".$remain_day."天";
+            }elseif ($n_p_day <= 31) {
+              $view_data['code'] = 500;
+              $view_data['msg'] = "下次繳款日：".$data->next_pay;
+            }
           }
           $view_data['data'] = $data;
           $view_data['page'] = 'member_info.php';
