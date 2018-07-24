@@ -289,7 +289,6 @@ function de_data(url, id, urls){
       closeOnCancel: true
   }, function (isConfirm) {
       if (isConfirm) {
-        // test();
         ajax(url, id, urls);
       }
   });
@@ -307,19 +306,10 @@ function ajax(url, id, urls){
     },
     dataType: "json",
     success: function(ResOk){
-      swal({
-          title: ResOk.msg,
-          text: "",
-          type: "success",
-          confirmButtonColor: "#1f91f3",
-          confirmButtonText: "確認",
-          closeOnConfirm: false,
-          closeOnCancel: false
-      }, function (isConfirm) {
-          if (isConfirm) {
-            document.location.href = "http://localhost/gym/console/"+urls;
-          }
-      });
+      if(ResOk.code == 200){
+        alert(ResOk.msg);
+        document.location.href = "http://localhost/gym/console/"+urls;
+      }
     },
     error: function(ResError){
       console.log('Error');

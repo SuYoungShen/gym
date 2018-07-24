@@ -267,12 +267,9 @@ class Console extends CI_Controller {
       }
 
       if ($this->input->post('rule') == "insert") {
-        if (empty($this->input->post('count'))) { // 如果為空表示是以票卷
-          $where = "id=".'"'.$this->input->post('number').'"';// 裡面是放優惠方案的id
-          $dp_data = $this->console_model->get_once('discount_program', $where);// 優惠方案的資料
-        }
-
-        $dataArray = array(
+        // 如果是以票卷購買
+        if (!empty($this->input->post("categorys")) && $this->input->post("categorys") == "張") {
+          $dataArray = array(
           'card_id' => $this->input->post('card_id'), // 卡號
           "name" => $this->input->post('name'), // 會員姓名
           "identity_card" => $this->input->post('identity_card'), // 會員身份證字號
@@ -280,18 +277,42 @@ class Console extends CI_Controller {
           "phone" => $this->input->post('phone'), // 會員手機號碼
           "email" => $this->input->post('email'), // 會員身分
           "address" => $this->input->post('address'), // 地址
-          "dp_id" => isset($dp_data->id) && !empty($dp_data->id)?$dp_data->id:" ", // 優惠方案id
-          "number" => isset($dp_data->number) && !empty($dp_data->number)?$dp_data->number:$this->input->post("count"), // 會籍與張數數字
-          "categorys" => isset($dp_data->types) && !empty($dp_data->types)?$dp_data->types:$this->input->post("categorys"), // 會籍種類
-          "price" => isset($dp_data->discount_price) && !empty($dp_data->discount_price)?$dp_data->discount_price:0, // 會籍價位
+          "number" => $this->input->post('count'), // 會籍數字或張數
+          "categorys" => $this->input->post('categorys'), // 會籍種類
           "who" => $this->session->userdata('login_id'), // 那位員工更新
           "note" => $this->input->post('note'), // 備註
           "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
           "emergency_phone" => $this->input->post('emergency_phone'), // 聯絡人電話
-          "start_contract" => $this->input->post('start_contract'), // 合約開始日
-          "end_contract" => $this->input->post('end_contract'), // 合約結束日
-          "next_pay" => $this->input->post('next_pay') // 下次繳款日 in 20180704
-        );
+          "start_contract" => " ", // 合約開始日
+          "end_contract" => " ", // 合約結束日
+          "next_pay" => "" // 下次繳款日 in 20180704
+          );
+        }else {
+
+          $where = "id=".'"'.$this->input->post('number').'"';// 裡面是放優惠方案的id
+          $dp_data = $this->console_model->get_once('discount_program', $where);// 優惠方案的資料
+
+          $dataArray = array(
+            'card_id' => $this->input->post('card_id'), // 卡號
+            "name" => $this->input->post('name'), // 會員姓名
+            "identity_card" => $this->input->post('identity_card'), // 會員身份證字號
+            "birthday" => $this->input->post('birthday'), // 會員生日
+            "phone" => $this->input->post('phone'), // 會員手機號碼
+            "email" => $this->input->post('email'), // 會員身分
+            "address" => $this->input->post('address'), // 地址
+            "dp_id" => $dp_data->id, // 優惠方案id
+            "number" => $dp_data->number, // 會籍數字
+            "categorys" => $dp_data->types, // 會籍種類
+            "price" => $dp_data->discount_price, // 會籍價位
+            "who" => $this->session->userdata('login_id'), // 那位員工更新
+            "note" => $this->input->post('note'), // 備註
+            "emergency_contact" => $this->input->post('emergency_contact'), // 緊急聯絡人
+            "emergency_phone" => $this->input->post('emergency_phone'), // 聯絡人電話
+            "start_contract" => $this->input->post('start_contract'), // 合約開始日
+            "end_contract" => $this->input->post('end_contract'), // 合約結束日
+            "next_pay" => $this->input->post('next_pay') // 下次繳款日 in 20180704
+          );
+        }
 
         if (!empty($dataArray["card_id"])){
           if (!empty($dataArray["name"])){
