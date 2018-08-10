@@ -140,10 +140,11 @@ class Pos extends CI_Controller {
 			$pwd = $this->input->post('password');
       if ($this->pos_model->chk_login($job_code, $pwd)) {
         $this->pos_model->do_login($job_code);
-        if($this->session->userdata('login_identity') == 0 ||
-          $this->session->userdata('login_identity') == 99){
+        if($this->session->userdata('login_identity') == 99){
             redirect(base_url('console/'));
-          }else if($this->session->userdata('login_identity') == 1){
+          }else if(
+            $this->session->userdata('login_identity') == 0 ||
+            $this->session->userdata('login_identity') == 1){
             redirect(base_url('in'));
           }
       }else{
