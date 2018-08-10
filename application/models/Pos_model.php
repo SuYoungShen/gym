@@ -23,7 +23,7 @@ class Pos_model extends CI_Model {
     // return $this->db->get_compiled_select($table);//以class方式呈現
     return $this->db->get_where($table, $where)->result_array();// 以陣列方式呈現
   }
-  
+
   //新增資料，$table=資料表；$data=資料；$date=日期欄位
   public function insert($table, $data, $date){
     $date = $this->date($date);
