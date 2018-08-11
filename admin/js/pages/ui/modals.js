@@ -170,6 +170,7 @@ function get_member_ajax(url, id){
       $("input[name=m_next_pay]").val(ResOk.next_pay);
       $("input[name=m_emergency_contact]").val(ResOk.emergency_contact);
       $("input[name=m_emergency_phone]").val(ResOk.emergency_phone);
+      $("input[name=m_note]").val(ResOk.note);
 
       $(m_categorys).selectpicker('val', ResOk.categorys);// 月、年、票卷
       if(ResOk.categorys == "張"){
