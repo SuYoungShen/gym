@@ -70,10 +70,6 @@ $route['api_console/offer'] = 'api_console/offer';// 優惠方案api in 20180618
 $route['api_console/staff'] = 'api_console/staff';// 員工api in 20180618
 $route['api_console/member'] = 'api_console/member';// 會員api in 20180622
 
-
-
-$route["upload"] = 'upload/index';
-$route["mail"] = 'upload/mail';
 $route['default_controller'] = 'pos/in';//會員進場 in 20180611
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
