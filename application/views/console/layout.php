@@ -10,7 +10,6 @@
     <link rel="icon" href="../assets/ico.png" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"> -->
     <link href="../assets/fonts/fonts/fonts.css" rel="stylesheet" type="text/css">
     <link href="../assets/fonts/fonts/fonts2.css" rel="stylesheet" type="text/css">
 
@@ -175,8 +174,6 @@
     <script src="../admin/js/pages/forms/advanced-form-elements.js"></script>
   <?php } ?>
   <?php } ?>
-
-
 
   <!-- Demo Js -->
   <script src="../admin/js/demo.js"></script>
