@@ -4,6 +4,9 @@ $('.js-modal-buttons .btn').on('click', function () {
   $('#mdModal').modal('show');
 });
 
+/*****************************
+        優惠方案
+*****************************/
 $('.offer').on('click', function () {
   var color = $(this).data('color');
   $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
@@ -17,7 +20,6 @@ $('.offer').on('click', function () {
     de_data(url, id, 'offer');
   });
 });
-
 
 // 用ajax傳資料並取得
 function get_offer_ajax(url, id){
@@ -46,7 +48,9 @@ function get_offer_ajax(url, id){
   });
 }
 
-
+/*****************************
+        會員專區
+*****************************/
 $('.member').on('click', function () {
   var color = $(this).data('color');
   $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
@@ -213,6 +217,9 @@ function get_member_ajax(url, id){
   });
 }
 
+/*****************************
+        員工專區
+*****************************/
 $('.staff').on('click', function () {
   var color = $(this).data('color');
   $('#largeModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
@@ -226,7 +233,6 @@ $('.staff').on('click', function () {
     de_data(url, id, 'staff');
   });
 });
-
 
 // 用ajax傳資料並取得
 function get_staff_ajax(url, id){
