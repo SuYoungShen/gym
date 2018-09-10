@@ -59,12 +59,6 @@ $route['logout'] = 'pos/logout';//登出 in 20180625
 
 //後台
 $route['console'] = 'console/offer';//登入 in 20180616
-$route['offer'] = 'console/offer';//優惠方案 in 20180616
-$route['card'] = 'console/card';//卡片狀態 in 20180627
-$route['in_and_out'] = 'console/in_and_out';//會員進出場 in 20180616
-$route['login_history'] = 'console/login_history';//登入紀錄 in 20180616
-$route['member'] = 'console/member';//會員管理區 in 20180617
-$route['staff'] = 'console/staff';//員工專區 in 20180617
 //後台
 $route['api_console/offer'] = 'api_console/offer';// 優惠方案api in 20180618
 $route['api_console/staff'] = 'api_console/staff';// 員工api in 20180618
