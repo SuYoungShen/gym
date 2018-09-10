@@ -56,6 +56,12 @@
                         <span class="icon-name">會員專區</span>
                     </a>
                 </li>
+                <li class="<?php if($menu == 'month_pay') { echo 'active'; } ?>">
+                    <a href="month_pay">
+                        <i class="material-icons">attach_money</i>
+                        <span class="icon-name">當月繳費名單</span>
+                    </a>
+                </li>
                 <li class="<?php if($menu == 'staff') { echo 'active'; } ?>">
                     <a href="staff">
                         <i class="material-icons">person</i>
@@ -81,7 +87,7 @@
                 &copy; 2018 <a href="javascript:void(0);">SHEN Design</a>.
             </div>
             <div class="version">
-                <b>Version: </b> 1.2.0
+                <b>Version: </b> 1.3.0
             </div>
         </div>
         <!-- #Footer -->
