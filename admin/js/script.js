@@ -1,76 +1,48 @@
-// $(document).ready(function() {
-//   var dt = new Date();
-//   // Display the month, day, and year. getMonth() returns a 0-based number.
-//   var month = dt.getMonth()+1;
-//   var day = dt.getDate();
-//   var year = dt.getFullYear();
-//   $('input[name=start_contract]').val(year+'-'+month+'-'+day);
-//
-//   var number = parseInt($('select[name=number]').val());
-//   var categorys = $('select[name=categorys]').val();
-//
-//   member_ajax();
-//
-//    $('select[name=categorys]').change(function(event) {
-//      $('select[name=number]').find('option').remove();
-//      member_ajax();// 用於會員裡的月、年
-//    });
-//
-//
-//
-//
-//    // $('select[name=m_categorys]').change(function(event) {
-//    //   $('select[name=m_number]').find('option').remove();
-//    //   member_ajax();// 用於會員裡的月、年
-//    // });
-//    //
-//    // $('select[name=number]').change(function(event) {
-//    //   var number = parseInt($('select[name=number]').val());
-//    //   var categorys = $('select[name=categorys]').val();
-//    //   if(categorys == "月"){
-//    //     $('input[name=end_contract]').val(year+'-'+(month+number)+'-'+day);
-//    //   }else if(categorys == "年"){
-//    //     $('input[name=end_contract]').val((year+number)+'-'+month+'-'+day);
-//    //   }
-//    //
-//    // });
-//    //
-//    // $('select[name=m_number]').change(function(event) {
-//    //   var number = parseInt($('select[name=m_number]').val());
-//    //   var categorys = $('select[name=m_categorys]').val();
-//    //   if(categorys == "月"){
-//    //     $('input[name=m_end_contract]').val(year+'-'+(month+number)+'-'+day);
-//    //   }else if(categorys == "年"){
-//    //     $('input[name=m_end_contract]').val((year+number)+'-'+month+'-'+day);
-//    //   }
-//    //
-//    // });
-//
-// function member_ajax(){
-//   $.ajax({
-//     url: '../api_console/member_categorys',
-//     type: 'POST',
-//     dataType: 'json',
-//     data: {
-//       categorys: $('select[name=categorys]').val()
-//     }
-//   })
-//   .done(function(ResOk) {
-//     // console.log(ResOk);
-//     $.each(ResOk, function(key, val) {
-//       $('select[name=number]').append('<option>'+val.number+'</option>');
-//       $('select[name=m_number]').append('<option>'+val.number+'</option>');
-//     });
-//
-//     $('select[name=number]').selectpicker('refresh');
-//     $('select[name=m_number]').selectpicker('refresh');
-//
-//   })
-//   .fail(function(ResError) {
-//     console.log("error");
-//   });
-//
-// }
-//
-// });
-//
+$('.sort-exportable').DataTable({
+  dom: 'Bfrtip',
+  responsive: true,
+  buttons: [
+    'copy', 'csv', 'excel', 'pdf', 'print'
+  ],
+  "order": [[
+    2, 'asc'
+  ]]
+});
+/*****************************
+        當月繳費名單
+*****************************/
+$('.month_pay').on('click', function () {
+  var color = $(this).data('color');
+  $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
+  var url = "../api_console/month_pay";
+  var id = $(this).data('id');
+
+  get_month_pay_ajax(url, id);
+
+  $('#mdModal').modal('show');
+});
+
+// 用ajax傳資料並取得
+function get_month_pay_ajax(url, id){
+  $.ajax({
+    url: url,
+    type: 'POST',
+    data: {
+      rule: 'select',
+      id: id
+    },
+    dataType: "json",
+    success: function(ResOk){
+
+      $("input[name=m_id]").val(ResOk.card_id);
+      $("input[name=m_name]").val(ResOk.name);
+      $("input[name=m_phone]").val(ResOk.phone);
+      $("input[name=m_next_pay").val(ResOk.next_pay);
+    },
+    error: function(ResError){
+      console.log('Error');
+      console.log(resError);
+    }
+  });
+}
