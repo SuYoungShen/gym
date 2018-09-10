@@ -63,6 +63,7 @@ $route['console'] = 'console/offer';//登入 in 20180616
 $route['api_console/offer'] = 'api_console/offer';// 優惠方案api in 20180618
 $route['api_console/staff'] = 'api_console/staff';// 員工api in 20180618
 $route['api_console/member'] = 'api_console/member';// 會員api in 20180622
+$route['api_console/month_pay'] = 'api_console/month_pay';// 當月繳款日api in 20180910
 
 $route['default_controller'] = 'pos/in';//會員進場 in 20180611
 $route['404_override'] = '';
