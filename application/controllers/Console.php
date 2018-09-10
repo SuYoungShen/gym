@@ -6,23 +6,27 @@ class Console extends CI_Controller {
   {
     parent::__construct();
     $this->load->model(array('console_model', 'pos_model'));
-  }
+    $this->load->helper(array('date'));
+    $this->load->database();
 
-  public function console(){
-    $view_data = array(
-      'title' => "首頁",
-      'page' => 'console.php',
-      'menu' => 'index'
-    );
-    if($this->pos_model->chk_login_status()) {
-      $view_data["member_total"] = $this->console_model->count_all('member', 1);
-      $where = "identity != 99";
-      $view_data["staff_total"] = $this->console_model->count_all('staff', $where);
-      $this->load->view('console/layout', $view_data);
-    }else {
-      redirect(base_url('login'));
-    }
   }
+  // 目前未使用
+  // public function console(){
+  //   $view_data = array(
+  //     'title' => "首頁",
+  //     'page' => 'console.php',
+  //     'menu' => 'index'
+  //   );
+  //   if($this->pos_model->chk_login_status()) {
+  //     $view_data["member_total"] = $this->console_model->count_all('member', 1);
+  //     $where = "identity != 99";
+  //     $view_data["staff_total"] = $this->console_model->count_all('staff', $where);
+  //     $this->load->view('console/layout', $view_data);
+  //   }else {
+  //     redirect(base_url('login'));
+  //   }
+  // }
+  // 目前未使用
 
   // 優惠方案
   public function offer(){
@@ -188,7 +192,6 @@ class Console extends CI_Controller {
     }
   }
 
-
   // 會員進出場
   public function in_and_out(){
     $view_data = array(
@@ -210,24 +213,6 @@ class Console extends CI_Controller {
     }else {
       redirect(base_url('login'));
     }
-  }
-
-  // 登入紀錄
-  public function login_history(){
-    $view_data = array(
-      'title' => "登入紀錄",
-      'page' => 'login_history.php',
-      'menu' => 'login_history'
-    );
-    if($this->pos_model->chk_login_status()) {
-      $table = "login_history as lh, staff as s";
-      $where = "lh.who = s.job_code";
-      $view_data['data'] = $this->console_model->get_once_all($table, $where);
-      $this->load->view('console/layout', $view_data);
-    }else {
-      redirect(base_url('login'));
-    }
-
   }
 
   // 會員專區
@@ -532,6 +517,43 @@ class Console extends CI_Controller {
     }
   }
 
+  // 當月繳費名單
+  public function month_pay(){
+    $view_data = array(
+      'title' => "當月繳費名單",
+      'page' => 'month_pay.php',
+      'menu' => 'month_pay'
+    );
+    if($this->pos_model->chk_login_status()) {
+      $select = "card_id, name, phone, next_pay";
+      // 條件：next_pay = 當月；
+      $where = "DATE_FORMAT(`next_pay`, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') Order By `next_pay`";
+      $view_data["data"] = $this->console_model->get_select_once_all($select, "member", $where);
+
+      $this->load->view('console/layout', $view_data);
+    }else {
+      redirect(base_url('login'));
+    }
+
+    if($this->input->post('rule') == "update"){
+
+      $id = $this->input->post('m_id');
+      $dataArray = array(
+        "next_pay" => $this->input->post('m_next_pay')
+      );
+      $dp_date_column = array('up_date', 'up_time');
+      $where = "card_id =".'"'.$id.'"';
+      if($this->console_model->update('member', $dataArray, $dp_date_column, $where)){
+        $view_data['code'] = 200;
+        $view_data['msg'] = "更新成功!!!";
+      }else {
+        $view_data['code'] = 404;
+        $view_data['msg'] = "更新失敗!!!";
+      }
+      $this->load->view('console/layout', $view_data);
+    }// update
+  }
+
   // 員工專區
   public function staff(){
     $view_data = array(
@@ -630,5 +652,23 @@ class Console extends CI_Controller {
       redirect(base_url('login'));
     }// else
   }
+
+  // 登入紀錄
+  public function login_history(){
+    $view_data = array(
+      'title' => "登入紀錄",
+      'page' => 'login_history.php',
+      'menu' => 'login_history'
+    );
+    if($this->pos_model->chk_login_status()) {
+      $table = "login_history as lh, staff as s";
+      $where = "lh.who = s.job_code";
+      $view_data['data'] = $this->console_model->get_once_all($table, $where);
+      $this->load->view('console/layout', $view_data);
+    }else {
+      redirect(base_url('login'));
+    }
+  }
+
 }
 ?>
