@@ -27,7 +27,7 @@
 
     <?php
       if(isset($menu)){
-        if($menu == "offer" || $menu == "member" || $menu == "staff" || $menu == "card") {
+        if($menu == "offer" || $menu == "card" || $menu == "member" || $menu == "staff") {
     ?>
     <!-- Colorpicker Css -->
     <link href="../admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet" />
@@ -82,7 +82,9 @@
     <script src="../admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <?php
       if(isset($menu)){
-        if ($menu == "offer" || $menu == "in_and_out" || $menu == "login_history" || $menu == "member" || $menu == "staff" || $menu == "card") {
+        if ($menu == "offer"  || $menu == "card" || $menu == "in_and_out" ||
+            $menu == "member" || $menu == "month_pay" || $menu == "staff" ||
+            $menu == "login_history") {
     ?>
     <!-- Jquery DataTable Plugin Js -->
     <script src="../admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -97,7 +99,7 @@
     <script src="../admin/js/pages/tables/jquery-datatable.js"></script>
     <?php } // $menu == "offer"、"in_and_out" ?>
 
-    <?php if($menu == "offer" || $menu == "member" || $menu == "staff" || $menu == "card"){ ?>
+    <?php if($menu == "offer" || $menu == "card" || $menu == "member" || $menu == "staff"){ ?>
     <!-- Jquery Validation Plugin Css -->
     <script src="../admin/plugins/jquery-validation/jquery.validate.js"></script>
 
@@ -156,24 +158,27 @@
     <script src="../admin/plugins/flot-charts/jquery.flot.time.js"></script>
     <script src="../admin/js/pages/index.js"></script>
 
-  <?php } ?>
+  <?php } // $menu == "index" ?>
   <!-- Sparkline Chart Plugin Js -->
   <script src="../admin/plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
   <!-- Custom Js -->
   <script src="../admin/js/admin.js"></script>
   <script src="../admin/js/pages/ui/dialogs.js"></script>
-  <?php if($menu == "member"){ ?>
-    <!-- 會員專區用 -->
-  <script src="../admin/js/script.js"></script>
-  <?php } ?>
 
-  <?php if($menu == "offer" || $menu == "member" || $menu == "staff" || $menu == "card"){ ?>
+    <?php if($menu == "month_pay"){ ?>
+  <!-- Sweet Alert Plugin Js -->
+  <script src="../admin/plugins/sweetalert/sweetalert.min.js"></script>
+  <!-- 當月繳款名單(datatable)-->
+  <script src="../admin/js/script.js"></script>
+    <?php } // $menu == "month_pay" ?>
+
+    <?php if($menu == "offer" || $menu == "card" || $menu == "member" || $menu == "staff"){ ?>
 
     <script src="../admin/js/pages/ui/modals.js"></script>
     <script src="../admin/js/pages/forms/advanced-form-elements.js"></script>
-  <?php } ?>
-  <?php } ?>
+    <?php } ?>
+  <?php } // isset($menu) ?>
 
   <!-- Demo Js -->
   <script src="../admin/js/demo.js"></script>
@@ -194,7 +199,8 @@
       }
     }
   });
-
+  // menu被點擊字體變紅色
+  $(".active .icon-name").css('color', 'red');
 
   <?php
 
