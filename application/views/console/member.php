@@ -143,7 +143,7 @@
                     <div class="form-group">
                       <div class="input-group input-group-lg">
                         <span class="input-group-addon">
-                          方案價位
+                          方案價位$
                         </span>
                         <div class="form-line">
                           <input type="text" class="form-control" name="discount_price" placeholder="方案價位" readonly>
