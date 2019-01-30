@@ -101,6 +101,7 @@
                                       <select class="form-control show-tick" name="identity">
                                         <option value="0">Boss</option>
                                         <option value="1" selected>員工</option>
+                                        <option value="2">教練</option>
                                         <option value="99">系統管理員</option>
                                       </select>
                                     </div>
@@ -247,6 +248,7 @@
                                      <select class="form-control show-tick" name="m_identity">
                                        <option value="0">老闆</option>
                                        <option value="1">員工</option>
+                                       <option value="2">教練</option>
                                        <option value="99">系統管理員</option>
                                      </select>
                                    </div>

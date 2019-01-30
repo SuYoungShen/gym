@@ -27,7 +27,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable sort-exportable">
+                                <table class="table table-bordered table-striped table-hover dataTable jss-exportable">
                                     <thead>
                                         <tr>
                                             <th>會員名</th>

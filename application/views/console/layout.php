@@ -82,9 +82,6 @@
     <script src="../admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <?php
       if(isset($menu)){
-        if ($menu == "offer"  || $menu == "card" || $menu == "in_and_out" ||
-            $menu == "member" || $menu == "month_pay" || $menu == "staff" ||
-            $menu == "login_history") {
     ?>
     <!-- Jquery DataTable Plugin Js -->
     <script src="../admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -97,7 +94,6 @@
     <script src="../admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
     <script src="../admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
     <script src="../admin/js/pages/tables/jquery-datatable.js"></script>
-    <?php } // $menu == "offer"、"in_and_out" ?>
 
     <?php if($menu == "offer" || $menu == "card" || $menu == "member" || $menu == "staff"){ ?>
     <!-- Jquery Validation Plugin Css -->
@@ -105,9 +101,6 @@
 
     <!-- JQuery Steps Plugin Js -->
     <script src="../admin/plugins/jquery-steps/jquery.steps.js"></script>
-
-    <!-- Sweet Alert Plugin Js -->
-    <script src="../admin/plugins/sweetalert/sweetalert.min.js"></script>
 
     <script src="../admin/js/pages/forms/form-validation.js"></script>
 
@@ -166,16 +159,12 @@
   <script src="../admin/js/admin.js"></script>
   <script src="../admin/js/pages/ui/dialogs.js"></script>
 
-    <?php if($menu == "month_pay"){ ?>
   <!-- Sweet Alert Plugin Js -->
   <script src="../admin/plugins/sweetalert/sweetalert.min.js"></script>
-  <!-- 當月繳款名單(datatable)-->
-  <script src="../admin/js/script.js"></script>
-    <?php } // $menu == "month_pay" ?>
 
+  <script src="../admin/js/pages/ui/modals.js"></script>
     <?php if($menu == "offer" || $menu == "card" || $menu == "member" || $menu == "staff"){ ?>
 
-    <script src="../admin/js/pages/ui/modals.js"></script>
     <script src="../admin/js/pages/forms/advanced-form-elements.js"></script>
     <?php } ?>
   <?php } // isset($menu) ?>
