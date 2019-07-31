@@ -87,7 +87,7 @@
                 &copy; 2018 <a href="javascript:void(0);">SHEN Design</a>.
             </div>
             <div class="version">
-                <b>Version: </b> 1.3.0
+                <b>Version: </b> 1.3.1
             </div>
         </div>
         <!-- #Footer -->

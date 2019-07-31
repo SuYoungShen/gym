@@ -264,24 +264,20 @@
 			}
 		} // isset($code)
 		?>
-		// 防止重新整理
-	  $(this).keydown(function(e) {
-	    if (e.ctrlKey && e.which == 82 || e.which == 116) {
-				// 82 = r
-				// 116 = F5
-				if (e.preventDefault) {
-					e.preventDefault();
-					if ("<?=$url;?>" == "out") {
-						document.location.href = "<?=base_url();?>in";
-					}else if("<?=$url;?>" == "in"){
-						document.location.href = "<?=base_url();?>out";
-					}
-				}else {
-					return false;
-				}
-	    }
-	  });
 	});
+	// 防止重新整理
+	$(document).bind("keypress keydown keyup", function(e) {
+		// 116 = F5
+		// 82 = r
+		// 18 = alt
+		if(e.which === 116 || e.which === 18 || e.which === 82 && e.ctrlKey) {
+			return false;
+		}
+	});
+	// 鎖右鍵
+	$(document).get(0).oncontextmenu = function() {
+		return false;
+	};
 	</script>
 </body>
 </html>
