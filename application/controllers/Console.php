@@ -199,15 +199,22 @@ class Console extends CI_Controller {
       'page' => 'in_and_out.php',
       'menu' => 'in_and_out'
     );
+
+    date_default_timezone_set("Asia/Taipei");
+
     if($this->pos_model->chk_login_status()) {
+      // login_identity = 1 員工
       if ($this->session->userdata('login_identity') == 1) {
         $table = "in_and_out as io, member as m ";
-        $where = "io.who = m.card_id AND io.staff=".'"'.$this->session->userdata('login_name').'" order by in_time desc';
+        $where = "io.who = m.card_id AND io.staff=".'"'.$this->session->userdata('login_name').'" order by in_date desc';
         $view_data['data'] = $this->console_model->get_once_all($table, $where);
       }else {
+        $select = "m.card_id, m.name, io.staff, IF(io.types=0, '進場', '出場') as types, ".
+                  "io.in_date, io.in_time, io.out_date, io.out_time";
         $table = "in_and_out as io, member as m ";
-        $where = "io.who = m.card_id";
-        $view_data['data'] = $this->console_model->get_once_all($table, $where);
+        $where = "io.who =m.card_id and SUBSTR(io.in_date, 1, 4)='".date('Y')."' order by io.in_date desc";
+
+        $view_data['data'] = $this->console_model->get_select_once_all($select, $table, $where);
       }
       $this->load->view('console/layout', $view_data);
     }else {

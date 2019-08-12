@@ -5,7 +5,7 @@ class Api_console extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
-    $this->load->model(array('console_model'));
+    $this->load->model(array('console_model', 'pos_model'));
   }
 
   public function index(){
@@ -158,6 +158,52 @@ class Api_console extends CI_Controller {
     }
   }
 
+  /*****************************
+          會員進出場
+  *****************************/
+  public function in_and_out(){
+
+    date_default_timezone_set("Asia/Taipei");
+
+    if ($this->input->post('year') != null && $this->input->post('year') != date('Y')) {
+      $selectYear = $this->input->post('year');
+    }else{
+      $selectYear = date('Y');
+    }
+
+    if($this->pos_model->chk_login_status()) {
+      // login_identity = 1 員工
+      if ($this->session->userdata('login_identity') == 1) {
+        $table = "in_and_out as io, member as m ";
+        $where = "io.who = m.card_id AND io.staff=".'"'.$this->session->userdata('login_name').'" order by in_date desc';
+        $view_data['data'] = $this->console_model->get_once_all($table, $where);
+      } else {
+        $select = "m.card_id, m.name, io.staff, IF(io.types=0, '進場', '出場') as types, ".
+                  "io.in_date, io.in_time, io.out_date, io.out_time";
+        $table = "in_and_out as io, member as m ";
+        $where = "io.who =m.card_id and SUBSTR(io.in_date, 1, 4)='".$selectYear."' order by io.in_date desc";
+
+        $view_data['data'] = $this->console_model->get_select_once_all($select, $table, $where);
+      }
+
+      $datas = array();
+
+      foreach ($view_data['data'] as $key => $value) {
+        array_push(
+          $datas,
+          [
+            $value["card_id"],
+            $value["name"],
+            $value["staff"],
+            $value["types"],
+            $value["in_date"]!=null && $value["in_time"]?$value["in_date"]." ".$value["in_time"]:" ",
+            $value["out_date"]!=null && $value["out_time"]?$value["out_date"]." ".$value["out_time"]:" "
+          ]
+        );
+      }
+      $this->output->set_content_type('application/json')->set_output(json_encode($datas));
+    }
+  }
 
 }
 ?>

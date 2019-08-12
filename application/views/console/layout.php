@@ -52,6 +52,7 @@
     <?php } ?>
     <!-- JQuery DataTable Css -->
     <link href="../admin/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
     <?php } ?>
     <!-- Morris Chart Css-->
     <link href="../admin/plugins/morrisjs/morris.css" rel="stylesheet" />
@@ -64,6 +65,10 @@
 
     <!-- Jquery Core Js -->
     <script src="../admin/plugins/jquery/jquery.min.js"></script>
+    <script src="../admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="../admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="../admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="../admin/js/pages/tables/jquery-datatable.js"></script>
 </head>
 
 <body class="theme-black"><!-- 如果要改顏色可重這裡改, theme-black -->
@@ -74,26 +79,25 @@
 
     <!-- Bootstrap Core Js -->
     <script src="../admin/plugins/bootstrap/js/bootstrap.js"></script>
-
+    <?php
+      if(isset($menu) && $menu != "in_and_out"){
+    ?>
     <!-- Select Plugin Js -->
     <script src="../admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
+    <?php } ?>
     <!-- Slimscroll Plugin Js -->
     <script src="../admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <?php
       if(isset($menu)){
     ?>
     <!-- Jquery DataTable Plugin Js -->
-    <script src="../admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="../admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="../admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+
     <script src="../admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
     <script src="../admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
     <script src="../admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
     <script src="../admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
     <script src="../admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
     <script src="../admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-    <script src="../admin/js/pages/tables/jquery-datatable.js"></script>
 
     <?php if($menu == "offer" || $menu == "card" || $menu == "member" || $menu == "staff"){ ?>
     <!-- Jquery Validation Plugin Css -->
