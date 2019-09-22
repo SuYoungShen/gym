@@ -64,39 +64,53 @@
     <script type="text/javascript">
 
         showData(<?=json_encode($data); ?>);
-        var options = "";
 
-        var today=new Date();
-        var tYear = today.getFullYear();
+        customDropDown();
+        $(document).ready(function() {
 
-        for (var i = tYear; i >= 2017; i--) {
-          options += "<option value="+i+">"+i+"</option>";
-        }
+          $("#year").change(function(){
+            reload();
+            customDropDown($(this).val());
+            alert($(this).val());
 
-        $(
-          '<div class="">選擇' +
-          '<select class="form-control" id="year">'+
-          options+
-          '</select>'+
-          '年份</div>'
-        ).appendTo("#DataTables_Table_0_wrapper .row .col-sm-6:first");
+          });
 
-
-        $("#year").change(function(){
-          reload();
         });
+
+        // 自訂下拉
+        function customDropDown(year=""){
+          var options = "";
+
+          var today=new Date();
+          var tYear = today.getFullYear();
+
+          for (var i = tYear; i >= 2017; i--) {
+            options += "<option value="+i+">"+i+"</option>";
+          }
+
+          $(
+            '<div class="">選擇' +
+            '<select class="form-control" id="year">'+
+            options+
+            '</select>'+
+            '年份</div>'
+          ).appendTo("#DataTables_Table_0_wrapper .row .col-sm-6:first");
+
+          $('#year option').filter('[value="'+year+'"]').attr("selected",true); //filter選項後設定屬性
+
+        }
 
         // 重新載入資料
         function reload(){
-
+          var $selectYear = $("#year").val();
           $('.js-sort4table').DataTable().clear().draw(); // clear =  清除當前資料
-          $('.js-sort4table').DataTable( {
+          $('.js-sort4table').DataTable({
             destroy: true, // 重新初始化表格
             ajax: {
               url: "../api_console/in_and_out",
               type: "POST",
               data: {
-                "year": $("#year").val()
+                "year": $selectYear
               },
               dataSrc: ""
             },
@@ -110,13 +124,21 @@
 
       var data = [];
       $.each(getData, function(key, value) {
+        var in_date = value.in_date==null?" ":value.in_date;
+        var in_time = value.in_time==null?" ":value.in_time;
+        var in_dateTime = in_date+" "+in_time;
+
+        var out_date = value.out_date==null?" ":value.out_date;
+        var out_time = value.out_time==null?" ":value.out_time;
+        var out_dateTime = out_date+" "+out_time;
+
         data.push([
           value.card_id,
           value.name,
           value.staff,
           value.types==0?"進場":"出場",
-          value.in_date!=null?value.in_date:" "+" "+value.in_time!=null?value.in_time:" ",
-          value.out_date!=null?value.out_date:" "+" "+value.out_time!=null?value.out_time:" "
+          in_dateTime,
+          out_dateTime
         ]);
       });
 
