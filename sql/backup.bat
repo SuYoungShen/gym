@@ -12,8 +12,8 @@ set NewFileName=Log_File_%nowYear%%nowMonth%%nowDay%%nowHr%%nowMin%.sql
 set hour=%time: =0%
 set LogFile=gym_%DATE:~0,4%%DATE:~5,2%%DATE:~8,2%%hour:~0,2%%TIME:~3,2%%TIME:~6,2%.sql
 
-cd D:\file\xampp\mysql\bin
+cd C:\xampp\mysql\bin
 
-mysqldump -h localhost -u root -p --databases gym > D:\php\gym\sql\%LogFile%
+mysqldump -h localhost -u root -p --databases gym > C:\xampp\htdocs\gym\sql\%LogFile%
 
 pause
